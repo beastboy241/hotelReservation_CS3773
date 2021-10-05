@@ -36,7 +36,18 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
 }
+.nav-links-mobile {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: #4ad9e4;
+  border-radius: 4px;
+}
 
+.nav-links-mobile:hover {
+  background-color: #fff;
+
+}
 .nav-links:hover {
     background-color: #6d76f7;
     border-radius: 4px;
@@ -47,9 +58,7 @@
   color: #fff;
 }
 
-.nav-links-mobile {
-  display: none;
-}
+
 
 .menu-icon {
   display: none;
@@ -64,7 +73,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 500px;
+    height: 400px;
     position: absolute;
     top: 80px;
     left: -100%;
@@ -109,6 +118,35 @@
     font-size: 1.8rem;
     cursor: pointer;
   }
+
+  .fa-times {
+    color: #fff;
+    font-size: 2rem;
+  }
+
+  .nav-links-mobile {
+    display: block;
+    text-align: center;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    border-radius: 4px;
+    width: 80%;
+    background: #4ad9e4;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+
+  .nav-links-mobile:hover {
+    background-color: #fff;
+    color: #6568f4;
+    transition: 250ms;
+  }
+
+  Button {
+    display: none;
+  }
+
 
   
 }
