@@ -6,3 +6,191 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+body {
+  background: url("./images/home.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+}
+/* Home page */
+#home {
+  background-color: #2e56e0;
+  width: 60%;
+  max-width: 1200px;
+  padding: 1.2rem;
+  margin: 10% auto;
+  text-align: center;
+  border-radius: 30px;
+  color: #f8f8f8;
+}
+
+.home-footer {
+  background-color: #1e3163;
+  color: #f8f8f8;
+  width: 40%;
+  margin: 10% auto;
+  padding: 0.5rem;
+  text-align: center;
+  justify-content: center;
+  border-radius: 30px;
+}
+
+
+/* Hotels Page*/
+.hotels {
+  background-color: white;
+  
+}
+/* Login Section */
+.container {
+	text-align: center;
+	color: #000;
+  margin: 100px auto 0 auto;
+  background-color: #4468e4;
+  border-radius: 30px;
+}
+
+.container > header {
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin: 0 auto 60px auto;
+	position: relative;
+	height: 25px;
+	width: 250px;
+	overflow: hidden;
+}
+
+.header-headings {
+	display: flex;
+	transition: all 0.4s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  flex-direction: column;
+	position: absolute;
+	width: 100%;
+	
+}
+
+.header-headings > span {
+	margin: 2px 0;
+}
+
+.header-headings.sign-in {
+	transform: translateY(-5px);
+}
+
+.header-headings.sign-up {
+	transform: translateY(-40px);
+}
+
+.container > ul {
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin: 0 auto 0 auto;
+	position: relative;
+	height: 25px;
+	width: 250px;
+	overflow: visible;
+}
+.options {
+	display: flex;
+  	font-size: 1.5rem;
+	align-items: center;
+	width: 350px;
+}
+
+.options > li {
+	cursor: pointer;
+	opacity: .5;
+	transition: all .2s ease;
+}
+
+.options > li:hover {
+	opacity: 1;
+}
+
+.options > li.active {
+	opacity: 1;
+}
+
+.options > li:nth-of-type(2) {
+	margin-left: 15px;
+}
+
+.options > li:last-of-type {
+	margin-left: auto;
+}
+
+.account-form {
+	display: inline-block;
+	flex-direction: column;
+	margin-top: 30px;
+}
+
+.account-form-fields {
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	transition: all 0.4s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.account-form-fields.sign-in {
+	max-height: 123px;
+}
+
+.account-form-fields.sign-up {
+	max-height: 350px;
+}
+
+.account-form-fields > input {
+	border: 0;
+	margin-bottom: 10px;
+	padding: 15px;
+	font-size: 1rem;
+	font-family: 'Montserrat', sans-serif;
+	color: #000;
+	border-radius: 5px;
+	background-color: #f3f3f3;
+}
+
+.account-form-fields > input::placeholder {
+	color: #cecece;
+}
+
+.account-form-fields > input::-webkit-input-placeholder {
+	color: #cecece;
+}
+
+.account-form-fields > input:-ms-input-placeholder {
+	color: #cecece;
+}
+
+.account-form-fields > input:focus {
+	outline: none;
+}
+
+.btn-submit-form {
+	border: 0;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	font-family: Nunito, sans-serif;
+	background: #f037a5;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.13);
+	transition: all .2s ease;
+  cursor: pointer;
+	padding: 15px 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 1rem;
+	
+}
+
+.btn-submit-form:hover {
+	background: #4468e4;
+}
+
+.btn-submit-form:active, .btn-submit-form:focus {
+	outline: none;
+	background: #2e56e0;
+}
