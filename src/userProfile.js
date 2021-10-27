@@ -3,12 +3,12 @@ var userProfile = (function() {
   var main_session = false;
 
   var getName = function() {
-    return full_name;    // Or pull this from cookie/localStorage
+    return full_name;    
   };
 
   var setName = function(name) {
     full_name = name;     
-    // Also set this in cookie/localStorage
+    
   };
 
   var getSession = function(){
