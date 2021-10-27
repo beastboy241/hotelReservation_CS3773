@@ -6,16 +6,19 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-body {
-  background: url("./images/home.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
+
+/* Home page */
+#body {
+	background: url("./images/home.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  
+	
 }
-/* Home page */
-#home {
+
+.home-container {
+	
   background-color: #2e56e0;
   width: 60%;
   max-width: 1200px;
@@ -50,6 +53,8 @@ body {
   margin: 100px auto 0 auto;
   background-color: #4468e4;
   border-radius: 30px;
+	padding: 1.5rem;
+	width: 40%;
 }
 
 .container > header {

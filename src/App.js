@@ -1,12 +1,12 @@
 import React from 'react';
 // import { formatDiagnostic } from 'typescript';
-import './components/css/styles.css';
-import Navbar from "./components/pages/Navbar";
-import Home from "./components/pages/Home";
-import Hotels from "./components/pages/Hotels";
-import Login from "./components/pages/Login";
-import SingleHotel from "./components/pages/SingleHotel";
-import Error from "./components/pages/Error";
+import './css/styles.css';
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Hotels from "./pages/Hotels";
+import Login from "./pages/Login";
+import SingleHotel from "./pages/SingleHotel";
+import Error from "./pages/Error";
 
 
 import { BrowserRouter, Switch, Route} from "react-router-dom";

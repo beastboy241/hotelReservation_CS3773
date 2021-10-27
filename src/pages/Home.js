@@ -1,28 +1,31 @@
 import React from "react";
-import Hero from "./Hero";
+import Hero from "../components/Hero";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
+
 
 const home = () => {
   return (
     <>
     
-    <body>
-      <div id="home">
+    <body class="home-body">
+      
+      <div class="home-container">
         <div class="home-title">
           <h1> Welcome to our CS-3773 Hotel Booking!</h1>
           <h2> Great Hotel Booking Site with One-click button ahead awaiting for you.</h2> 
         </div>
         
       </div>
-      
       <footer>
         <div class="home-footer">
           <p>  Copyright © 2021 All right reserved Made by Loc Nguyen </p>
         </div>
-      </footer>
-    </body>
+      </footer> 
       
+      
+    </body>
+     
     </>
   );
 };

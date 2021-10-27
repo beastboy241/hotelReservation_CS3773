@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MenuItems } from "./MenuItems";
+import { MenuItems } from "../pages/MenuItems";
 import  '../css/Navbar.css';
 
 
