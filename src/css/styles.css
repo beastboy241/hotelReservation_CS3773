@@ -43,8 +43,15 @@
 
 /* Hotels Page*/
 .hotels {
-  background-color: white;
-  
+  background-color: #2e56e0;
+  float: left;
+  width: 40%;
+  max-width: 1200px;
+  padding: 1.2rem;
+  margin: 2% auto;
+  text-align: left;
+  border-radius: 30px;
+  color: #f8f8f8;
 }
 /* Login Section */
 .container {
