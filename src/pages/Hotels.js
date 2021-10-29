@@ -24,23 +24,17 @@ const Hotels = () => {
   return (
     <>
     {hotelList.map((val)=>{
-      return <div class="hotels">
-         <h2>{val.name}</h2>
-         <h4>{val.amenities ? 'Amenities: ' : ''}</h4>
-         <h1 style={{textIndent: 40}} >
-           {(val.amenities & 8) ? '🏊 ' : ''}
-           {(val.amenities & 4) ? '💪 ' : ''}
-           {(val.amenities & 2) ? '🧴 ' : ''}
-           {(val.amenities & 1) ? '💼 ' : ''}
-         </h1>
-         <h4>Rooms: {val.rooms}</h4>
-         <h4>Pricing:</h4>
-         <p style={{textIndent: 60}}>{val.standard_price ? 'Standard - $' : ''}{val.standard_price}</p>
-         <p style={{textIndent: 60}}>{val.queen_price ? 'Queen    - $' : ''}{val.queen_price}</p>
-         <p style={{textIndent: 60}}>{val.king_price ? 'King     - $' : ''}{val.king_price}</p>
-         <p style={{textIndent: 60}}>Weekend Differential: %{val.weekend_differential*100}</p>
-         <p></p>
-         </div>
+      return <a href={"http://localhost:3000/hotels/" + val.id} style={{textDecoration: 'none'}} key={val.id}>
+        <div className="hotels">
+        <h2 style={{float: 'left'}}>{val.name}</h2>
+        <h5 style={{float: 'right'}}>
+          {(val.amenities & 8) ? '🏊 ' : ''}
+          {(val.amenities & 4) ? '💪 ' : ''}
+          {(val.amenities & 2) ? '🧴 ' : ''}
+          {(val.amenities & 1) ? '💼 ' : ''}
+        </h5>
+        <br /><br />
+        </div></a>
        })}
     </>
 

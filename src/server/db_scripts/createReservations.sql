@@ -5,6 +5,7 @@ create table `reservations` (
     `hotelid` int not null,
     `usrid` int not null,
     `room` int not null,
+    `type` char not null,
     `startdt` date not null,
     `enddt` date not null,
     primary key (`id`)

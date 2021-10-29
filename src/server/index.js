@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const mysql = require('mysql');
@@ -12,12 +11,21 @@ const db = mysql.createPool({
 });
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 
 app.get("/api/get/hotels", (req, res) =>{
-    const sqlSelect = "SELECT * FROM hotel";
+    const sqlSelect = "SELECT id, name, amenities FROM hotel";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
+    });
+});
+
+app.post("/api/get/hotel", (req, res) =>{
+    const id = req.body.hotelId;
+
+    const sqlSelect = "SELECT * FROM hotel WHERE id= ?";
+    db.query(sqlSelect, id, (err, result) => {
+        res.send(result); 
     });
 });
 
