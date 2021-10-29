@@ -1,4 +1,3 @@
---create hotel table
 drop table if exists hotel;
 create table `hotel` (
     `id` int not null auto_increment,

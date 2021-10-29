@@ -1,4 +1,3 @@
---create reservations table
 drop table if exists reservations;
 create table `reservations` (
     `id` int not null auto_increment,

@@ -2,30 +2,58 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const mysql = require("mysql");
+const fs = require("fs");
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: "localhost",
   user: "admin",
   password: "password",
   database: "hoteldb",
+  multipleStatements: true,
 });
 
 app.use(cors());
 app.use(express.json());
 
-/*app.get("/test", (req, res) => {
-  db.query("SELECT rooms FROM hotel", (err, result) => {
-    if (!result[0]) {
-      res.send("NOTHING THERE!");
-    } else {
-      res.send("Check log");
-      let rooms = result;
-      rooms.map((val) => {
-        console.log(val.rooms);
-      });
+app.get("/api/build", (req, res) => {
+  const createHotel = fs
+    .readFileSync("./db_scripts/createHotel.sql")
+    .toString();
+  const createReservations = fs
+    .readFileSync("./db_scripts/createReservations.sql")
+    .toString();
+  const populateHotel = fs
+    .readFileSync("./db_scripts/populateHotel.sql")
+    .toString();
+
+  let success = true;
+  db.query(createHotel, (err, result) => {
+    console.log(result);
+    if (err) {
+      success = false;
+      res.send("Error building: " + err);
     }
   });
-});*/
+
+  db.query(createReservations, (err, result) => {
+    console.log(result);
+    if (err) {
+      success = false;
+      res.send("Error building: " + err);
+    }
+  });
+
+  db.query(populateHotel, (err, result) => {
+    console.log(result);
+    if (err) {
+      success = false;
+      res.send("Error building: " + err);
+    }
+  });
+  if (success) {
+    res.send("Success! Database built.");
+  }
+});
 
 app.get("/api/get/hotels", (req, res) => {
   const sqlSelect = "SELECT id, name, amenities FROM hotel";
