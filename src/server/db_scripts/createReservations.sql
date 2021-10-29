@@ -2,11 +2,11 @@
 drop table if exists reservations;
 create table `reservations` (
     `id` int not null auto_increment,
-    `hotelid` int not null,
-    `usrid` int not null,
+    `hotel_id` int not null,
+    `usr_id` int not null,
     `room` int not null,
     `type` char not null,
-    `startdt` date not null,
-    `enddt` date not null,
+    `start_dt` date not null,
+    `end_dt` date not null,
     primary key (`id`)
 );
