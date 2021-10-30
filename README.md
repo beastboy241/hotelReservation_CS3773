@@ -2,6 +2,17 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Install database on Windows
+download MariaDB and install 
+go to CMD and type the following command
+### `mysql -u root -p`
+enter password that you created when you install MariaDB
+
+### `create database hoteldb`
+### `use hoteldb`
+Copy DB script into cmd and run
+
+
 ## Available Scripts
 
 In the project directory, you can run:
