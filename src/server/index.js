@@ -143,7 +143,7 @@ app.post("/api/reserve", (req, res) => {
         if (err) {
           res.send("Failed to book reservation: System error - " + err);
         } else {
-          res.send("Reservation made!");
+          res.send("Reservation made! Your room is #" + roomToReserve);
         }
       }
     );

@@ -1,42 +1,49 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-###  Step1: Install MariaDB and create root password when setup 
+
+### Step1: Install MariaDB and create root password when setup
+
 go to CMD and type the following command:
 
 ### `mysql -u root -p`
+
 Enter root password
+
 ### `create database hoteldb`
-### `use hoteldb`
-Copy all database script in server folder
-Then run
-Describe hotel, reservation
-### `describe hotel;`
-### `describe reservation;`
-### `select * hotel;` to check if there is hotel data in each collumn
 
 ### ` CREATE USER 'admin'@'localhost' identified by 'password';`
+
 ### ` GRANT ALL ON *.* TO 'admin'@'localhost';`
+
 ### `flush privileges;`
 
+### Step2: Setting up the database
+
+You can either copy the scripts in db_scripts, or if you have the server
+up and running head to http://localhost:3001/api/build to have them all auto-run
 
 ## Available Scripts
-### Step2
+
+### Step3: Running the server
+
 In the project directory, you can run:
+
 ### `cd hotelReservation_CS3773/`
+
 ### `npm install express --save`
+
 ### `npm install cors`
+
 ### `npm install react-router-dom --save`
 
 ### `npm start`
 
 ## To run the server
+
 ### `cd src/server`
+
 ### `npm run devStart`
-
-
-
-
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
