@@ -4,14 +4,14 @@ import './css/styles.css';
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Hotels from "./pages/Hotels";
+
 import Login from "./pages/Login";
 import SingleHotel from "./pages/SingleHotel";
 import Error from "./pages/Error";
 
 
+
 import { BrowserRouter, Switch, Route} from "react-router-dom";
-
-
 
 
 function App() {
@@ -24,11 +24,13 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/hotels/" component={Hotels} />
+        
         <Route exact path="/login/" component={Login} />
         <Route exact path="/hotels/:slug" component={SingleHotel} />
         <Route component={Error} />
       </Switch>
       </BrowserRouter>
+      
     </div>
   );
 }

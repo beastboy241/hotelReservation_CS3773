@@ -5,11 +5,18 @@ export const MenuItems = [
     cName: 'nav-links'
   },
 
+  /* {
+    title: 'Search',
+    url: '/search',
+    cName: 'nav-links'
+  }, */
+
   {
     title: 'Hotels',
     url: '/hotels',
     cName: 'nav-links'
   },
+
 
   {
     title: 'Login',
