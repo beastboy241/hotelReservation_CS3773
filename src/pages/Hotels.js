@@ -1,14 +1,35 @@
 import Hero from "../components/Hero";
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
+import _searchBar from "../components/searchBar";
+import "../css/styles.css";
 
 const Hotels = () => {
+  const [input, setInput] = useState("");
+  const [hotelListDefault, setHotelListDefault] = useState();
   const [hotelList, setHotelList] = useState([]);
 
-  useEffect(() => {
-    Axios.get("http://localhost:3001/api/get/hotels").then((response) => {
-      setHotelList(response.data);
+  const fetchData = async () => {
+    return await Axios.get("http://localhost:3001/api/get/hotels").then(
+      (response) => {
+        setHotelListDefault(response.data);
+        setHotelList(response.data);
+      }
+    );
+  };
+
+  const updateInput = async () => {
+    setInput(document.getElementById("input").value);
+
+    const filtered = hotelListDefault.filter((hotel) => {
+      return hotel.name.toLowerCase().includes(input.toLowerCase());
     });
+
+    setHotelList(filtered);
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   {
@@ -23,6 +44,8 @@ const Hotels = () => {
 
   return (
     <>
+      <h1 className="hotelTitle">Hotel List </h1>
+      <input className="searchbar" id="input" onChange={updateInput} />
       {hotelList.map((val) => {
         return (
           <a
