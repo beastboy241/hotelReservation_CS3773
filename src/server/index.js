@@ -25,6 +25,12 @@ app.get("/api/build", (req, res) => {
   const populateHotel = fs
     .readFileSync("./db_scripts/populateHotel.sql")
     .toString();
+  const createUsers = fs
+    .readFileSync("./db_scripts/createUsers.sql")
+    .toString();
+  const createPasswords = fs
+    .readFileSync("./db_scripts/createPasswords.sql")
+    .toString();
 
   let success = true;
   db.query(createHotel, (err, result) => {
@@ -50,6 +56,23 @@ app.get("/api/build", (req, res) => {
       res.send("Error building: " + err);
     }
   });
+
+  db.query(createUsers, (err, result) => {
+    console.log(result);
+    if (err) {
+      success = false;
+      res.send("Error building: " + err);
+    }
+  });
+
+  db.query(createPasswords, (err, result) => {
+    console.log(result);
+    if (err) {
+      success = false;
+      res.send("Error building: " + err);
+    }
+  });
+
   if (success) {
     res.send("Success! Database built.");
   }

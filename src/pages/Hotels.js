@@ -11,7 +11,7 @@ import '../css/styles.css';
 const Hotels = () => {
  
   const [input, setInput] = useState('');
-  const [hotelListDefault, setHotelListDefault] = useState();
+  const [hotelListDefault, setHotelListDefault] = useState([]);
   const [hotelList, setHotelList] = useState([]);
  
 
@@ -23,19 +23,16 @@ const Hotels = () => {
 
   }
 
-  const updateInput = async (input) => {
+  const updateInput = async () => {
+    setInput(document.getElementById("inputId").value);
+
     const filtered = hotelListDefault.filter(hotel => {
       return hotel.name.toLowerCase().includes(input.toLowerCase())
     })
-      setInput(input);
-      setHotelList(filtered);
+
+    setHotelList(filtered);
   }
 
-  /* useEffect(() => {
-    Axios.get("http://localhost:3001/api/get/hotels").then((response) => {
-      setHotelList(response.data);
-    });
-  }, []); */
   useEffect( () => {fetchData()}, []);
   
   {
@@ -51,26 +48,26 @@ const Hotels = () => {
   return (
     <>
       <h1 className="hotelTitle">Hotel List  </h1> 
-      <_searchBar className="searchbar" input = {input}
-        onChange={updateInput} />
-      {hotelList.map((val) => {
+      <input className="searchBar" id="inputId" onChange={updateInput} />
+      
+      {hotelList.map((hotel) => {
         
         return (
           
           <a
-            href={"http://localhost:3000/hotels/" + val.id}
+            href={"http://localhost:3000/hotels/" + hotel.id}
             style={{ textDecoration: "none" }}
-            key={val.id}
+            key={hotel.id}
           >
             
             <div className="hotels">
               
-              <h2 style={{ float: "left" }}>{val.name}</h2>
+              <h2 style={{ float: "left" }}>{hotel.name}</h2>
               <h5 style={{ float: "right" }}>
-                {val.amenities & 8 ? "🏊 " : ""}
-                {val.amenities & 4 ? "💪 " : ""}
-                {val.amenities & 2 ? "🧴 " : ""}
-                {val.amenities & 1 ? "💼 " : ""}
+                {hotel.amenities & 8 ? "🏊 " : ""}
+                {hotel.amenities & 4 ? "💪 " : ""}
+                {hotel.amenities & 2 ? "🧴 " : ""}
+                {hotel.amenities & 1 ? "💼 " : ""}
               </h5>
               <br />
               <br />
