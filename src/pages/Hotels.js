@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
-import _searchBar from "../components/Searchbar";
+import _searchBar from "../components/searchBar";
 import "../css/styles.css";
 
 const Hotels = () => {
