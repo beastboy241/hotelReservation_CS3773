@@ -37,6 +37,19 @@
 }
 
 /* Hotels Page*/
+.hotelTitle {
+  text-align: center;
+  padding: 10px;
+}
+
+.searchBar {
+  display: block;
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 20px;
+}
 .hotels {
   background-color: #2e56e0;
   width: 40%;

@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
-import _searchBar from "../components/searchBar";
+import _searchBar from "../components/Searchbar";
 import "../css/styles.css";
 
 const Hotels = () => {
@@ -20,11 +20,11 @@ const Hotels = () => {
 
   const updateInput = async () => {
     setInput(document.getElementById("input").value);
-
+    console.log("Got Here");
     const filtered = hotelListDefault.filter((hotel) => {
       return hotel.name.toLowerCase().includes(input.toLowerCase());
     });
-
+    //setInput(input);
     setHotelList(filtered);
   };
 
@@ -45,7 +45,7 @@ const Hotels = () => {
   return (
     <>
       <h1 className="hotelTitle">Hotel List </h1>
-      <input className="searchbar" id="input" onChange={updateInput} />
+      <input className="searchBar" id="input" onChange={updateInput} />
       {hotelList.map((val) => {
         return (
           <a
