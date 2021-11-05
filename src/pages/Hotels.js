@@ -56,10 +56,10 @@ const Hotels = () => {
             <div className="hotels">
               <h2>{val.name}</h2>
               <h5>
-                {val.amenities & 8 ? <i className="fas fa-water"></i> : ""}
-                {val.amenities & 4 ? <i className="fas fa-dumbbell"></i> : ""}
-                {val.amenities & 2 ? <i className="fas fa-spa"></i> : ""}
-                {val.amenities & 1 ? <i className="fas fa-briefcase"></i> : ""}
+                {val.amenities & 8 ? <i className="fas fa-water"> Pool </i> : ""}
+                {val.amenities & 4 ? <i className="fas fa-dumbbell"> Gym </i> : ""}
+                {val.amenities & 2 ? <i className="fas fa-spa"> Spa </i> : ""}
+                {val.amenities & 1 ? <i className="fas fa-briefcase"> Business Office </i> : ""}
               </h5>
             </div>
           </a>
