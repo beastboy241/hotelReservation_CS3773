@@ -1,43 +1,37 @@
 import Hero from "../components/Hero";
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
-import _searchBar from '../components/searchBar';
-import '../css/styles.css';
-
-
-
-
+import _searchBar from "../components/searchBar";
+import "../css/styles.css";
 
 const Hotels = () => {
- 
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [hotelListDefault, setHotelListDefault] = useState();
   const [hotelList, setHotelList] = useState([]);
- 
 
   const fetchData = async () => {
-    return await Axios.get("http://localhost:3001/api/get/hotels").then((response) => {
-      setHotelListDefault(response.data);
-      setHotelList(response.data);
+    return await Axios.get("http://localhost:3001/api/get/hotels").then(
+      (response) => {
+        setHotelListDefault(response.data);
+        setHotelList(response.data);
+      }
+    );
+  };
+
+  const updateInput = async () => {
+    setInput(document.getElementById("input").value);
+
+    const filtered = hotelListDefault.filter((hotel) => {
+      return hotel.name.toLowerCase().includes(input.toLowerCase());
     });
 
-  }
+    setHotelList(filtered);
+  };
 
-  const updateInput = async (input) => {
-    const filtered = hotelListDefault.filter(hotel => {
-      return hotel.name.toLowerCase().includes(input.toLowerCase())
-    })
-      setInput(input);
-      setHotelList(filtered);
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  /* useEffect(() => {
-    Axios.get("http://localhost:3001/api/get/hotels").then((response) => {
-      setHotelList(response.data);
-    });
-  }, []); */
-  useEffect( () => {fetchData()}, []);
-  
   {
     /*Amenities are a single int value decoded bitwise
     1000 or 8 is the Pool
@@ -50,21 +44,16 @@ const Hotels = () => {
 
   return (
     <>
-      <h1 className="hotelTitle">Hotel List  </h1> 
-      <_searchBar className="searchbar" input = {input}
-        onChange={updateInput} />
+      <h1 className="hotelTitle">Hotel List </h1>
+      <input className="searchbar" id="input" onChange={updateInput} />
       {hotelList.map((val) => {
-        
         return (
-          
           <a
             href={"http://localhost:3000/hotels/" + val.id}
             style={{ textDecoration: "none" }}
             key={val.id}
           >
-            
             <div className="hotels">
-              
               <h2 style={{ float: "left" }}>{val.name}</h2>
               <h5 style={{ float: "right" }}>
                 {val.amenities & 8 ? "🏊 " : ""}
@@ -76,7 +65,6 @@ const Hotels = () => {
               <br />
             </div>
           </a>
-          
         );
       })}
     </>
