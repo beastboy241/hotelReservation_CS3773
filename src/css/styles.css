@@ -61,6 +61,14 @@
   color: #f8f8f8;
 }
 
+.fa-water,
+.fa-dumbell,
+.fa-spa,
+.fa-briefcase {
+  padding: 1rem;
+  margin-right: 2px;
+}
+
 /* Login Section */
 .container {
   text-align: center;

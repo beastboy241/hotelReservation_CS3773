@@ -54,15 +54,13 @@ const Hotels = () => {
             key={val.id}
           >
             <div className="hotels">
-              <h2 style={{ float: "left" }}>{val.name}</h2>
-              <h5 style={{ float: "right" }}>
-                {val.amenities & 8 ? "🏊 " : ""}
-                {val.amenities & 4 ? "💪 " : ""}
-                {val.amenities & 2 ? "🧴 " : ""}
-                {val.amenities & 1 ? "💼 " : ""}
+              <h2>{val.name}</h2>
+              <h5>
+                {val.amenities & 8 ? <i className="fas fa-water"></i> : ""}
+                {val.amenities & 4 ? <i className="fas fa-dumbbell"></i> : ""}
+                {val.amenities & 2 ? <i className="fas fa-spa"></i> : ""}
+                {val.amenities & 1 ? <i className="fas fa-briefcase"></i> : ""}
               </h5>
-              <br />
-              <br />
             </div>
           </a>
         );
