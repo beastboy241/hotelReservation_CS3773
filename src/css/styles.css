@@ -49,9 +49,7 @@
   margin: 0 auto;
   padding: 10px;
   border-radius: 20px;
-
 }
-
 .hotels {
   background-color: #2e56e0;
   width: 40%;
@@ -61,6 +59,14 @@
   text-align: left;
   border-radius: 30px;
   color: #f8f8f8;
+}
+
+.fa-water,
+.fa-dumbell,
+.fa-spa,
+.fa-briefcase {
+  padding: 1rem;
+  margin-right: 2px;
 }
 
 /* Login Section */

@@ -18,14 +18,13 @@ const SingleHotel = () => {
 
   return (
     <div className="hotels">
-      <h2 style={{ fontWeight: "bold", float: "left" }}>{hotel.name}</h2>
-      <div style={{ float: "right" }}>
-        {hotel.amenities & 8 ? "🏊 " : ""}
-        {hotel.amenities & 4 ? "💪 " : ""}
-        {hotel.amenities & 2 ? "🧴 " : ""}
-        {hotel.amenities & 1 ? "💼 " : ""}
+      <h2>{hotel.name}</h2>
+      <div align={"center"}>
+        {hotel.amenities & 8 ? <i className="fas fa-water"></i> : ""}
+        {hotel.amenities & 4 ? <i className="fas fa-dumbbell"></i> : ""}
+        {hotel.amenities & 2 ? <i className="fas fa-spa"></i> : ""}
+        {hotel.amenities & 1 ? <i className="fas fa-briefcase"></i> : ""}
       </div>
-      <br /> <br />
       <h3 style={{ textAlign: "center" }}>{hotel.rooms} rooms</h3>
       <div style={{ float: "left" }}>
         <h4 style={{ textIndent: 20 }}>Weekday</h4>
