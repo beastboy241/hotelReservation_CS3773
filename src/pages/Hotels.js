@@ -20,22 +20,6 @@ const Hotels = () => {
   };
 
   const updateInput = async () => {
-    setInput(document.getElementById("input").value);
-    console.log("Got Here");
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.name.toLowerCase().includes(input.toLowerCase());
-    });
-    //setInput(input);
-    setHotelList(filtered);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  }
-
-  const updateInput = async () => {
     setInput(document.getElementById("inputId").value);
 
     const filtered = hotelListDefault.filter(hotel => {
