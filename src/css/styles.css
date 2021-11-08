@@ -42,14 +42,35 @@
   padding: 10px;
 }
 
+/* Filter table */
+.checkbox {
+  background: linear-gradient(90deg, rgb(86, 74, 202) 0%, rgba(73,63,252,1) 100%);
+  display: block;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  width: 40%;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 10px;
+  color: #fefefe;
+}
+td {
+  padding: 0 10px;
+}
+
+
+.search_section {
+  text-align: center;
+  margin-top: 1.2rem;
+}
 .searchBar {
   display: block;
   text-align: center;
   width: 60%;
-  margin: 0 auto;
+  margin: 0 auto ;
   padding: 10px;
   border-radius: 20px;
-
+  
 }
 
 .hotels {
@@ -61,6 +82,18 @@
   text-align: left;
   border-radius: 30px;
   color: #f8f8f8;
+}
+
+.fa-water,
+.fa-dumbell,
+.fa-spa,
+.fa-briefcase {
+  padding: 1rem;
+  margin-right: 2px;
+}
+
+.hotel-img {
+  background-image: url(../css/images/hotel1.jpeg);
 }
 
 /* Login Section */
