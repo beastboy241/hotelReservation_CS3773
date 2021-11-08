@@ -124,14 +124,29 @@ app.post("/api/login/verify", (req, res) => {
   }
 });
 
+/* Users */
+
+app.get("/api/get/users", (req, res) => {
+  const sqlSelect =
+    "SELECT id, firstName, lastName, email, phone, type FROM user";
+  db.query(sqlSelect, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 /* Hotel Data */
 
 app.get("/api/get/hotels", (req, res) => {
   const sqlSelect = "SELECT id, name, amenities FROM hotel";
   db.query(sqlSelect, (err, result) => {
-    res.send(result);
     if (err) {
       console.log(err);
+    } else {
+      res.send(result);
     }
   });
 });
@@ -141,10 +156,10 @@ app.post("/api/get/hotel", (req, res) => {
   const sqlSelect = "SELECT * FROM hotel WHERE id= ?";
 
   db.query(sqlSelect, id, (err, result) => {
-    res.send(result);
-
     if (err) {
       console.log(err);
+    } else {
+      res.send(result);
     }
   });
 });
@@ -225,6 +240,30 @@ app.post("/api/reserve", (req, res) => {
       "Failed to book reservation: All rooms occupied for requested timespan"
     );
   }
+});
+
+app.post("/api/get/reservations", (req, res) => {
+  const user_id = req.body.id;
+  const selectSql =
+    "SELECT hotel_id, room, type, start_dt, end_dt FROM reservations WHERE usr_id = ?";
+  db.query(selectSql, user_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/api/get/reservations/all", (req, res) => {
+  const selectSql = "SELECT * FROM reservations";
+  db.query(selectSql, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 app.listen(3001, () => {
