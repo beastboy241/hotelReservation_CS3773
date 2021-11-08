@@ -3,6 +3,7 @@ import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import _searchBar from "../components/searchBar";
 import "../css/styles.css";
+import {Amenity} from "../components/AmenityTable";
 
 const Hotels = () => {
   const [input, setInput] = useState("");
@@ -45,7 +46,7 @@ const Hotels = () => {
     <>
       <h1 className="hotelTitle">Hotel List </h1>
       <input className="searchBar" id="input" onChange={updateInput} />
-      {hotelList.map((val) => {
+      {hotelList.map((hotel) => {
         return (
           
           <a
@@ -55,12 +56,12 @@ const Hotels = () => {
           >
             
             <div className="hotels">
-              <h2>{val.name}</h2>
+              <h2>{hotel.name}</h2>
               <h5>
-                {val.amenities & 8 ? <i className="fas fa-water"></i> : ""}
-                {val.amenities & 4 ? <i className="fas fa-dumbbell"></i> : ""}
-                {val.amenities & 2 ? <i className="fas fa-spa"></i> : ""}
-                {val.amenities & 1 ? <i className="fas fa-briefcase"></i> : ""}
+                {hotel.amenities & Amenity.POOL ? <i className="fas fa-water"></i> : ""}
+                {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"></i> : ""}
+                {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"></i> : ""}
+                {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"></i> : ""}
               </h5>
             </div>
           </a>
