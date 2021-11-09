@@ -6,7 +6,7 @@
 }
 
 /* Home page */
-#body {
+body {
   background: url("./images/home.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -42,11 +42,32 @@
   padding: 10px;
 }
 
+/* Filter table */
+.checkbox {
+  background: linear-gradient(90deg, rgb(86, 74, 202) 0%, rgba(73,63,252,1) 100%);
+  display: block;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  width: 40%;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 10px;
+  color: #fefefe;
+}
+td {
+  padding: 0 10px;
+}
+
+
+.search_section {
+  text-align: center;
+  margin-top: 1.2rem;
+}
 .searchBar {
   display: block;
   text-align: center;
   width: 60%;
-  margin: 0 auto;
+  margin: 0 auto ;
   padding: 10px;
   border-radius: 20px;
 }
@@ -67,6 +88,23 @@
 .fa-briefcase {
   padding: 1rem;
   margin-right: 2px;
+}
+
+/*.hotel-img {
+  background-image: url(../css/images/hotel1.jpeg);
+} */
+.reserv-btn {
+  margin-left: 60%;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: #4ad9e4;
+  border-radius: 8px;
+}
+
+.reserv-btn:hover {
+  background-color: #fff;
+  color: #4ad9e4;
 }
 
 /* Login Section */

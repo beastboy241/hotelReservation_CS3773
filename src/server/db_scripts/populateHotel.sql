@@ -1,7 +1,7 @@
 delete from `hotel`;
-insert into `hotel` (`name`, `rooms`, `amenities`, `standard_price`, `queen_price`, `king_price`, `weekend_differential`)
+insert into `hotel` (`name`, `rooms`, `amenities`, `standard_price`, `queen_price`, `king_price`, `weekend_differential`,`hotel_image`)
 values
-    ("The Magnolia All Suites", 20, 15, 100, 150, 250, 0.25),
+    ("The Magnolia All Suites", 20, 15, 100, 150, 250, 0.25, LOAD_FILE("./hotel1.JPG")),
     ("The Lofts at Town Centre", 60, 13, 105, 120, 190, 0.35),
     ("Park North Hotel", 100, 12, 50, 75, 90, 0.15),
     ("The Courtyard Suites", 20, 15, 100, 150, 250, 0.25),

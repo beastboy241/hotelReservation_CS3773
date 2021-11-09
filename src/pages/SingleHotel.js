@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import Hero from "../components/Hero";
 import {Amenity} from "../components/AmenityTable";
 
 const SingleHotel = () => {
@@ -70,6 +69,7 @@ const SingleHotel = () => {
               ).toFixed(2)
             : ""}
         </h5>
+        <button className="reserv-btn"> Reservation </button>
       </div>
     </div>
   );
