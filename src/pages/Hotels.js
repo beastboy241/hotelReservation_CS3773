@@ -29,14 +29,8 @@ const Hotels = () => {
     const filtered = hotelListDefault.filter((hotel) => {
       return hotel.name.toLowerCase().includes(input.toLowerCase());
     });
-    //setInput(input);
-    //setHotelList(filtered);
-
-    if (input === "") {
-      setHotelList([]);
-    } else {
-      setHotelList(filtered);
-    }
+    
+    setHotelList(filtered);
   };
 
 // Pool chekced
@@ -128,7 +122,7 @@ const updateOffice= async () => {
      
       
 
-      {hotelList.map((val) => {
+      {hotelList.map((hotel) => {
         return (
           <a
             href={"http://localhost:3000/hotels/" + hotel.id}
@@ -136,13 +130,13 @@ const updateOffice= async () => {
             key={hotel.id}
           >
               <div className="hotels">
-                      <h2>{val.name}</h2>
-                      <img>{val.hotel_image}</img>
+                      <h2>{hotel.name}</h2>
+                      <img>{hotel.hotel_image}</img>
                         <h5>
-                          {val.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i>: ""}
-                          {val.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
-                          {val.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
-                          {val.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office </i> : ""}
+                          {hotel.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i>: ""}
+                          {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
+                          {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
+                          {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office </i> : ""}
                         </h5>
                         
                         
