@@ -84,18 +84,7 @@ const updateOffice= async () => {
     fetchData();
   }, []);
 
-  {
-    /*Amenities are a single int value decoded bitwise
-    1000 or 8 is the Pool
-    0100 or 4 is the Gym
-    0010 or 2 is the Spa
-    0001 or 1 is the Business Office
-          
-    You can get whatever amenity you are looking for by using bitwise AND*/
-  }
-
   
-
   return (
     <>
 
@@ -118,8 +107,6 @@ const updateOffice= async () => {
           </table>
         </div>
       </div>
-      
-     
       
 
       {hotelList.map((hotel) => {
