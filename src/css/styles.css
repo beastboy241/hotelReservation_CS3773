@@ -6,7 +6,7 @@
 }
 
 /* Home page */
-#body {
+body {
   background: url("./images/home.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -95,6 +95,19 @@ td {
 /*.hotel-img {
   background-image: url(../css/images/hotel1.jpeg);
 } */
+.reserv-btn {
+  margin-left: 60%;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: #4ad9e4;
+  border-radius: 8px;
+}
+
+.reserv-btn:hover {
+  background-color: #fff;
+  color: #4ad9e4;
+}
 
 /* Login Section */
 .container {

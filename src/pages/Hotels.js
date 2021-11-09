@@ -139,12 +139,15 @@ const updateOffice= async () => {
           >
               <div className="hotels">
                       <h2>{val.name}</h2>
+                      <img>{val.hotel_image}</img>
                         <h5>
                           {val.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i>: ""}
                           {val.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
                           {val.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
                           {val.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office </i> : ""}
                         </h5>
+                        
+                        
               </div>
           </a>
         );

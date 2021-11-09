@@ -4,10 +4,11 @@ import './css/styles.css';
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Hotels from "./pages/Hotels";
-
 import Login from "./pages/Login";
 import SingleHotel from "./pages/SingleHotel";
 import Error from "./pages/Error";
+
+import userPage from "./pages/userPage";
 
 
 
@@ -27,6 +28,7 @@ function App() {
         
         <Route exact path="/login/" component={Login} />
         <Route exact path="/hotels/:slug" component={SingleHotel} />
+        <Route exact path="/account/" component={userPage} />
         <Route component={Error} />
       </Switch>
       </BrowserRouter>

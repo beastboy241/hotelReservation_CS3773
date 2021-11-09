@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-
+import {Amenity} from "../components/AmenityTable";
 
 const SingleHotel = () => {
   const [hotel, setHotel] = useState([]);
@@ -20,10 +20,10 @@ const SingleHotel = () => {
     <div className="hotels">
       <h2>{hotel.name}</h2>
       <div align={"center"}>
-        {hotel.amenities & 8 ? <i className="fas fa-water"></i> : ""}
-        {hotel.amenities & 4 ? <i className="fas fa-dumbbell"></i> : ""}
-        {hotel.amenities & 2 ? <i className="fas fa-spa"></i> : ""}
-        {hotel.amenities & 1 ? <i className="fas fa-briefcase"></i> : ""}
+        {hotel.amenities & Amenity.POOL ? <i className="fas fa-water"></i> : ""}
+        {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"></i> : ""}
+        {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"></i> : ""}
+        {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"></i> : ""}
       </div>
       <h3 style={{ textAlign: "center" }}>{hotel.rooms} rooms</h3>
       <div style={{ float: "left" }}>
@@ -69,6 +69,7 @@ const SingleHotel = () => {
               ).toFixed(2)
             : ""}
         </h5>
+        <button className="reserv-btn"> Reservation </button>
       </div>
     </div>
   );
