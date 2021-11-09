@@ -4,6 +4,8 @@ const app = express();
 const mysql = require("mysql");
 const fs = require("fs");
 
+const key = "zGhwe72jg0";
+
 const db = mysql.createConnection({
   host: "localhost",
   user: "admin",
@@ -15,6 +17,8 @@ const db = mysql.createConnection({
 app.use(cors());
 app.use(express.json());
 
+/* Database */
+
 app.get("/api/build", (req, res) => {
   const createHotel = fs
     .readFileSync("./db_scripts/createHotel.sql")
@@ -25,6 +29,7 @@ app.get("/api/build", (req, res) => {
   const populateHotel = fs
     .readFileSync("./db_scripts/populateHotel.sql")
     .toString();
+  const createUser = fs.readFileSync("./db_scripts/createUser.sql").toString();
 
   let success = true;
   db.query(createHotel, (err, result) => {
@@ -50,17 +55,98 @@ app.get("/api/build", (req, res) => {
       res.send("Error building: " + err);
     }
   });
+
+  db.query(createUser, (err, result) => {
+    console.log(result);
+    if (err) {
+      success = false;
+      res.send("Error building: " + err);
+    }
+  });
+
   if (success) {
     res.send("Success! Database built.");
   }
 });
 
+/* Login/SignUp */
+
+app.post("/api/login/create", (req, res) => {
+  const fname = req.body.firstName;
+  const lname = req.body.lastName;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const pass = req.body.password;
+
+  const sqlInsert =
+    "INSERT INTO user (firstName, lastName, email, phone, password) VALUES (?, ?, ?, ?, ENCRYPT(?,?))";
+  db.query(
+    sqlInsert,
+    [fname, lname, email, phone, key, pass],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Success!");
+      }
+    }
+  );
+});
+
+app.post("/api/login/verify", (req, res) => {
+  const email = req.body.email;
+  let userPass = req.body.password;
+  let sqlPass = "";
+
+  const sqlSelect = "SELECT password FROM user WHERE email=?";
+  const sqlPassEncrypt = "SELECT ENCRYPT(?, ?) as password";
+
+  db.query(sqlSelect, email, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    sqlPass = result[0].password;
+  });
+
+  db.query(sqlPassEncrypt, [key, userPass], (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    userPass = result[0].password;
+  });
+
+  if (sqlPass === userPass) {
+    res.send(True);
+  } else {
+    res.send(False);
+  }
+});
+
+/* Users */
+
+app.get("/api/get/users", (req, res) => {
+  const sqlSelect =
+    "SELECT id, firstName, lastName, email, phone, type FROM user";
+  db.query(sqlSelect, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+/* Hotel Data */
+
 app.get("/api/get/hotels", (req, res) => {
   const sqlSelect = "SELECT id, name, amenities FROM hotel";
   db.query(sqlSelect, (err, result) => {
-    res.send(result);
     if (err) {
       console.log(err);
+    } else {
+      res.send(result);
     }
   });
 });
@@ -70,13 +156,15 @@ app.post("/api/get/hotel", (req, res) => {
   const sqlSelect = "SELECT * FROM hotel WHERE id= ?";
 
   db.query(sqlSelect, id, (err, result) => {
-    res.send(result);
-
     if (err) {
       console.log(err);
+    } else {
+      res.send(result);
     }
   });
 });
+
+/* Reservations */
 
 app.post("/api/reserve", (req, res) => {
   const hotel_id = req.body.hotelId;
@@ -152,6 +240,30 @@ app.post("/api/reserve", (req, res) => {
       "Failed to book reservation: All rooms occupied for requested timespan"
     );
   }
+});
+
+app.post("/api/get/reservations", (req, res) => {
+  const user_id = req.body.id;
+  const selectSql =
+    "SELECT hotel_id, room, type, start_dt, end_dt FROM reservations WHERE usr_id = ?";
+  db.query(selectSql, user_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/api/get/reservations/all", (req, res) => {
+  const selectSql = "SELECT * FROM reservations";
+  db.query(selectSql, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 app.listen(3001, () => {
