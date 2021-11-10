@@ -6,12 +6,15 @@ import {Amenity} from "../components/AmenityTable";
 
 
 
+
+
 const Hotels = () => {
   const [input, setInput] = useState("");
   const [hotelListDefault, setHotelListDefault] = useState();
   const [hotelList, setHotelList] = useState([]);
 
   const [filter, setFilter] = useState();
+
 
   const fetchData = async () => {
     return await Axios.get("http://localhost:3001/api/get/hotels").then(
@@ -41,51 +44,45 @@ const Hotels = () => {
     }
   };
 
+  //Range Selector
+  const rangeSelector = async () => {
+    const filtered = hotelListDefault.filter((hotel) => {
+        return hotel.standard_price;
+    });
+    
+      setHotelList(filtered);
+  };
+
 // Pool chekced
 const updatePool= async () => {
-  setFilter(document.getElementById("input").value);
-  console.log("Got Here");
   const filtered = hotelListDefault.filter((hotel) => {
-
     return hotel.amenities & Amenity.POOL;
   });
-    setHotelList(filtered);
-  
+    setHotelList(filtered); 
 }
   
 // Gym checked
   const updateGym = async () => {
-    setFilter(document.getElementById("input").value);
-    console.log("Got Here");
     const filtered = hotelListDefault.filter((hotel) => {
-
       return hotel.amenities & Amenity.GYM;
     });
       setHotelList(filtered);
-    
   }
 
 // Spa checked
 const updateSpa= async () => {
-  setFilter(document.getElementById("input").value);
-  console.log("Got Here");
   const filtered = hotelListDefault.filter((hotel) => {
-
     return hotel.amenities & Amenity.SPA;
   });
     setHotelList(filtered);
-  
 }
+
 // Office checked
 const updateOffice= async () => {
-  setFilter(document.getElementById("input").value);
-  console.log("Got Here");
   const filtered = hotelListDefault.filter((hotel) => {
-
     return hotel.amenities & Amenity.OFFICE;
   });
     setHotelList(filtered);
-  
 }
 
   useEffect(() => {
@@ -115,15 +112,22 @@ const updateOffice= async () => {
           <table>
             <tr>
           <td> 
-            <label><input type="checkbox" rel="pool" onClick={updatePool}/>Pool</label></td>
+            <label><input type="checkbox" rel="pool" onClick={updatePool}/> Pool</label></td>
           <td> 
-          <label><input type="checkbox" rel="gym" onClick={updateGym}/>Gym</label></td> 
+          <label><input type="checkbox" rel="gym" onClick={updateGym}/> Gym</label></td> 
           <td> 
-          <label><input type="checkbox" rel="spa" onClick={updateSpa}/>Spa</label></td> 
+          <label><input type="checkbox" rel="spa" onClick={updateSpa}/> Spa</label></td> 
           <td> 
-          <label><input type="checkbox" rel="office" onClick={updateOffice}/>Bussiness Office</label></td> 
+          <label><input type="checkbox" rel="office" onClick={updateOffice}/> Bussiness Office</label></td> 
             </tr>
           </table>
+          <div className="slideContainer">
+                  <p> Price Range </p>
+                  <input type="range" min="1" max="250"  id="priceRange" onChange={rangeSelector}/>
+
+          </div>
+         
+         
         </div>
       </div>
       
@@ -139,7 +143,7 @@ const updateOffice= async () => {
           >
               <div className="hotels">
                       <h2>{val.name}</h2>
-                      <img>{val.hotel_image}</img>
+                         
                         <h5>
                           {val.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i>: ""}
                           {val.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
