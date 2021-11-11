@@ -46,7 +46,8 @@ const Hotels = () => {
   };
 
   //Range Selector
- const [priceRange, setPriceRange] = useState({
+
+ /* const [priceRange, setPriceRange] = useState({
    min: 0,
    max: "",
  });
@@ -59,16 +60,19 @@ const Hotels = () => {
        [name]: value,
      };
    });
- };
-
- const handlePriceRange = () => {
-   (async () => {
-     const range = await axios.get(
-      `/api/get/hotels/${priceRange.standard_price}`
-     );
-     setState(range);
-   }) ();
- };
+ };*/
+ const standardPrice = () => {
+  const filtered = hotelListDefault.filter((hotel) => {
+        return hotel.standard_price <= 50;  
+  });
+  setHotelList(filtered);
+}
+const luxuryPrice = () => {
+  const filtered = hotelListDefault.filter((hotel) => {
+      return hotel.standard_price >= 100;
+  });
+  setHotelList(filtered);
+}
 
 
 
@@ -134,34 +138,15 @@ const updateOffice= async () => {
           </table>
         </div>
         <div className="column-2">
-          <h5>Price Range Sort</h5>
-          <input
-            type="number"
-            name="min"
-            placeholder="enter min price"
-            value={priceRange.standard_price}
-            onChange={handleRange}
-          />
-          
-          <input
-            type="number"
-            name="max"
-            placeholder="enter max price"
-            value={priceRange.king_price}
-            onChange={handleRange}
-          />{" "}
-        
-          <button className="btn" onClick={handlePriceRange}>Submit</button>
+          <h5>Hotel Reference</h5>
+          <button className="btn" onClick={standardPrice}>Standard</button>
+          <button className="btn" onClick={luxuryPrice}>Luxury</button>
         </div>
 
 
 
 
       </div>
-        
-        
-
-
 
       </div>
       
@@ -173,16 +158,15 @@ const updateOffice= async () => {
             key={val.id}
           >
               <div className="hotels">
-                      <h2>{val.name}</h2>
-                         
+                      <h2><i class="fas fa-h-square"></i> {val.name}</h2>
+                      <h2> from ${val.standard_price}</h2>
                         <h5>
                           {val.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i>: ""}
                           {val.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
                           {val.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
                           {val.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office </i> : ""}
                         </h5>
-                        
-                        
+     
               </div>
           </a>
         );
