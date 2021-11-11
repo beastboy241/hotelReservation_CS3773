@@ -12,7 +12,7 @@ const Hotels = () => {
   const [filter, setFilter] = useState();
 
   const fetchData = async () => {
-    return await Axios.get("http://localhost:3001/api/get/hotels").then(
+    return await Axios.get("http://localhost:3001/get/hotels").then(
       (response) => {
         setHotelListDefault(response.data);
         setHotelList(response.data);

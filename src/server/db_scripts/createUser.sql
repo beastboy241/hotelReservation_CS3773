@@ -6,6 +6,6 @@ create table `user` (
     `email` varchar(100) not null unique,
     `phone` int,
     `type` char default 'u',
-    `password` varbinary(200) not null,
+    `password` varchar(200) not null,
     primary key (`id`)
 );

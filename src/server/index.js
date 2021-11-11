@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const session = require("express-session");
 const mysql = require("mysql");
 const fs = require("fs");
-
-const key = "zGhwe72jg0";
+const bcrypt = require("bcrypt");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -16,10 +16,15 @@ const db = mysql.createConnection({
 
 app.use(cors());
 app.use(express.json());
+app.use(session({
+  secret: 'secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
 
 /* Database */
 
-app.get("/api/build", (req, res) => {
+app.get("/build", (req, res) => {
   const createHotel = fs
     .readFileSync("./db_scripts/createHotel.sql")
     .toString();
@@ -71,67 +76,81 @@ app.get("/api/build", (req, res) => {
 
 /* Login/SignUp */
 
-app.post("/api/login/create", (req, res) => {
+app.post("/login/create", async (req, res) => {
   const fname = req.body.firstName;
   const lname = req.body.lastName;
   const email = req.body.email;
-  const phone = req.body.phone;
-  const pass = req.body.password;
+  const phone = req.body.phoneNumber;
 
-  const sqlInsert =
-    "INSERT INTO user (firstName, lastName, email, phone, password) VALUES (?, ?, ?, ?, ENCRYPT(?,?))";
-  db.query(
-    sqlInsert,
-    [fname, lname, email, phone, key, pass],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send("Success!");
+  try{
+    const hashedPass = await bcrypt.hash(req.body.password, 10);
+    const sqlInsert =
+      "INSERT INTO user (firstName, lastName, email, phone, password) VALUES (?, ?, ?, ?, ?)";
+    db.query(
+      sqlInsert,
+      [fname, lname, email, phone, hashedPass],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send();
+        } else {
+          res.send("Success!");
+        }
       }
-    }
-  );
+    );
+  }catch{
+    res.status(500).send();
+  }
 });
 
-app.post("/api/login/verify", (req, res) => {
+app.post("/login/verify", async (req, res) => {
   const email = req.body.email;
   let userPass = req.body.password;
-  let sqlPass = "";
+  let sqlPass = '';
+  let userId = 0;
+  let type = '';
 
-  const sqlSelect = "SELECT password FROM user WHERE email=?";
-  const sqlPassEncrypt = "SELECT ENCRYPT(?, ?) as password";
-
+  const sqlSelect = "SELECT id, password, type FROM user WHERE email=?";
   db.query(sqlSelect, email, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
       return;
     }
+    if(result[0] == null){
+      res.send("User does not exist");
+    }
+    userId = result[0].id;
+    type = result[0].type;
     sqlPass = result[0].password;
   });
 
-  db.query(sqlPassEncrypt, [key, userPass], (err, result) => {
-    if (err) {
-      console.log(err);
-      return;
+  try{
+    if (bcrypt.compare(userPass, sqlPass)) {
+      req.session.userId = userId;
+      req.session.userType = type;
+      res.send("Login Success!");
+    } else {
+      res.send("Login Failed: Incorrect password");
     }
-    userPass = result[0].password;
-  });
-
-  if (sqlPass === userPass) {
-    res.send(True);
-  } else {
-    res.send(False);
+  }catch{
+    res.status(500).send();
   }
 });
 
 /* Users */
 
-app.get("/api/get/users", (req, res) => {
+app.get("/session", (req, res) => {
+  console.log(req.session.userId);
+})
+
+app.get("/get/users", (req, res) => {
   const sqlSelect =
     "SELECT id, firstName, lastName, email, phone, type FROM user";
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
     } else {
       res.send(result);
     }
@@ -140,24 +159,26 @@ app.get("/api/get/users", (req, res) => {
 
 /* Hotel Data */
 
-app.get("/api/get/hotels", (req, res) => {
+app.get("/get/hotels", (req, res) => {
   const sqlSelect = "SELECT id, name, amenities FROM hotel";
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
     } else {
       res.send(result);
     }
   });
 });
 
-app.post("/api/get/hotel", (req, res) => {
+app.post("/get/hotel", (req, res) => {
   const id = req.body.hotelId;
   const sqlSelect = "SELECT * FROM hotel WHERE id= ?";
 
   db.query(sqlSelect, id, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
     } else {
       res.send(result);
     }
@@ -166,7 +187,7 @@ app.post("/api/get/hotel", (req, res) => {
 
 /* Reservations */
 
-app.post("/api/reserve", (req, res) => {
+app.post("/reserve", (req, res) => {
   const hotel_id = req.body.hotelId;
   const usr_id = req.body.userId;
   const room_type = req.body.type;
@@ -185,6 +206,7 @@ app.post("/api/reserve", (req, res) => {
 
     if (err) {
       console.log(err);
+      res.status(500).send();
       return;
     }
   });
@@ -198,6 +220,7 @@ app.post("/api/reserve", (req, res) => {
 
       if (err) {
         console.log(err);
+        res.status(500).send();
         return;
       }
     });
@@ -242,24 +265,26 @@ app.post("/api/reserve", (req, res) => {
   }
 });
 
-app.post("/api/get/reservations", (req, res) => {
+app.post("/get/reservations", (req, res) => {
   const user_id = req.body.id;
   const selectSql =
     "SELECT hotel_id, room, type, start_dt, end_dt FROM reservations WHERE usr_id = ?";
   db.query(selectSql, user_id, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
     } else {
       res.send(result);
     }
   });
 });
 
-app.get("/api/get/reservations/all", (req, res) => {
+app.get("/get/reservations/all", (req, res) => {
   const selectSql = "SELECT * FROM reservations";
   db.query(selectSql, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
     } else {
       res.send(result);
     }

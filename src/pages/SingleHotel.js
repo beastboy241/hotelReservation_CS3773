@@ -9,7 +9,7 @@ const SingleHotel = () => {
   );
 
   useEffect(() => {
-    Axios.post("http://localhost:3001/api/get/hotel", { hotelId: id }).then(
+    Axios.post("http://localhost:3001/get/hotel", { hotelId: id }).then(
       (response) => {
         setHotel(response.data[0]);
       }

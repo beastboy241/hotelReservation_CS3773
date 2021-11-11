@@ -1,3 +1,4 @@
+import Axios from "axios";
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import userProfile from "../userProfile";
@@ -14,7 +15,7 @@ class Login extends Component {
       firstName: "",
       lastName: "",
       phoneNumber: "",
-      creds: {},
+      creds: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -29,30 +30,11 @@ class Login extends Component {
     ) {
       alert("Error! Some fields are missing.");
     } else {
-      await fetch("login/" + this.state.email)
-        .then((res) => res.json())
-        .then((creds) => this.setState({ creds }));
-      if (this.state.creds !== null) {
-        alert("This email is already used. Please try another one!");
-      } else {
-        await fetch("login/", {
-          method: "POST",
-          header: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: this.state.email,
-            password: this.state.password,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            phoneNumber: this.state.phoneNumber,
-          }),
-        })
-          .then((res) => res.json())
-          .then((body) => console.log(body));
-        this.setState({ redirect: true });
-      }
-      userProfile.setName(this.state.email);
-      userProfile.setSession(true);
-      event.preventDefault();
+      Axios.post("http://localhost:3001/login/create", this.state).then(
+        (response) =>{
+          console.log(response);
+        }
+      )
     }
   }
 
@@ -62,23 +44,12 @@ class Login extends Component {
     if (this.state.email === "" || this.state.password === "") {
       alert("Please make sure both email and password are filled out.");
     } else {
-      //fetch API to get user credential
-      await fetch("login/" + this.state.email)
-        .then((res) => res.json())
-        .then((creds) => this.setState({ creds }));
-      //if the email is not in the database or wrong password
-      if (
-        this.state.creds === null ||
-        this.state.password !== this.state.creds.password
-      ) {
-        alert("No account under this email.");
-      } else {
-        //all the credential information is right, redirect to the homepage
-        this.setState({ redirect: true });
-      }
+      Axios.post("http://localhost:3001/login/verify", this.state).then(
+        (response) =>{
+          console.log(response);
+        }
+      )
     }
-    userProfile.setName(this.state.email);
-    userProfile.setSession(true);
   }
 
   handleChange = ({ target }) => {
@@ -87,8 +58,8 @@ class Login extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      userProfile.setSession(true);
-      userProfile.setName(this.state.email);
+      //userProfile.setSession(true);
+      //userProfile.setName(this.state.email);
       return <Redirect to="/profile" />;
     }
   };
