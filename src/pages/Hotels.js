@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import _searchBar from "../components/searchBar";
 import "../css/styles.css";
 import {Amenity} from "../components/AmenityTable";
+import { render } from "@testing-library/react";
+import axios from "axios";
+import { setConstantValue } from "typescript";
 
 
 
@@ -12,7 +15,7 @@ const Hotels = () => {
   const [input, setInput] = useState("");
   const [hotelListDefault, setHotelListDefault] = useState();
   const [hotelList, setHotelList] = useState([]);
-
+  const [state, setState] = useState(null);
   const [filter, setFilter] = useState();
 
 
@@ -34,8 +37,6 @@ const Hotels = () => {
     const filtered = hotelListDefault.filter((hotel) => {
       return hotel.name.toLowerCase().includes(input.toLowerCase());
     });
-    //setInput(input);
-    //setHotelList(filtered);
 
     if (input === "") {
       setHotelList([]);
@@ -45,13 +46,31 @@ const Hotels = () => {
   };
 
   //Range Selector
-  const rangeSelector = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-        return hotel.standard_price;
-    });
-    
-      setHotelList(filtered);
-  };
+ const [priceRange, setPriceRange] = useState({
+   min: 0,
+   max: "",
+ });
+
+ const handleRange = (e) => {
+   const { name, value } = e.target;
+   setPriceRange((prev) => {
+     return {
+       ...prev,
+       [name]: value,
+     };
+   });
+ };
+
+ const handlePriceRange = () => {
+   (async () => {
+     const range = await axios.get(
+      `/api/get/hotels/${priceRange.standard_price}`
+     );
+     setState(range);
+   }) ();
+ };
+
+
 
 // Pool chekced
 const updatePool= async () => {
@@ -85,6 +104,8 @@ const updateOffice= async () => {
     setHotelList(filtered);
 }
 
+
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -97,8 +118,8 @@ const updateOffice= async () => {
       <div className="search_section">
         <input className="searchBar" type="search" placeholder={"search hotel..."} id="input" onChange={updateInput} />
       
-
-        <div className="checkbox">
+      <div className="container grid-2">
+        <div className="column-1">
           <table>
             <tr>
           <td> 
@@ -111,19 +132,39 @@ const updateOffice= async () => {
           <label><input type="checkbox" rel="office" onClick={updateOffice}/> Bussiness Office</label></td> 
             </tr>
           </table>
-          <div className="slideContainer">
-                  <p> Price Range </p>
-                  <input type="range" min="1" max="250"  id="priceRange" onChange={rangeSelector}/>
-
-          </div>
-         
-         
         </div>
+        <div className="column-2">
+          <h5>Price Range Sort</h5>
+          <input
+            type="number"
+            name="min"
+            placeholder="enter min price"
+            value={priceRange.standard_price}
+            onChange={handleRange}
+          />
+          
+          <input
+            type="number"
+            name="max"
+            placeholder="enter max price"
+            value={priceRange.king_price}
+            onChange={handleRange}
+          />{" "}
+        
+          <button className="btn" onClick={handlePriceRange}>Submit</button>
+        </div>
+
+
+
+
+      </div>
+        
+        
+
+
+
       </div>
       
-     
-      
-
       {hotelList.map((val) => {
         return (
           <a
