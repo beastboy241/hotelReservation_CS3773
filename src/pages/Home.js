@@ -1,15 +1,10 @@
-import Axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../css/styles.css";
 
 const home = () => {
-  Axios.get("http://localhost:3001/session").then(
-    (response) => {
-      console.log(response);
-    }
-  );
+
   return (
     <>
     

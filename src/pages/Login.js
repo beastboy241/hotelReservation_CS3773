@@ -32,7 +32,10 @@ class Login extends Component {
     } else {
       Axios.post("http://localhost:3001/login/create", this.state).then(
         (response) =>{
-          console.log(response);
+          if(response.status == 200){
+            this.state.creds = 'u';
+            this.setState({redirect: true});
+          }
         }
       )
     }
@@ -46,7 +49,10 @@ class Login extends Component {
     } else {
       Axios.post("http://localhost:3001/login/verify", this.state).then(
         (response) =>{
-          console.log(response);
+          if(response.status == 200){
+            this.state.creds = response.data.type;
+            this.setState({redirect: true});
+          }
         }
       )
     }
@@ -58,9 +64,10 @@ class Login extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      //userProfile.setSession(true);
-      //userProfile.setName(this.state.email);
-      return <Redirect to="/profile" />;
+      userProfile.setSession(true);
+      userProfile.setType(this.state.creds);
+      userProfile.setName(this.state.email);
+      return <Redirect to="/account" />;
     }
   };
 

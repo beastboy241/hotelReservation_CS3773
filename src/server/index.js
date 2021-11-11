@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const session = require("express-session");
+//const session = require("express-session");
 const mysql = require("mysql");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
@@ -16,11 +16,11 @@ const db = mysql.createConnection({
 
 app.use(cors());
 app.use(express.json());
-app.use(session({
+/*app.use(session({
   secret: 'secret-key',
   resave: false,
   saveUninitialized: false
-}));
+}));*/
 
 /* Database */
 
@@ -92,9 +92,9 @@ app.post("/login/create", async (req, res) => {
       (err, result) => {
         if (err) {
           console.log(err);
-          res.status(500).send();
+          res.status(500).send("Failed to Create Account: " + err);
         } else {
-          res.send("Success!");
+          res.send("Account Successfully Created");
         }
       }
     );
@@ -105,44 +105,44 @@ app.post("/login/create", async (req, res) => {
 
 app.post("/login/verify", async (req, res) => {
   const email = req.body.email;
-  let userPass = req.body.password;
+  const userPass = req.body.password;
   let sqlPass = '';
   let userId = 0;
   let type = '';
 
   const sqlSelect = "SELECT id, password, type FROM user WHERE email=?";
-  db.query(sqlSelect, email, (err, result) => {
+  
+  db.query(sqlSelect, email, async (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send();
+      res.status(500).send("Database Query Failed " + err);
       return;
     }
     if(result[0] == null){
-      res.send("User does not exist");
+      res.status(404).send("User does not exist");
+      return;
     }
     userId = result[0].id;
     type = result[0].type;
     sqlPass = result[0].password;
-  });
 
-  try{
-    if (bcrypt.compare(userPass, sqlPass)) {
-      req.session.userId = userId;
-      req.session.userType = type;
-      res.send("Login Success!");
-    } else {
-      res.send("Login Failed: Incorrect password");
+    try{
+      if (await bcrypt.compare(userPass, sqlPass)) {
+        res.send({"msg": "Login Success!", "type": type});
+      } else {
+        res.send("Login Failed: Incorrect password");
+      }
+    }catch{
+      res.status(500).send();
     }
-  }catch{
-    res.status(500).send();
-  }
+  })
 });
 
 /* Users */
 
-app.get("/session", (req, res) => {
+/*app.get("/session", (req, res) => {
   console.log(req.session.userId);
-})
+})*/
 
 app.get("/get/users", (req, res) => {
   const sqlSelect =
@@ -150,7 +150,7 @@ app.get("/get/users", (req, res) => {
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send();
+      res.status(500).send(err);
     } else {
       res.send(result);
     }
@@ -164,7 +164,7 @@ app.get("/get/hotels", (req, res) => {
   db.query(sqlSelect, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send();
+      res.status(500).send(err);
     } else {
       res.send(result);
     }
@@ -178,7 +178,7 @@ app.post("/get/hotel", (req, res) => {
   db.query(sqlSelect, id, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send();
+      res.status(500).send(err);
     } else {
       res.send(result);
     }
@@ -206,7 +206,7 @@ app.post("/reserve", (req, res) => {
 
     if (err) {
       console.log(err);
-      res.status(500).send();
+      res.status(500).send(err);
       return;
     }
   });
@@ -220,7 +220,7 @@ app.post("/reserve", (req, res) => {
 
       if (err) {
         console.log(err);
-        res.status(500).send();
+        res.status(500).send(err);
         return;
       }
     });
@@ -252,9 +252,9 @@ app.post("/reserve", (req, res) => {
       [hotel_id, usr_id, roomToReserve, room_type, start_dt, end_dt],
       (err, result) => {
         if (err) {
-          res.send("Failed to book reservation: System error - " + err);
+          res.status(500).send("Failed to book reservation: System error - " + err);
         } else {
-          res.send("Reservation made! Your room is #" + roomToReserve);
+          res.status(201).send("Reservation made! Your room is #" + roomToReserve);
         }
       }
     );
@@ -272,7 +272,7 @@ app.post("/get/reservations", (req, res) => {
   db.query(selectSql, user_id, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send();
+      res.status(500).send(err);
     } else {
       res.send(result);
     }
@@ -284,7 +284,7 @@ app.get("/get/reservations/all", (req, res) => {
   db.query(selectSql, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(500).send();
+      res.status(500).send(err);
     } else {
       res.send(result);
     }

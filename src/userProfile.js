@@ -1,5 +1,6 @@
 var userProfile = (function() {
   var full_name = "";
+  var accountType ='';
   var main_session = false;
 
   var getName = function() {
@@ -8,7 +9,14 @@ var userProfile = (function() {
 
   var setName = function(name) {
     full_name = name;     
-    
+  };
+
+  var getType = function() {
+    return accountType;    
+  };
+
+  var setType = function(type) {
+    accountType = type;     
   };
 
   var getSession = function(){
@@ -22,6 +30,8 @@ var userProfile = (function() {
   return {
     getName: getName,
     setName: setName,
+    getType: getType,
+    setType: setType,
     getSession: getSession,
     setSession: setSession
   }
