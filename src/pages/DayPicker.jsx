@@ -29,7 +29,7 @@ export default class DatePicker extends React.Component {
     const { startDay } = this.state;
     const { endDay } = this.state;
     return (
-      <div>
+      <div className="date-container" style={{color: "black"}}>
         {startDay && <p>Day: {startDay.toLocaleDateString()}</p>}
         {!startDay && <p>Choose a day</p>}
         <DayPickerInput onDayChange={this.handleStartDayChange} />
