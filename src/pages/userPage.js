@@ -5,6 +5,12 @@ import "../css/styles.css";
 import userProfile from "../userProfile";
 
 const userPage = () => {
+  /*let userId = 0;
+  Axios.get("http://localhost:3001/session").then(
+    (response) => {
+      userId = response.userId;
+    }
+  )*/
   return (
     <>
     

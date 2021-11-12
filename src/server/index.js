@@ -128,6 +128,9 @@ app.post("/login/verify", async (req, res) => {
 
     try{
       if (await bcrypt.compare(userPass, sqlPass)) {
+        /*req.session.user = {
+          userId, type
+        }*/
         res.send({"msg": "Login Success!", "type": type});
       } else {
         res.send("Login Failed: Incorrect password");
@@ -141,7 +144,7 @@ app.post("/login/verify", async (req, res) => {
 /* Users */
 
 /*app.get("/session", (req, res) => {
-  console.log(req.session.userId);
+  res.send(req.session.user);
 })*/
 
 app.get("/get/users", (req, res) => {
