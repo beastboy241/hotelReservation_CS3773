@@ -44,6 +44,7 @@ body {
 
 /* Filter table */
 .container.grid-2 {
+  width: 100%;
   color: #fefefe;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
