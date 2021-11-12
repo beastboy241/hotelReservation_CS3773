@@ -7,8 +7,11 @@ import Hotels from "./pages/Hotels";
 import Login from "./pages/Login";
 import SingleHotel from "./pages/SingleHotel";
 import Error from "./pages/Error";
-
+import AddHotel from "./pages/AddHotel";
 import UserPage from "./pages/UserPage";
+
+
+import { BrowserRouter, Switch, Route} from "react-router-dom";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
