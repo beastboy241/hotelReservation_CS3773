@@ -7,7 +7,7 @@ import Hotels from "./pages/Hotels";
 import Login from "./pages/Login";
 import SingleHotel from "./pages/SingleHotel";
 import Error from "./pages/Error";
-
+import AddHotel from "./pages/AddHotel";
 import userPage from "./pages/userPage";
 
 
@@ -27,6 +27,7 @@ function App() {
         
         <Route exact path="/login/" component={Login} />
         <Route exact path="/hotels/:slug" component={SingleHotel} />
+        <Route exact path="/hotels/checkout" component={AddHotel} />
         <Route exact path="/account/" component={userPage} />
         <Route component={Error} />
       </Switch>

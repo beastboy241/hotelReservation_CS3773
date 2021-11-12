@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react";
 import _searchBar from "../components/searchBar";
 import "../css/styles.css";
 import {Amenity} from "../components/AmenityTable";
-import { render } from "@testing-library/react";
-import axios from "axios";
-import { setConstantValue } from "typescript";
 import "../pages/DayPicker.jsx";
-import DatePicker from "../pages/DayPicker";
+
+//import { render } from "@testing-library/react";
+// import { setConstantValue } from "typescript";
 
 const Hotels = () => {
   const [input, setInput] = useState("");
@@ -27,7 +26,7 @@ const Hotels = () => {
       }
     );
 
-  };
+  }; 
 
   const updateInput = async () => {
     setInput(document.getElementById("input").value);
@@ -133,7 +132,6 @@ const updateOffice= async () => {
           <label><input type="checkbox" rel="office" onClick={updateOffice}/> Bussiness Office</label></td> 
             </tr>
           </table>
-          <DatePicker/>
         </div>
         <div className="column-2">
           <h5>Hotel Reference</h5>
@@ -164,7 +162,7 @@ const updateOffice= async () => {
                           {val.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
                           {val.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office </i> : ""}
                         </h5>
-     
+                        
               </div>
           </a>
         );
