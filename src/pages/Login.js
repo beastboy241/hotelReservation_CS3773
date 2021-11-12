@@ -1,7 +1,6 @@
 import Axios from "axios";
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import userProfile from "../userProfile";
 import "../css/styles.css";
 
 class Login extends Component {
@@ -34,8 +33,9 @@ class Login extends Component {
       Axios.post("http://localhost:3001/login/create", this.state).then(
         (response) => {
           if (response.status == 200) {
+            this.state.id = response.data.id;
             this.state.creds = "u";
-            this.setState({ redirect: true });
+            this.setSession();
           }
         }
       );
@@ -51,11 +51,9 @@ class Login extends Component {
       Axios.post("http://localhost:3001/login/verify", this.state).then(
         (response) => {
           if (response.status == 200) {
-            //console.log(response.data);
             this.state.id = response.data.id;
             this.state.creds = response.data.type;
             this.setSession();
-            this.setState({ redirect: true });
           }
         }
       );
@@ -69,15 +67,14 @@ class Login extends Component {
   setSession = () => {
     Axios.post("http://localhost:3001/session", this.state, {
       withCredentials: true,
-    });
+    }).then(() => {
+        this.setState({ redirect: true });
+      }
+    )
   };
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      /*userProfile.setSession(true);
-      userProfile.setType(this.state.creds);
-      userProfile.setName(this.state.email);*/
-      //console.log(this.state);
       return <Redirect to="/account" />;
     }
   };

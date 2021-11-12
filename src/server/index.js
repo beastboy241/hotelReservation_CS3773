@@ -107,7 +107,7 @@ app.post("/login/create", async (req, res) => {
           console.log(err);
           res.status(500).send("Failed to Create Account: " + err);
         } else {
-          res.send("Account Successfully Created");
+          res.send({msg: "Account Successfully Created", id: result.insertId});
         }
       }
     );
