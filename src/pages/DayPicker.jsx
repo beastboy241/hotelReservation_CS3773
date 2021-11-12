@@ -31,11 +31,11 @@ export default class DatePicker extends React.Component {
     return (
       <div className="date-container" style={{color: "black"}}>
         {startDay && <p>Day: {startDay.toLocaleDateString()}</p>}
-        {!startDay && <p>Choose a day</p>}
+        {!startDay && <p style={{color: "white"}}> From </p>}
         <DayPickerInput onDayChange={this.handleStartDayChange} />
-
+        <p> </p>
         {endDay && <p>Day: {endDay.toLocaleDateString()}</p>}
-        {!endDay && <p>Choose a day</p>}
+        {!endDay && <p style={{color: "white"}}> To </p>}
         <DayPickerInput onDayChange={this.handleEndDayChange} />
       </div>
     );
