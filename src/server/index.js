@@ -5,7 +5,6 @@ const session = require("express-session");
 const mysql = require("mysql");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
-///const cookieParser = require("cookie-parser");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -23,7 +22,6 @@ app.use(
   }),
   express.json(),
   express.urlencoded({ extended: true }),
-  //cookieParser(),
   session({
     secret: "secret-key",
     resave: false,
@@ -32,6 +30,7 @@ app.use(
       sameSite: false,
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
+      secure: false,
     },
   })
 );
