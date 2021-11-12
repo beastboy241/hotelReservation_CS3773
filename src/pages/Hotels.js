@@ -6,10 +6,8 @@ import {Amenity} from "../components/AmenityTable";
 import { render } from "@testing-library/react";
 import axios from "axios";
 import { setConstantValue } from "typescript";
-
-
-
-
+import "../pages/DayPicker.jsx";
+import DatePicker from "../pages/DayPicker";
 
 const Hotels = () => {
   const [input, setInput] = useState("");
@@ -120,8 +118,10 @@ const updateOffice= async () => {
     <>
 
       <div className="search_section">
+      <div>
+         <DatePicker/>
+      </div>
         <input className="searchBar" type="search" placeholder={"search hotel..."} id="input" onChange={updateInput} />
-      
       <div className="container grid-2">
         <div className="column-1">
           <table>
