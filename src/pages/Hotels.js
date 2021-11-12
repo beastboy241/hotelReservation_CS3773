@@ -118,9 +118,6 @@ const updateOffice= async () => {
     <>
 
       <div className="search_section">
-      <div>
-         <DatePicker/>
-      </div>
         <input className="searchBar" type="search" placeholder={"search hotel..."} id="input" onChange={updateInput} />
       <div className="container grid-2">
         <div className="column-1">
@@ -136,6 +133,7 @@ const updateOffice= async () => {
           <label><input type="checkbox" rel="office" onClick={updateOffice}/> Bussiness Office</label></td> 
             </tr>
           </table>
+          <DatePicker/>
         </div>
         <div className="column-2">
           <h5>Hotel Reference</h5>
