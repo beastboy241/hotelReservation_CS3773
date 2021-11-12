@@ -5,6 +5,7 @@ const session = require("express-session");
 const mysql = require("mysql");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+///const cookieParser = require("cookie-parser");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -14,14 +15,24 @@ const db = mysql.createConnection({
   multipleStatements: true,
 });
 
-app.use(cors());
-app.use(express.json());
 app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
+  }),
+  express.json(),
+  express.urlencoded({ extended: true }),
+  //cookieParser(),
   session({
     secret: "secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true },
+    cookie: {
+      sameSite: false,
+      maxAge: 1000 * 60 * 60 * 24,
+      httpOnly: true,
+    },
   })
 );
 
@@ -143,17 +154,17 @@ app.post("/login/verify", async (req, res) => {
 });
 
 /* Session */
-app.post("/session/set", (req, res) => {
+app.post("/session", (req, res) => {
   req.session.user = {
     id: req.body.id,
     type: req.body.creds,
   };
-  console.log("Session set", req.session.user);
-  res.send("Session updated");
+  console.log("Session set", req.session.id);
+  res.send(req.session.id);
 });
 
-app.get("/session/get", (req, res) => {
-  console.log("Session get", req.session.user);
+app.get("/session", (req, res) => {
+  console.log("Session get", req.session.id);
   res.send(req.session.user);
 });
 

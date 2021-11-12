@@ -54,6 +54,7 @@ class Login extends Component {
             //console.log(response.data);
             this.state.id = response.data.id;
             this.state.creds = response.data.type;
+            this.setSession();
             this.setState({ redirect: true });
           }
         }
@@ -65,14 +66,18 @@ class Login extends Component {
     this.setState({ [target.name]: target.value });
   };
 
+  setSession = () => {
+    Axios.post("http://localhost:3001/session", this.state, {
+      withCredentials: true,
+    });
+  };
+
   renderRedirect = () => {
     if (this.state.redirect) {
       /*userProfile.setSession(true);
       userProfile.setType(this.state.creds);
       userProfile.setName(this.state.email);*/
       //console.log(this.state);
-      Axios.post("http://localhost:3001/session/set", this.state);
-
       return <Redirect to="/account" />;
     }
   };

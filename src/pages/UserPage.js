@@ -4,10 +4,12 @@ import { Amenity } from "../components/AmenityTable";
 import "../css/styles.css";
 //import userProfile from "../userProfile";
 
-const userPage = () => {
-  Axios.get("http://localhost:3001/session/get").then((response) => {
-    console.log(response);
-  });
+const UserPage = () => {
+  useEffect(() => {
+    Axios.get("http://localhost:3001/session").then((response) => {
+      console.log(response);
+    });
+  }, []);
   return (
     <>
       <body>
@@ -22,4 +24,4 @@ const userPage = () => {
   );
 };
 
-export default userPage;
+export default UserPage;
