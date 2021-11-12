@@ -15,7 +15,8 @@ class Login extends Component {
       firstName: "",
       lastName: "",
       phoneNumber: "",
-      creds: '',
+      creds: "",
+      id: 0,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -31,13 +32,13 @@ class Login extends Component {
       alert("Error! Some fields are missing.");
     } else {
       Axios.post("http://localhost:3001/login/create", this.state).then(
-        (response) =>{
-          if(response.status == 200){
-            this.state.creds = 'u';
-            this.setState({redirect: true});
+        (response) => {
+          if (response.status == 200) {
+            this.state.creds = "u";
+            this.setState({ redirect: true });
           }
         }
-      )
+      );
     }
   }
 
@@ -48,13 +49,15 @@ class Login extends Component {
       alert("Please make sure both email and password are filled out.");
     } else {
       Axios.post("http://localhost:3001/login/verify", this.state).then(
-        (response) =>{
-          if(response.status == 200){
+        (response) => {
+          if (response.status == 200) {
+            //console.log(response.data);
+            this.state.id = response.data.id;
             this.state.creds = response.data.type;
-            this.setState({redirect: true});
+            this.setState({ redirect: true });
           }
         }
-      )
+      );
     }
   }
 
@@ -64,9 +67,12 @@ class Login extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      userProfile.setSession(true);
+      /*userProfile.setSession(true);
       userProfile.setType(this.state.creds);
-      userProfile.setName(this.state.email);
+      userProfile.setName(this.state.email);*/
+      //console.log(this.state);
+      Axios.post("http://localhost:3001/session/set", this.state);
+
       return <Redirect to="/account" />;
     }
   };

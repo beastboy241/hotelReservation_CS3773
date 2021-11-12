@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-//const session = require("express-session");
+const session = require("express-session");
 const mysql = require("mysql");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
@@ -16,11 +16,14 @@ const db = mysql.createConnection({
 
 app.use(cors());
 app.use(express.json());
-/*app.use(session({
-  secret: 'secret-key',
-  resave: false,
-  saveUninitialized: false
-}));*/
+app.use(
+  session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true },
+  })
+);
 
 /* Database */
 
@@ -82,7 +85,7 @@ app.post("/login/create", async (req, res) => {
   const email = req.body.email;
   const phone = req.body.phoneNumber;
 
-  try{
+  try {
     const hashedPass = await bcrypt.hash(req.body.password, 10);
     const sqlInsert =
       "INSERT INTO user (firstName, lastName, email, phone, password) VALUES (?, ?, ?, ?, ?)";
@@ -98,7 +101,7 @@ app.post("/login/create", async (req, res) => {
         }
       }
     );
-  }catch{
+  } catch {
     res.status(500).send();
   }
 });
@@ -106,19 +109,19 @@ app.post("/login/create", async (req, res) => {
 app.post("/login/verify", async (req, res) => {
   const email = req.body.email;
   const userPass = req.body.password;
-  let sqlPass = '';
+  let sqlPass = "";
   let userId = 0;
-  let type = '';
+  let type = "";
 
   const sqlSelect = "SELECT id, password, type FROM user WHERE email=?";
-  
+
   db.query(sqlSelect, email, async (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send("Database Query Failed " + err);
       return;
     }
-    if(result[0] == null){
+    if (result[0] == null) {
       res.status(404).send("User does not exist");
       return;
     }
@@ -126,26 +129,35 @@ app.post("/login/verify", async (req, res) => {
     type = result[0].type;
     sqlPass = result[0].password;
 
-    try{
+    try {
       if (await bcrypt.compare(userPass, sqlPass)) {
-        /*req.session.user = {
-          userId, type
-        }*/
-        res.send({"msg": "Login Success!", "type": type});
+        res.send({ msg: "Login Success!", id: userId, type: type });
       } else {
         res.send("Login Failed: Incorrect password");
       }
-    }catch{
+    } catch {
+      console.log("try failed");
       res.status(500).send();
     }
-  })
+  });
+});
+
+/* Session */
+app.post("/session/set", (req, res) => {
+  req.session.user = {
+    id: req.body.id,
+    type: req.body.creds,
+  };
+  console.log("Session set", req.session.user);
+  res.send("Session updated");
+});
+
+app.get("/session/get", (req, res) => {
+  console.log("Session get", req.session.user);
+  res.send(req.session.user);
 });
 
 /* Users */
-
-/*app.get("/session", (req, res) => {
-  res.send(req.session.user);
-})*/
 
 app.get("/get/users", (req, res) => {
   const sqlSelect =
@@ -255,9 +267,13 @@ app.post("/reserve", (req, res) => {
       [hotel_id, usr_id, roomToReserve, room_type, start_dt, end_dt],
       (err, result) => {
         if (err) {
-          res.status(500).send("Failed to book reservation: System error - " + err);
+          res
+            .status(500)
+            .send("Failed to book reservation: System error - " + err);
         } else {
-          res.status(201).send("Reservation made! Your room is #" + roomToReserve);
+          res
+            .status(201)
+            .send("Reservation made! Your room is #" + roomToReserve);
         }
       }
     );
