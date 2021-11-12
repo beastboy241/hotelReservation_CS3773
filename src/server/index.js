@@ -184,7 +184,7 @@ app.get("/get/users", (req, res) => {
 
 /* Hotel Data */
 
-app.get("/api/get/hotels", (req, res) => {
+app.get("/get/hotels", (req, res) => {
   const sqlSelect = "SELECT id, name, amenities, standard_price FROM hotel";
   db.query(sqlSelect, (err, result) => {
     if (err) {

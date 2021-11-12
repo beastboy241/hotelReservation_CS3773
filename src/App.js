@@ -13,8 +13,6 @@ import UserPage from "./pages/UserPage";
 
 import { BrowserRouter, Switch, Route} from "react-router-dom";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 function App() {
   return (
     <div className="App">
