@@ -128,7 +128,7 @@
     display: block;
     text-align: center;
     padding: 1.5rem;
-    margin: 2rem auto;
+    margin: 0.5rem auto;
     border-radius: 4px;
     width: 80%;
     background: #4ad9e4;
@@ -142,11 +142,5 @@
     color: #6568f4;
     transition: 250ms;
   }
-
-  Button {
-    display: none;
-  }
-
-
   
 }

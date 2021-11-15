@@ -132,16 +132,16 @@ column-2 {
 .singleHotels {
   background-color: #4468e4;
   width: 60%;
-  margin: 10% auto;
+  margin: 2rem auto;
   padding: 1.2rem;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 20px;
   color: #fefefe;
 
 }
 
 
-.container.grid-3 {
+.grid-3 {
   width: 100%;
   color: #000000;
   grid-template-columns: repeat(2,1fr);
@@ -334,10 +334,10 @@ column-2 {
 }
 
 
-@media only screen and (max-width: 600px) {
-  .container.grid-3 {
+@media screen and (max-width: 960px) {
+  .grid-3 {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.8fr 2fr;
+    grid-template-rows: 0.5fr 0.5fr;
     grid-template-areas: 
     "addon-hotel"
     "reserv-btn";

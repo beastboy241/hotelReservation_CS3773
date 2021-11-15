@@ -49,10 +49,10 @@ const SingleHotel = () => {
     <div className="singleHotels">
       <h2>{hotel.name}</h2>
       <div align={"center"}>
-        {hotel.amenities & Amenity.POOL ? <i className="fas fa-water"></i> : ""}
-        {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"></i> : ""}
-        {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"></i> : ""}
-        {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"></i> : ""}
+        {hotel.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i> : ""}
+        {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
+        {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
+        {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office</i> : ""}
       </div>
       <h3 style={{ textAlign: "center" }}> Room availability: {hotel.rooms} rooms </h3>
       <div style={{ float: "left" }}>
@@ -101,7 +101,7 @@ const SingleHotel = () => {
         </h5>
       </div>
 
-      <div className="container grid-3">
+      <div className="grid-3">
           <div className="hotelCol-1" id="addon-hotel">
             <h5 className="Type-title"> Room type </h5>
             <Select options={ actions } value={ selectedValue} onInputChange={handleInputChange} onChange={handleChange}/>
@@ -109,9 +109,8 @@ const SingleHotel = () => {
             <DatePicker/>
           </div>
           <div className="hotelCol-2" id="reserv-btn">
-              <form action="http://localhost:3000/hotels/checkout/">
-              <button className="reserv-btn" type="link">Reservation </button>
-              </form> 
+              <button className="reserv-btn" type="link"> Reservation </button>
+              
           </div>
         </div>
 
