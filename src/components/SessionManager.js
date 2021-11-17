@@ -5,14 +5,8 @@ Axios.defaults.withCredentials = true;
 
 
 let user = {
-    redirect: false,
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    creds: "",
     id: 0,
+    creds: "",
 }
 
 function fetch(){
