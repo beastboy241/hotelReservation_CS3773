@@ -153,19 +153,23 @@ app.post("/login/verify", async (req, res) => {
 });
 
 /* Session */
-app.post("/session", (req, res) => {
+app.post("/session/login", (req, res) => {
   req.session.user = {
     id: req.body.id,
-    type: req.body.creds,
+    creds: req.body.creds,
   };
-  console.log("Session set", req.session.id);
+  //console.log("Session set", req.session.id);
   res.send(req.session.id);
 });
 
-app.get("/session", (req, res) => {
+app.get("/session/fetch", (req, res) => {
   console.log("Session get", req.session.id);
   res.send(req.session.user);
 });
+
+app.get("/session/logout", (req, res) => {
+  req.session.destroy();
+})
 
 /* Users */
 

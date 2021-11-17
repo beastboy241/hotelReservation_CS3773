@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Amenity } from "../components/AmenityTable";
 import "../css/styles.css";
-import axios from "axios";
+//import session from "../components/SessionManager";
 
-axios.defaults.withCredentials = true;
+Axios.defaults.withCredentials = true;
 
 const UserPage = () => {
   const [userId, setId] = useState(0);
@@ -12,7 +12,7 @@ const UserPage = () => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/session", { withCredentials: true }).then(
+    Axios.get("http://localhost:3001/session/fetch", { withCredentials: true }).then(
       (response) => {
         setId(response.data.id);
         setCreds(response.data.type);

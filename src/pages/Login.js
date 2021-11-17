@@ -65,7 +65,7 @@ class Login extends Component {
   };
 
   setSession = () => {
-    Axios.post("http://localhost:3001/session", this.state, {
+    Axios.post("http://localhost:3001/session/login", this.state, {
       withCredentials: true,
     }).then(() => {
         this.setState({ redirect: true });
