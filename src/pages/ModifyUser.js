@@ -3,10 +3,11 @@ import Axios from "axios";
 import "../css/styles.css";
 import session from "../components/SessionManager";
 
+//Axios.defaults.withCredentials = true;
+
 const ModifyUser = () => {
   const user = session.GetUser();
-  const [userId, setId] = useState(0);
-  const [creds, setCreds] = useState("");
+  const [sessionFlag, setSession] = useState(false);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
@@ -14,17 +15,11 @@ const ModifyUser = () => {
   const [newPass, setNewPass] = useState("");
   const [repeatPass, setRepeatPass] = useState("");
 
-  const verifyUser = async () => {
-    setId(user.id);
-    setCreds(user.creds);
-    getUser(user.id);
-    setEmail(user.email);
-  };
-
   // For user page, loads in user information
   const getUser = async (id) => {
     await Axios.post("http://localhost:3001/get/user", { uid: id }).then(
       (response) => {
+        setEmail(response.data[0]["email"]);
         setName(
           response.data[0]["firstName"] + " " + response.data[0]["lastName"]
         );
@@ -164,274 +159,278 @@ const ModifyUser = () => {
     });
   };
 
-  useEffect(() => {
-    verifyUser();
-  }, []);
-
   // User account page
-  if (creds.length !== 0 && creds === "u") {
-    return (
-      <>
-        <div class="home-container">
-          <div class="home-title">
-            <h1>Update user profile</h1>
+  if (user.login) {
+    if (!sessionFlag) {
+      getUser(user.id);
+      setSession(true);
+    }
+    if (user.creds === "u") {
+      return (
+        <>
+          <div class="home-container">
+            <div class="home-title">
+              <h1>Update user profile</h1>
+            </div>
+
+            <form
+              className="account-form"
+              onSubmit={(evt) => evt.preventDefault()}
+            >
+              <div className="account-form-fields update">
+                <h5>Name</h5>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="New Name"
+                  value={name}
+                  onChange={() =>
+                    setName(document.getElementById("name").value)
+                  }
+                  required
+                />
+                <h5>E-mail Address</h5>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="New E-mail Address"
+                  value={email}
+                  onChange={() =>
+                    setEmail(document.getElementById("email").value)
+                  }
+                  required
+                />
+                <h5>Phone Number</h5>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="text"
+                  placeholder="New Phone Number"
+                  value={phone}
+                  onChange={() =>
+                    setPhone(document.getElementById("phone").value)
+                  }
+                  required
+                />
+              </div>
+              <button
+                id="submit"
+                className="btn-submit-form"
+                type="submit"
+                onClick={(e) => {
+                  updateUserProfile(
+                    user.id["userId"],
+                    { name }["name"],
+                    { email }["email"],
+                    { phone }["phone"],
+                    "u"
+                  );
+                }}
+              >
+                Save Changes
+              </button>
+            </form>
+
+            <form
+              className="account-form"
+              onSubmit={(evt) => evt.preventDefault()}
+            >
+              <div className="account-form-fields update">
+                <h5>Old Password</h5>
+                <input
+                  id="oldPass"
+                  name="oldPass"
+                  type="text"
+                  placeholder="Old Password"
+                  onChange={() =>
+                    setOldPass(document.getElementById("oldPass").value)
+                  }
+                  required
+                />
+                <h5>New Password</h5>
+                <input
+                  id="newPass"
+                  name="newPass"
+                  type="text"
+                  placeholder="New Password"
+                  onChange={() =>
+                    setNewPass(document.getElementById("newPass").value)
+                  }
+                  required
+                />
+                <h5>Repeat New Password</h5>
+                <input
+                  id="repeatPass"
+                  name="repeatPass"
+                  type="text"
+                  placeholder="Repeat New Password"
+                  onChange={() =>
+                    setRepeatPass(document.getElementById("repeatPass").value)
+                  }
+                  required
+                />
+              </div>
+              <button
+                id="updatePass"
+                className="btn-submit-form"
+                type="updatePass"
+                onClick={(e) => {
+                  updateUserPassword(
+                    user.id["userId"],
+                    { oldPass }["oldPass"],
+                    { newPass }["newPass"],
+                    { repeatPass }["repeatPass"]
+                  );
+                }}
+              >
+                Update Password
+              </button>
+            </form>
           </div>
+        </>
+      );
+    }
 
-          <form
-            className="account-form"
-            onSubmit={(evt) => evt.preventDefault()}
-          >
-            <div className="account-form-fields update">
-              <h5>Name</h5>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="New Name"
-                value={name}
-                onChange={() => setName(document.getElementById("name").value)}
-                required
-              />
-              <h5>E-mail Address</h5>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="New E-mail Address"
-                value={email}
-                onChange={() =>
-                  setEmail(document.getElementById("email").value)
-                }
-                required
-              />
-              <h5>Phone Number</h5>
-              <input
-                id="phone"
-                name="phone"
-                type="text"
-                placeholder="New Phone Number"
-                value={phone}
-                onChange={() =>
-                  setPhone(document.getElementById("phone").value)
-                }
-                required
-              />
+    // Admin account page
+    else if (user.creds === "a") {
+      return (
+        <>
+          <div class="home-container">
+            <div class="home-title">
+              <h1>Admin control panel</h1>
             </div>
-            <button
-              id="submit"
-              className="btn-submit-form"
-              type="submit"
-              onClick={(e) => {
-                updateUserProfile(
-                  { userId }["userId"],
-                  { name }["name"],
-                  { email }["email"],
-                  { phone }["phone"],
-                  "u"
-                );
-              }}
-            >
-              Save Changes
-            </button>
-          </form>
 
-          <form
-            className="account-form"
-            onSubmit={(evt) => evt.preventDefault()}
-          >
-            <div className="account-form-fields update">
-              <h5>Old Password</h5>
-              <input
-                id="oldPass"
-                name="oldPass"
-                type="text"
-                placeholder="Old Password"
-                onChange={() =>
-                  setOldPass(document.getElementById("oldPass").value)
-                }
-                required
-              />
-              <h5>New Password</h5>
-              <input
-                id="newPass"
-                name="newPass"
-                type="text"
-                placeholder="New Password"
-                onChange={() =>
-                  setNewPass(document.getElementById("newPass").value)
-                }
-                required
-              />
-              <h5>Repeat New Password</h5>
-              <input
-                id="repeatPass"
-                name="repeatPass"
-                type="text"
-                placeholder="Repeat New Password"
-                onChange={() =>
-                  setRepeatPass(document.getElementById("repeatPass").value)
-                }
-                required
-              />
-            </div>
-            <button
-              id="updatePass"
-              className="btn-submit-form"
-              type="updatePass"
-              onClick={(e) => {
-                updateUserPassword(
-                  { userId }["userId"],
-                  { oldPass }["oldPass"],
-                  { newPass }["newPass"],
-                  { repeatPass }["repeatPass"]
-                );
-              }}
+            <form
+              className="account-form"
+              onSubmit={(evt) => evt.preventDefault()}
             >
-              Update Password
-            </button>
-          </form>
-        </div>
-      </>
-    );
-  }
+              <div className="account-form-fields update">
+                <h5>User ID</h5>
+                <input
+                  id="userID"
+                  name="userID"
+                  type="text"
+                  placeholder="User ID"
+                  onChange={() =>
+                    loadUser(document.getElementById("userID").value)
+                  }
+                  required
+                />
+                <h5>Name</h5>
+                <input
+                  id="updateName"
+                  name="updateName"
+                  type="text"
+                  placeholder="New Name"
+                  required
+                />
+                <h5>E-mail Address</h5>
+                <input
+                  id="updateEmail"
+                  name="updateEmail"
+                  type="email"
+                  placeholder="New E-mail Address"
+                  required
+                />
+                <h5>Phone Number</h5>
+                <input
+                  id="updatePhone"
+                  name="updatePhone"
+                  type="text"
+                  placeholder="New Phone Number"
+                  required
+                />
+                <h5>Account Type</h5>
+                <select name="updateType" id="updateType">
+                  <option value="User">User</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+              <button
+                id="updateUser"
+                className="btn-submit-form"
+                type="updateUser"
+                onClick={(e) => {
+                  updateUserProfile(
+                    document.getElementById("userID").value,
+                    document.getElementById("updateName").value,
+                    document.getElementById("updateEmail").value,
+                    document.getElementById("updatePhone").value,
+                    document.getElementById("updateType").value
+                  );
+                }}
+              >
+                Update User
+              </button>
+            </form>
 
-  // Admin account page
-  else if (creds.length !== 0 && creds === "a")
-    return (
-      <>
-        <div class="home-container">
-          <div class="home-title">
-            <h1>Admin control panel</h1>
+            <form
+              className="account-form"
+              onSubmit={(evt) => evt.preventDefault()}
+            >
+              <div className="account-form-fields update">
+                <h5>Name</h5>
+                <input
+                  id="createName"
+                  name="createName"
+                  type="text"
+                  placeholder="Name"
+                  required
+                />
+                <h5>E-mail Address</h5>
+                <input
+                  id="createEmail"
+                  name="createEmail"
+                  type="email"
+                  placeholder="E-mail Address"
+                  required
+                />
+                <h5>Phone Number</h5>
+                <input
+                  id="createPhone"
+                  name="createPhone"
+                  type="text"
+                  placeholder="Phone Number"
+                  required
+                />
+                <h5>Password</h5>
+                <input
+                  id="createPass"
+                  name="createPass"
+                  type="password"
+                  placeholder="Password"
+                  required
+                />
+                <h5>Account Type</h5>
+                <select name="selectType" id="selectType">
+                  <option value="User">User</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+              <button
+                id="createUser"
+                className="btn-submit-form"
+                type="createUser"
+                onClick={(e) => {
+                  createUser(
+                    document.getElementById("createName").value,
+                    document.getElementById("createEmail").value,
+                    document.getElementById("createPhone").value,
+                    document.getElementById("createPass").value,
+                    document.getElementById("selectType").value
+                  );
+                }}
+              >
+                Create User
+              </button>
+            </form>
           </div>
-
-          <form
-            className="account-form"
-            onSubmit={(evt) => evt.preventDefault()}
-          >
-            <div className="account-form-fields update">
-              <h5>User ID</h5>
-              <input
-                id="userID"
-                name="userID"
-                type="text"
-                placeholder="User ID"
-                onChange={() =>
-                  loadUser(document.getElementById("userID").value)
-                }
-                required
-              />
-              <h5>Name</h5>
-              <input
-                id="updateName"
-                name="updateName"
-                type="text"
-                placeholder="New Name"
-                required
-              />
-              <h5>E-mail Address</h5>
-              <input
-                id="updateEmail"
-                name="updateEmail"
-                type="email"
-                placeholder="New E-mail Address"
-                required
-              />
-              <h5>Phone Number</h5>
-              <input
-                id="updatePhone"
-                name="updatePhone"
-                type="text"
-                placeholder="New Phone Number"
-                required
-              />
-              <h5>Account Type</h5>
-              <select name="updateType" id="updateType">
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
-              </select>
-            </div>
-            <button
-              id="updateUser"
-              className="btn-submit-form"
-              type="updateUser"
-              onClick={(e) => {
-                updateUserProfile(
-                  document.getElementById("userID").value,
-                  document.getElementById("updateName").value,
-                  document.getElementById("updateEmail").value,
-                  document.getElementById("updatePhone").value,
-                  document.getElementById("updateType").value
-                );
-              }}
-            >
-              Update User
-            </button>
-          </form>
-
-          <form
-            className="account-form"
-            onSubmit={(evt) => evt.preventDefault()}
-          >
-            <div className="account-form-fields update">
-              <h5>Name</h5>
-              <input
-                id="createName"
-                name="createName"
-                type="text"
-                placeholder="Name"
-                required
-              />
-              <h5>E-mail Address</h5>
-              <input
-                id="createEmail"
-                name="createEmail"
-                type="email"
-                placeholder="E-mail Address"
-                required
-              />
-              <h5>Phone Number</h5>
-              <input
-                id="createPhone"
-                name="createPhone"
-                type="text"
-                placeholder="Phone Number"
-                required
-              />
-              <h5>Password</h5>
-              <input
-                id="createPass"
-                name="createPass"
-                type="password"
-                placeholder="Password"
-                required
-              />
-              <h5>Account Type</h5>
-              <select name="selectType" id="selectType">
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
-              </select>
-            </div>
-            <button
-              id="createUser"
-              className="btn-submit-form"
-              type="createUser"
-              onClick={(e) => {
-                createUser(
-                  document.getElementById("createName").value,
-                  document.getElementById("createEmail").value,
-                  document.getElementById("createPhone").value,
-                  document.getElementById("createPass").value,
-                  document.getElementById("selectType").value
-                );
-              }}
-            >
-              Create User
-            </button>
-          </form>
-        </div>
-      </>
-    );
-  else return null;
+        </>
+      );
+    }
+  } else return null;
 };
 
 export default ModifyUser;

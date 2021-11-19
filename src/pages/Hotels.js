@@ -4,6 +4,7 @@ import _searchBar from "../components/searchBar";
 import "../css/styles.css";
 import { Amenity } from "../components/AmenityTable";
 import "../pages/DayPicker.jsx";
+import { useScrollTrigger } from "@material-ui/core";
 
 //import { render } from "@testing-library/react";
 // import { setConstantValue } from "typescript";
