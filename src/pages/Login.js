@@ -68,6 +68,7 @@ class Login extends Component {
   setSession = () => {
     session.set(this.state).then(() => {
       this.setState({ redirect: true })
+      window.location.reload();
     });
   };
 

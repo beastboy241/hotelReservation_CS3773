@@ -160,7 +160,7 @@ app.post("/session/login", (req, res) => {
     creds: req.body.creds,
     login: true,
   };
-  console.log("Session set", req.session.id);
+  //console.log("Session set", req.session.id);
   res.send(req.session.id);
 });
 
@@ -171,7 +171,7 @@ app.get("/session/fetch", (req, res) => {
     creds: "u",
     login: false
   }
-  console.log("Session get", req.session.id);
+  //console.log("Session get", req.session.id);
   if(req.session.user){
     res.send(req.session.user);
   }else{

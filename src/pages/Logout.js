@@ -10,10 +10,13 @@ const Logout = () =>{
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/session/logout", {withCredentials: true}).then(setRedirect(true));
+        Axios.get("http://localhost:3001/session/logout", {withCredentials: true}).then(
+            setRedirect(true)
+        );
     })
 
     if(redirect){
+        window.location.reload();
         return <Redirect to="/" />;
     }
 
