@@ -1,11 +1,14 @@
 .NavbarItems {
-  background: linear-gradient(90deg, rgb(110, 94, 254) 0%, rgba(73,63,252,1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgb(110, 94, 254) 0%,
+    rgba(73, 63, 252, 1) 100%
+  );
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-
 }
 
 .navbar-logo {
@@ -43,22 +46,26 @@
   background: #4ad9e4;
   border-radius: 4px;
 }
+.nav-links-admin {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: #e44a4a;
+  border-radius: 4px;
+}
 
 .nav-links-mobile:hover {
   background-color: #fff;
-
 }
 .nav-links:hover {
-    background-color: #6d76f7;
-    border-radius: 4px;
-    transition: all 0.2s ease-out;
+  background-color: #6d76f7;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
 }
 
 .fa-bars {
   color: #fff;
 }
-
-
 
 .menu-icon {
   display: none;
@@ -99,12 +106,11 @@
   .nav-links:hover {
     background-color: #7577fa;
     border-radius: 0;
-
   }
 
   .navbar-logo {
     position: absolute;
-    top: 0 ;
+    top: 0;
     left: 0;
     transform: translate(25%, 50%);
   }
@@ -142,5 +148,4 @@
     color: #6568f4;
     transition: 250ms;
   }
-  
 }

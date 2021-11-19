@@ -9,6 +9,7 @@ import SingleHotel from "./pages/SingleHotel";
 import Error from "./pages/Error";
 import AddHotel from "./pages/AddHotel";
 import UserPage from "./pages/UserPage";
+import Logout from "./pages/Logout";
 
 
 import { BrowserRouter, Switch, Route} from "react-router-dom";
@@ -21,8 +22,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/hotels/" component={Hotels} />
-
           <Route exact path="/login/" component={Login} />
+          <Route exact path="/logout/" component={Logout}/>
           <Route exact path="/hotels/:slug" component={SingleHotel} />
           <Route exact path="/account/" component={UserPage} />
           <Route component={Error} />
