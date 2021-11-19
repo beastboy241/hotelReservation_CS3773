@@ -60,6 +60,9 @@ const ModifyUser = () => {
           document.getElementById("updateUser").textContent = "Update User";
         }, 3000);
       }
+      
+      if(user.id === id)
+        session.set({id: user.id, email: newEmail, creds: type, login: true});
     });
   };
 
