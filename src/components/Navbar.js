@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="menu-icon" onClick={handleClick}>
         <i className={state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
       </div>
-      <ul className={state.clicked ? "nav-menu active" : "nav-menu"}>
+      <div className={state.clicked ? "nav-menu active" : "nav-menu"}>
         {MenuItems.map((item, index) => {
           let returnFlag = false;
 
@@ -33,15 +33,17 @@ const Navbar = () => {
 
           if (returnFlag) {
             return (
+              
               <li key={index}>
                 <a className={item.cName} href={item.url}>
                   {item.title}
                 </a>
               </li>
+              
             );
           }
         })}
-      </ul>
+      </div>
     </nav>
   );
 };
