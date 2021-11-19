@@ -1,9 +1,21 @@
-import React, { useEffect } from "react";
-import session from "../components/SessionManager";
+import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
+//import session from "../components/SessionManager";
+
+import Axios from "axios";
+
+Axios.defaults.withCredentials = true;
 
 const Logout = () =>{
-    session.logOut();
-    window.location = "http://localhost:3000/";
+    const [redirect, setRedirect] = useState(false);
+
+    useEffect(() => {
+        Axios.get("http://localhost:3001/session/logout", {withCredentials: true}).then(setRedirect(true));
+    })
+
+    if(redirect){
+        return <Redirect to="/" />;
+    }
 
     return (
         <></>

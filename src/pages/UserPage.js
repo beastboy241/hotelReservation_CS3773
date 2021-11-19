@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
 import { Amenity } from "../components/AmenityTable";
 import "../css/styles.css";
 import session from "../components/SessionManager";

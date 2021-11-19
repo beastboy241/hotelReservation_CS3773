@@ -160,13 +160,23 @@ app.post("/session/login", (req, res) => {
     creds: req.body.creds,
     login: true,
   };
-  console.log("Session set", req.session.id, "User: ", req.session.user);
+  console.log("Session set", req.session.id);
   res.send(req.session.id);
 });
 
 app.get("/session/fetch", (req, res) => {
-  console.log("Session get", req.session.id, "User: ", req.session.user);
-  res.send(req.session.user);
+  const defaultUser = {
+    id: 0,
+    email: "",
+    creds: "u",
+    login: false
+  }
+  console.log("Session get", req.session.id);
+  if(req.session.user){
+    res.send(req.session.user);
+  }else{
+    res.send(defaultUser);
+  }
 });
 
 app.get("/session/logout", (req, res) => {
