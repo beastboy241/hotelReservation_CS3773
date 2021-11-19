@@ -10,12 +10,11 @@ const UserPage = () => {
     <>
       <div class="home-container">
         <div class="home-title">
-          <h1> {user.email} Your hotel Reservation</h1>
-          <h2> hotel</h2>
+          <h1>Welcome {user.email}!</h1>
         </div>
       </div>
     </>
-  )
+  );
 };
 
 export default UserPage;
