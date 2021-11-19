@@ -5,7 +5,7 @@ import "../css/styles.css";
 import session from "../components/SessionManager";
 
 const UserPage = () => {
-  const user = session.useGetUser();
+  const user = session.GetUser();
 
   return (
     <>
@@ -16,7 +16,7 @@ const UserPage = () => {
         </div>
       </div>
     </>
-  );
+  )
 };
 
 export default UserPage;

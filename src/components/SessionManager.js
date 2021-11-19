@@ -3,32 +3,30 @@ import Axios from "axios";
 
 Axios.defaults.withCredentials = true;
 
-
-
+const defaultUser = {
+    id: 0,
+    email: "",
+    creds: "u",
+    login: false
+}
+    
 async function set(state){
     await Axios.post("http://localhost:3001/session/login", state, {
         withCredentials: true,
     })
 }
 
-function useGetUser(){
-
-    const [user, setUser] = useState([]); 
-
-    const defaultUser = {
-        id: 0,
-        email: "",
-        creds: "u",
-        login: false
-    }
-    
+function GetUser(){
+    const [user, setUser] = useState(defaultUser);
+        
     useEffect(() => {
         Axios.get("http://localhost:3001/session/fetch", { withCredentials: true }).then(
             (response) => {
-                if(response.data)
+                if(response.data){
                     setUser(response.data);
-                else
-                    setUser(defaultUser);
+                }else{
+                    setUser(defaultUser)
+                }
             }
         );
     }, []);
@@ -36,4 +34,4 @@ function useGetUser(){
     return user;
 }
 
-export default {set, useGetUser};
+export default {set, GetUser};
