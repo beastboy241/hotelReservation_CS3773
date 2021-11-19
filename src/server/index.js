@@ -49,6 +49,10 @@ app.get("/build", (req, res) => {
     .toString();
   const createUser = fs.readFileSync("./db_scripts/createUser.sql").toString();
 
+  const testData = fs
+  .readFileSync("./db_scripts/testData.sql")
+  .toString();
+
   let success = true;
   db.query(createHotel, (err, result) => {
     console.log(result);
@@ -75,6 +79,14 @@ app.get("/build", (req, res) => {
   });
 
   db.query(createUser, (err, result) => {
+    console.log(result);
+    if (err) {
+      success = false;
+      res.send("Error building: " + err);
+    }
+  });
+
+  db.query(testData, (err, result) => {
     console.log(result);
     if (err) {
       success = false;
