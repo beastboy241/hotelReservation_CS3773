@@ -31,7 +31,7 @@ export const MenuItems = [
 
   {
     title: 'Logout',
-    url: '/',
+    url: '/logout',
     cName: 'nav-links-mobile',
     type: 'logged in'
   },

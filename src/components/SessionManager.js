@@ -34,4 +34,8 @@ function GetUser(){
     return user;
 }
 
-export default {set, GetUser};
+async function logOut(){
+    await Axios.get("http://localhost:3001/session/logout", {withCredentials: true});
+}
+
+export default {set, logOut, GetUser};
