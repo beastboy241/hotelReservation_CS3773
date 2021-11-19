@@ -14,7 +14,7 @@ Enter root password
 
 ### ` CREATE USER 'admin'@'localhost' identified by 'password';`
 
-### ` GRANT ALL ON *.* TO 'admin'@'localhost';`
+### ` GRANT ALL ON hoteldb.* TO 'admin'@'localhost';`
 
 ### `flush privileges;`
 
