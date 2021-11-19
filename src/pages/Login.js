@@ -14,7 +14,7 @@ class Login extends Component {
       firstName: "",
       lastName: "",
       phoneNumber: "",
-      creds: "",
+      creds: "u",
       id: 0,
     };
     this.handleChange = this.handleChange.bind(this);

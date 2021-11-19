@@ -94,14 +94,15 @@ app.post("/login/create", async (req, res) => {
   const lname = req.body.lastName;
   const email = req.body.email;
   const phone = req.body.phoneNumber;
+  const creds = req.body.creds;
 
   try {
     const hashedPass = await bcrypt.hash(req.body.password, 10);
     const sqlInsert =
-      "INSERT INTO user (firstName, lastName, email, phone, password) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO user (firstName, lastName, email, phone, password, type) VALUES (?, ?, ?, ?, ?, ?)";
     db.query(
       sqlInsert,
-      [fname, lname, email, phone, hashedPass],
+      [fname, lname, email, phone, hashedPass, creds],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -138,9 +139,9 @@ app.post("/login/verify", async (req, res) => {
     userId = result[0].id;
     type = result[0].type;
     sqlPass = result[0].password;
-
+    
     try {
-      if (await bcrypt.compare(userPass, sqlPass)) {
+      if (await bcrypt.compare(userPass, sqlPass.toString())) {
         res.send({ msg: "Login Success!", id: userId, type: type });
       } else {
         res.send("Login Failed: Incorrect password");
@@ -180,6 +181,74 @@ app.get("/get/users", (req, res) => {
       res.send(result);
     }
   });
+});
+
+/* Retrieves user by id */
+
+app.post("/get/user", (req, res) => {
+  const userId = req.body.uid;
+  const sqlSelect = "SELECT email, firstName, lastName, phone, type FROM user WHERE id= ?";
+  db.query(sqlSelect, userId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+/* Updates user information */
+
+app.post("/update/user", (req, res) => {
+  const firstName = req.body.name.split(' ').slice(0, -1).join(' ');
+  const lastName = req.body.name.split(' ').slice(-1).join(' ');
+  const sqlSelect = "UPDATE user SET firstName=?, lastName=?, email=?, phone=?, type=? WHERE id=?";
+  db.query(sqlSelect, [firstName, lastName, req.body.email, req.body.phone, req.body.creds, req.body.uid], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+/* Updates user password */
+
+app.post("/update/password", async (req, res) => {
+  const oldPass = req.body.old;
+  const newPass = req.body.update;
+  const repeatPass = req.body.repeat;  
+  let hashedOldPass = ""
+  const hashedNewPass = await bcrypt.hash(newPass, 10);
+  const sqlPass = "SELECT password FROM user WHERE id=?";
+  const sqlUpdate = "UPDATE user SET password=? WHERE id=?";
+  
+  if(newPass !== repeatPass) {
+      console.log("no match");
+      return;
+  }
+ 
+  db.query(sqlPass, req.body.uid, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      hashedOldPass = result[0].password;
+    }
+  });
+     
+  if (bcrypt.compare(oldPass, hashedOldPass)) {
+      db.query(sqlUpdate, [hashedNewPass, req.body.uid], (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          res.send(result);
+        }
+      });
+  }
 });
 
 /* Hotel Data */

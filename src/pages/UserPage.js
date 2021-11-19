@@ -25,7 +25,7 @@ const UserPage = () => {
       <div class="home-container">
         <div class="home-title">
           <h1> {userId} Your hotel Reservation</h1>
-          <h2> hotel</h2>
+          <h1><a href="http://localhost:3000/account/edit" style={{"text-decoration":"none"}}>Enter profile page for user/admin {userId}</a></h1>
         </div>
       </div>
     </>
