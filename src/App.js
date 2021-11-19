@@ -10,9 +10,9 @@ import Error from "./pages/Error";
 import AddHotel from "./pages/AddHotel";
 import UserPage from "./pages/UserPage";
 import Logout from "./pages/Logout";
+import ModifyUser from "./pages/ModifyUser";
 
-
-import { BrowserRouter, Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -23,9 +23,10 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/hotels/" component={Hotels} />
           <Route exact path="/login/" component={Login} />
-          <Route exact path="/logout/" component={Logout}/>
+          <Route exact path="/logout/" component={Logout} />
           <Route exact path="/hotels/:slug" component={SingleHotel} />
           <Route exact path="/account/" component={UserPage} />
+          <Route exact path="/account/edit" component={ModifyUser} />
           <Route component={Error} />
         </Switch>
       </BrowserRouter>

@@ -10,7 +10,15 @@ const UserPage = () => {
     <>
       <div class="home-container">
         <div class="home-title">
-          <h1>Welcome {user.email}!</h1>
+          <h1> Welcome {user.email}!</h1>
+          <h1>
+            <a
+              href="http://localhost:3000/account/edit"
+              style={{ "text-decoration": "none" }}
+            >
+              Enter profile page for user/admin {user.id}
+            </a>
+          </h1>
         </div>
       </div>
     </>
