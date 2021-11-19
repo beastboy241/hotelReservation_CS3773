@@ -1,32 +1,60 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import Hero from "../components/Hero";
+import {Amenity} from "../components/AmenityTable";
+import Select from 'react-select';
+import "../css/styles.css";
+import DatePicker from "./DayPicker";
+
+
 
 const SingleHotel = () => {
   const [hotel, setHotel] = useState([]);
   let id = window.location.href.substring(
     window.location.href.lastIndexOf("/") + 1
   );
+  const actions = [
+    { label: "Standard", value:"standard_price"},
+    { label: "Queen", value:"queen_price"},
+    { label: "King", value:"king_price"}
+  ];
+
+  const [inputValue, setValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  const handleInputChange = value => {
+    setValue(value);
+  }
+
+  const handleChange = value => {
+    setSelectedValue(value);
+  }
+
+
+
+
+
+
 
   useEffect(() => {
-    Axios.post("http://localhost:3001/api/get/hotel", { hotelId: id }).then(
+    Axios.post("http://localhost:3001/get/hotel", { hotelId: id }).then(
       (response) => {
         setHotel(response.data[0]);
       }
     );
   }, []);
 
+
+
   return (
-    <div className="hotels">
-      <h2 style={{ fontWeight: "bold", float: "left" }}>{hotel.name}</h2>
-      <div style={{ float: "right" }}>
-        {hotel.amenities & 8 ? "🏊 " : ""}
-        {hotel.amenities & 4 ? "💪 " : ""}
-        {hotel.amenities & 2 ? "🧴 " : ""}
-        {hotel.amenities & 1 ? "💼 " : ""}
+    <div className="singleHotels">
+      <h2>{hotel.name}</h2>
+      <div align={"center"}>
+        {hotel.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i> : ""}
+        {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
+        {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
+        {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office</i> : ""}
       </div>
-      <br /> <br />
-      <h3 style={{ textAlign: "center" }}>{hotel.rooms} rooms</h3>
+      <h3 style={{ textAlign: "center" }}> Room availability: {hotel.rooms} rooms </h3>
       <div style={{ float: "left" }}>
         <h4 style={{ textIndent: 20 }}>Weekday</h4>
         <h5 style={{ textIndent: 40 }}>
@@ -61,6 +89,7 @@ const SingleHotel = () => {
               ).toFixed(2)
             : ""}
         </h5>
+
         <h5 style={{ textIndent: 40 }}>
           {hotel.king_price
             ? "King: $" +
@@ -71,6 +100,20 @@ const SingleHotel = () => {
             : ""}
         </h5>
       </div>
+
+      <div className="grid-3">
+          <div className="hotelCol-1" id="addon-hotel">
+            <h5 className="Type-title"> Room type </h5>
+            <Select options={ actions } value={ selectedValue} onInputChange={handleInputChange} onChange={handleChange}/>
+            <p/>
+            <DatePicker/>
+          </div>
+          <div className="hotelCol-2" id="reserv-btn">
+              <button className="reserv-btn" type="link"> Reservation </button>
+              
+          </div>
+        </div>
+
     </div>
   );
 };

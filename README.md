@@ -37,6 +37,8 @@ In the project directory, you can run:
 
 ### `npm install react-router-dom --save`
 
+### `npm install react-day-picker --save`
+
 ### `npm start`
 
 ## To run the server

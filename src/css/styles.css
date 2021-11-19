@@ -6,7 +6,7 @@
 }
 
 /* Home page */
-#body {
+body {
   background: url("./images/home.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -42,25 +42,138 @@
   padding: 10px;
 }
 
+/* Filter table */
+.container.grid-2 {
+  width: 50%;
+  color: #fefefe;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: left;
+  border-radius: 30px;
+  background: linear-gradient(90deg, rgb(86, 74, 202) 0%, rgba(73,63,252,1) 100%);
+}
+
+.column-1 {
+  display: flex;
+  padding: 0.5rem;
+}
+
+td {
+  padding: 0.5rem;
+}
+
+column-2 {
+  padding: 0.1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: #4ad9e4;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  
+}
+.btn:hover {
+  background-color: #fff;
+}
+/* .search_section {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 60%;
+  display: block;
+  margin: 0 auto;
+  background: linear-gradient(90deg, rgb(86, 74, 202) 0%, rgba(73,63,252,1) 100%);
+  text-align: center;
+  margin-top: 1.2rem;
+  color: #fefefe;
+} */
+
 .searchBar {
   display: block;
   text-align: center;
   width: 60%;
-  margin: 0 auto;
+  margin: 10px auto ;
   padding: 10px;
   border-radius: 20px;
+}
+.hotels {
+  background-color: #2e56e0;
+  width: 60%;
+  padding: 1.2rem;
+  margin: 2% auto;
+  text-align: center;
+  border-radius: 30px;
+  color: #f8f8f8;
+}
+
+.fa-water,
+.fa-dumbell,
+.fa-spa,
+.fa-briefcase {
+  padding: 1rem;
+  margin-right: 2px;
+}
+
+
+/*.hotel-img {
+  background-image: url(../css/images/hotel1.jpeg);
+} */
+
+/* Single Hote */
+.singleHotels {
+  background-color: #4468e4;
+  width: 60%;
+  margin: 2rem auto;
+  padding: 1.2rem;
+  text-align: center;
+  border-radius: 20px;
+  color: #fefefe;
 
 }
 
-.hotels {
-  background-color: #2e56e0;
-  width: 40%;
-  max-width: 1200px;
-  padding: 1.2rem;
-  margin: 2% auto;
+
+.grid-3 {
+  width: 100%;
+  color: #000000;
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  display: grid;
+  padding: 0.5rem;
   text-align: left;
   border-radius: 30px;
-  color: #f8f8f8;
+  
+}
+.Type-title {
+  color: #fefefe;
+}
+.hotelCol-1 {
+  margin-right: 1.5rem;
+}
+.hotelCol-2 {
+  margin-right: 1.5rem;
+}
+
+.reserv-btn {
+  margin-left: 60%;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: #4ad9e4;
+  border-radius: 8px;
+}
+
+.reserv-btn:hover {
+  background-color: #fff;
+  color: #4ad9e4;
 }
 
 /* Login Section */
@@ -218,4 +331,18 @@
 .btn-submit-form:focus {
   outline: none;
   background: #2e56e0;
+}
+
+
+@media screen and (max-width: 960px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 0.5fr;
+    grid-template-areas: 
+    "addon-hotel"
+    "reserv-btn";
+    align-items: center;
+    justify-content: center;
+  } 
+ 
 }
