@@ -81,6 +81,7 @@ column-2 {
   margin: 0.5rem;
   
 }
+
 .btn:hover {
   background-color: #fff;
 }
@@ -105,6 +106,7 @@ column-2 {
   padding: 10px;
   border-radius: 20px;
 }
+
 .hotels {
   background-color: #2e56e0;
   width: 60%;
@@ -113,6 +115,17 @@ column-2 {
   text-align: center;
   border-radius: 30px;
   color: #f8f8f8;
+}
+
+.hotels:hover {
+  width: 60%;
+  padding: 1.2rem;
+  margin: 2% auto;
+  text-align: center;
+  border-radius: 30px;
+  color: black;
+  background-color: #98c9e1;
+  font-weight: bold;
 }
 
 .fa-water,
@@ -152,12 +165,15 @@ column-2 {
   border-radius: 30px;
   
 }
+
 .Type-title {
   color: #fefefe;
 }
+
 .hotelCol-1 {
   margin-right: 1.5rem;
 }
+
 .hotelCol-2 {
   margin-right: 1.5rem;
 }
@@ -226,6 +242,7 @@ column-2 {
   width: 250px;
   overflow: visible;
 }
+
 .options {
   display: flex;
   font-size: 1.5rem;
