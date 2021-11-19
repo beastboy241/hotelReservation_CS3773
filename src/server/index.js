@@ -156,14 +156,16 @@ app.post("/login/verify", async (req, res) => {
 app.post("/session/login", (req, res) => {
   req.session.user = {
     id: req.body.id,
+    email: req.body.email,
     creds: req.body.creds,
+    login: true,
   };
-  //console.log("Session set", req.session.id);
+  console.log("Session set", req.session.id, "User: ", req.session.user);
   res.send(req.session.id);
 });
 
 app.get("/session/fetch", (req, res) => {
-  console.log("Session get", req.session.id);
+  console.log("Session get", req.session.id, "User: ", req.session.user);
   res.send(req.session.user);
 });
 

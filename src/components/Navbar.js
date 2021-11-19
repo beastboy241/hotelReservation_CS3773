@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MenuItems } from "../pages/MenuItems";
 import  '../css/Navbar.css';
+import session from './SessionManager';
 
 
 class Navbar extends Component {
@@ -9,8 +10,6 @@ class Navbar extends Component {
   handleClick = () => {
       this.setState({ clicked: !this.state.clicked })
   }
-
-
 
   render() {
     return(

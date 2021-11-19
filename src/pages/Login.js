@@ -2,6 +2,7 @@ import Axios from "axios";
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import "../css/styles.css";
+import session from "../components/SessionManager";
 
 class Login extends Component {
   constructor(props) {
@@ -65,12 +66,10 @@ class Login extends Component {
   };
 
   setSession = () => {
-    Axios.post("http://localhost:3001/session/login", this.state, {
-      withCredentials: true,
-    }).then(() => {
-        this.setState({ redirect: true });
-      }
-    )
+
+    session.set(this.state).then(() => {
+      this.setState({ redirect: true })
+    });
   };
 
   renderRedirect = () => {
