@@ -309,11 +309,11 @@ app.post("/get/hotel", (req, res) => {
 
 /* Reservations */
 
-app.post("/reserve", (req, res) => {
+app.post("/reserve", async (req, res) => {
   const hotel_id = req.body.hotelId;
   const usr_id = req.body.userId;
   const room_type = req.body.type;
-  const start_dt = red.body.startDt;
+  const start_dt = req.body.startDt;
   const end_dt = req.body.endDt;
 
   const sqlRoomsQuery = "SELECT rooms FROM hotel WHERE id = ?";
@@ -323,9 +323,8 @@ app.post("/reserve", (req, res) => {
     "INSERT INTO reservations (hotel_id, usr_id, room, type, start_dt, end_dt) VALUES (?, ?, ?, ?, ?, ?)";
 
   let rooms = 0;
-  db.query(sqlRoomsQuery, hotel_id, (err, result) => {
+  await db.query(sqlRoomsQuery, hotel_id, (err, result) => {
     rooms = result[0].rooms;
-
     if (err) {
       console.log(err);
       res.status(500).send(err);
@@ -337,7 +336,7 @@ app.post("/reserve", (req, res) => {
   let reservedRooms = [];
   for (let i = 1; i <= rooms; i++) {
     let conflict = false;
-    db.query(sqlSearch, [hotel_id, i], (err, result) => {
+    await db.query(sqlSearch, [hotel_id, i], (err, result) => {
       reservedRooms = result;
 
       if (err) {
@@ -369,25 +368,29 @@ app.post("/reserve", (req, res) => {
   }
 
   if (roomToReserve > 0) {
-    db.query(
+    await db.query(
       sqlInsert,
       [hotel_id, usr_id, roomToReserve, room_type, start_dt, end_dt],
       (err, result) => {
         if (err) {
-          res
-            .status(500)
-            .send("Failed to book reservation: System error - " + err);
+          res.send({
+            msg: "Failed to book reservation: System error - " + err,
+            success: false
+          });
         } else {
-          res
-            .status(201)
-            .send("Reservation made! Your room is #" + roomToReserve);
+          res.send({
+            msg: "Reservation made! Your room is #" + roomToReserve,
+            success: true,
+            room: roomToReserve
+          });
         }
       }
     );
   } else {
-    res.send(
-      "Failed to book reservation: All rooms occupied for requested timespan"
-    );
+    res.send({
+      msg: "Failed to book reservation: All rooms occupied for requested timespan",
+      success: false
+    });
   }
 });
 

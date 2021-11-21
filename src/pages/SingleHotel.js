@@ -4,10 +4,12 @@ import {Amenity} from "../components/AmenityTable";
 import Select from 'react-select';
 import "../css/styles.css";
 import DatePicker from "./DayPicker";
+import session from "../components/SessionManager";
 
 
 
 const SingleHotel = () => {
+  const user = session.GetUser();
   const [hotel, setHotel] = useState([]);
   let id = window.location.href.substring(
     window.location.href.lastIndexOf("/") + 1
@@ -21,10 +23,15 @@ const SingleHotel = () => {
   const [inputValue, setValue] = useState('');
   const [selectedValue, setSelectedValue] = useState(null);
 
+  const [room, setRoom] = useState();
+  const [reservationMade, setReservation] = useState(false);
+
   const [startDate, setStart] = useState();
   const [endDate, setEnd] = useState();
-
-  const msg = "Hello World";
+  const [clickMsg, setMsg] = useState({
+    msg: "",
+    display: false
+  });
 
   const handleInputChange = value => {
     setValue(value);
@@ -34,8 +41,33 @@ const SingleHotel = () => {
     setSelectedValue(value);
   }
 
-  const handleClick = () => {
-    console.log("I've been clicked!", selectedValue, startDate, endDate);
+  const handleClick = async () => {
+    if(!selectedValue || !startDate || !endDate){
+      setMsg({msg: "Missing input please check and try again...", display: true});
+    }
+    else if(startDate > endDate){
+      setMsg({msg: "Start Date must come before End Date...", display: true});
+    }
+    else if(reservationMade){
+      setMsg({msg: "You've already made a reservation for this hotel; room: " + room, display: true});
+    }
+    else{
+      await Axios.post("http://localhost:3001/reserve", {
+        hotelId: id,
+        usrId: user.id,
+        room_type: selectedValue.value,
+        start_dt: startDate,
+        end_dt: endDate 
+      }).then(
+        (response) => {
+          if(response.data.success){
+            setReservation(true);
+            setRoom(response.data.room);
+          }
+          setMsg({msg: response.data.msg, display: true});
+        }
+      )
+    }
   }
 
   const filteredActions = hotel => {
@@ -125,6 +157,7 @@ const SingleHotel = () => {
               <button className="reserv-btn" onClick={handleClick}> Reserve </button>
           </div>
       </div>
+      <p>{clickMsg.display ? clickMsg.msg : ""}</p>
     </div>
 
     </>
