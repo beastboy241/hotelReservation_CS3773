@@ -21,6 +21,11 @@ const SingleHotel = () => {
   const [inputValue, setValue] = useState('');
   const [selectedValue, setSelectedValue] = useState(null);
 
+  const [startDate, setStart] = useState();
+  const [endDate, setEnd] = useState();
+
+  const msg = "Hello World";
+
   const handleInputChange = value => {
     setValue(value);
   }
@@ -30,7 +35,7 @@ const SingleHotel = () => {
   }
 
   const handleClick = () => {
-    console.log("I've been clicked!", selectedValue, DatePicker.startDay, DatePicker.endDay);
+    console.log("I've been clicked!", selectedValue, startDate, endDate);
   }
 
   const filteredActions = hotel => {
@@ -114,7 +119,7 @@ const SingleHotel = () => {
             <h5 className="Type-title"> Room type </h5>
             <Select options={ filteredActions(hotel) } value={ selectedValue} onInputChange={handleInputChange} onChange={handleChange}/>
             <p/>
-            <DatePicker/>
+            <DatePicker startFunc={setStart} endFunc={setEnd}/>
           </div>
           <div className="hotelCol-2" id="reserv-btn">
               <button className="reserv-btn" onClick={handleClick}> Reserve </button>

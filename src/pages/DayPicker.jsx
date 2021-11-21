@@ -5,7 +5,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 
 
-class DatePicker extends React.Component {
+export default class DatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.handleStartDayChange = this.handleStartDayChange.bind(this);
@@ -13,23 +13,17 @@ class DatePicker extends React.Component {
     this.state = {
       startDay: undefined,
       endDay: undefined
-    }
+    };
   }
 
   handleStartDayChange(day) {
     this.setState({ startDay: day });
+    this.props.startFunc(day);
   }
 
   handleEndDayChange(day) {
     this.setState({ endDay: day });
-  }
-
-  get startDay(){
-    return this.startDay;
-  }
-
-  get endDay(){
-    return this.endDay;
+    this.props.endFunc(day);
   }
 
   render() {
@@ -37,6 +31,7 @@ class DatePicker extends React.Component {
     const { endDay } = this.state;
     return (
       <div className="date-container" style={{color: "black"}}>
+        <p>{this.message}</p>
         {startDay && <p style={{color: "white"}}>Check In: {startDay.toLocaleDateString()}</p>}
         {!startDay && <p style={{color: "white"}}> Check In: </p>}
         <DayPickerInput onDayChange={this.handleStartDayChange} />
@@ -48,6 +43,3 @@ class DatePicker extends React.Component {
     );
   }
 }
-
-
-export default DatePicker;
