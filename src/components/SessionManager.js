@@ -17,8 +17,8 @@ function GetUser() {
       withCredentials: true,
     }).then((response) => {
       setUser(response.data);
-      console.log("Response: ", response.data);
-      console.log("User: ", user);
+      //console.log("Response: ", response.data);
+      //console.log("User: ", user);
     });
   }, []);
 
