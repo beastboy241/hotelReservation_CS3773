@@ -182,6 +182,7 @@ const Hotels = () => {
                 ) : (
                   ""
                 )}
+                <i className="fas fa-wifi"> Wifi</i>
               </h5>
             </div>
           </a>
