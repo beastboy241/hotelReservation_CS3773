@@ -344,31 +344,31 @@ app.post("/reserve", async (req, res) => {
   });
 
   let roomToReserve = -1;
-  let reservedRooms = [];
+  let roomReservations = [];
   for (let i = 1; i <= rooms; i++) {
     let conflict = false;
-    reservedRooms = await new Promise((resolve, reject) => {
+    roomReservations = await new Promise((resolve, reject) => {
       db.query(sqlSearch, [hotel_id, i], (err, result) => {
         if (err) return reject(err);
         return resolve(result);
       });
     });
 
-    if (!reservedRooms[0]) {
+    if (!roomReservations[0]) {
       roomToReserve = i;
       break;
     }
 
-    reservedRooms.map((room) => {
-      let roomStart = room.start_dt.toISOString().split("T")[0];
-      let roomEnd = room.end_dt.toISOString().split("T")[0];
+    roomReservations.map((reservation) => {
+      let reservationStart = reservation.start_dt.toISOString().split("T")[0];
+      let reservationEnd = reservation.end_dt.toISOString().split("T")[0];
 
       if (
-        roomStart === start_dt ||
-        end_dt === roomEnd ||
-        (roomStart < start_dt && start_dt < roomEnd) ||
-        (roomStart < end_dt && end_dt < roomEnd) ||
-        (start_dt < roomStart && end_dt > roomEnd)
+        reservationStart === start_dt ||
+        end_dt === reservationEnd ||
+        (reservationStart < start_dt && start_dt < reservationEnd) ||
+        (reservationStart < end_dt && end_dt < reservationEnd) ||
+        (start_dt < reservationStart && end_dt > reservationEnd)
       ) {
         conflict = true;
       }
