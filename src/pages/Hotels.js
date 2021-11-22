@@ -36,22 +36,6 @@ const Hotels = () => {
     setHotelList(filtered);
   };
 
-  //Range Selector
-
-  /* const [priceRange, setPriceRange] = useState({
-   min: 0,
-   max: "",
- });
-
- const handleRange = (e) => {
-   const { name, value } = e.target;
-   setPriceRange((prev) => {
-     return {
-       ...prev,
-       [name]: value,
-     };
-   });
- };*/
   const standardPrice = () => {
     const filtered = hotelListDefault.filter((hotel) => {
       return hotel.standard_price <= 50;
@@ -65,35 +49,36 @@ const Hotels = () => {
     setHotelList(filtered);
   };
 
-  // Pool chekced
-  const updatePool = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.POOL;
+  const [searchAmenities, setAmenities] = useState(0);
+  const updateAmenity = async (ref) => {
+    const amenity = await new Promise((resolve, reject) => {
+      switch (ref.target.attributes.rel.value) {
+        case "pool":
+          return resolve(Amenity.POOL);
+          break;
+        case "gym":
+          return resolve(Amenity.GYM);
+          break;
+        case "spa":
+          return resolve(Amenity.SPA);
+          break;
+        case "office":
+          return resolve(Amenity.OFFICE);
+          break;
+        case "wifi":
+          return resolve(Amenity.WIFI);
+          break;
+      }
     });
-    setHotelList(filtered);
-  };
 
-  // Gym checked
-  const updateGym = async () => {
     const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.GYM;
+      return (
+        (hotel.amenities & (searchAmenities ^ amenity)) ==
+        (searchAmenities ^ amenity)
+      );
     });
-    setHotelList(filtered);
-  };
 
-  // Spa checked
-  const updateSpa = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.SPA;
-    });
-    setHotelList(filtered);
-  };
-
-  // Office checked
-  const updateOffice = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.OFFICE;
-    });
+    setAmenities(searchAmenities ^ amenity);
     setHotelList(filtered);
   };
 
@@ -118,23 +103,32 @@ const Hotels = () => {
             <tr>
               <td>
                 <label>
-                  <input type="checkbox" rel="pool" onClick={updatePool} /> Pool
+                  <input type="checkbox" rel="pool" onClick={updateAmenity} />{" "}
+                  Pool
                 </label>
               </td>
               <td>
                 <label>
-                  <input type="checkbox" rel="gym" onClick={updateGym} /> Gym
+                  <input type="checkbox" rel="gym" onClick={updateAmenity} />{" "}
+                  Gym
                 </label>
               </td>
               <td>
                 <label>
-                  <input type="checkbox" rel="spa" onClick={updateSpa} /> Spa
+                  <input type="checkbox" rel="spa" onClick={updateAmenity} />{" "}
+                  Spa
                 </label>
               </td>
               <td>
                 <label>
-                  <input type="checkbox" rel="office" onClick={updateOffice} />{" "}
-                  Bussiness Office
+                  <input type="checkbox" rel="office" onClick={updateAmenity} />{" "}
+                  Office
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" rel="wifi" onClick={updateAmenity} />{" "}
+                  WiFi
                 </label>
               </td>
             </tr>
@@ -182,7 +176,11 @@ const Hotels = () => {
                 ) : (
                   ""
                 )}
-                <i className="fas fa-wifi"> Wifi</i>
+                {hotel.amenities & Amenity.WIFI ? (
+                  <i className="fas fa-wifi"> Wifi</i>
+                ) : (
+                  ""
+                )}
               </h5>
             </div>
           </a>
