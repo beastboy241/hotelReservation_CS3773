@@ -10,11 +10,10 @@ import { useScrollTrigger } from "@material-ui/core";
 // import { setConstantValue } from "typescript";
 
 const Hotels = () => {
-  const [input, setInput] = useState("");
-  const [hotelListDefault, setHotelListDefault] = useState();
+  const [hotelListFiltered, setHotelListFiltered] = useState([]);
+  const [hotelListDefault, setHotelListDefault] = useState([]);
   const [hotelList, setHotelList] = useState([]);
-  const [state, setState] = useState(null);
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState(false);
 
   const fetchData = async () => {
     return await Axios.get("http://localhost:3001/get/hotels").then(
@@ -26,11 +25,11 @@ const Hotels = () => {
     );
   };
 
-  const updateInput = async () => {
-    setInput(document.getElementById("input").value);
-    console.log("Got Here");
+  const updateInput = async (ref) => {
     const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.name.toLowerCase().includes(input.toLowerCase());
+      return hotel.name
+        .toLowerCase()
+        .includes(ref.target._valueTracker.getValue().toLowerCase());
     });
 
     setHotelList(filtered);
