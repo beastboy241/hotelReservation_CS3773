@@ -49,9 +49,7 @@ app.get("/build", (req, res) => {
     .toString();
   const createUser = fs.readFileSync("./db_scripts/createUser.sql").toString();
 
-  const testData = fs
-  .readFileSync("./db_scripts/testData.sql")
-  .toString();
+  const testData = fs.readFileSync("./db_scripts/testData.sql").toString();
 
   let success = true;
   db.query(createHotel, (err, result) => {
@@ -120,7 +118,10 @@ app.post("/login/create", async (req, res) => {
           console.log(err);
           res.status(500).send("Failed to Create Account: " + err);
         } else {
-          res.send({msg: "Account Successfully Created", id: result.insertId});
+          res.send({
+            msg: "Account Successfully Created",
+            id: result.insertId,
+          });
         }
       }
     );
@@ -151,7 +152,7 @@ app.post("/login/verify", async (req, res) => {
     userId = result[0].id;
     type = result[0].type;
     sqlPass = result[0].password;
-    
+
     try {
       if (await bcrypt.compare(userPass, sqlPass.toString())) {
         res.send({ msg: "Login Success!", id: userId, type: type });
@@ -182,19 +183,19 @@ app.get("/session/fetch", (req, res) => {
     id: 0,
     email: "",
     creds: "u",
-    login: false
-  }
+    login: false,
+  };
   //console.log("Session get", req.session.id);
-  if(req.session.user){
+  if (req.session.user) {
     res.send(req.session.user);
-  }else{
+  } else {
     res.send(defaultUser);
   }
 });
 
 app.get("/session/logout", (req, res) => {
   req.session.destroy();
-})
+});
 
 /* Users */
 
@@ -215,7 +216,8 @@ app.get("/get/users", (req, res) => {
 
 app.post("/get/user", (req, res) => {
   const userId = req.body.uid;
-  const sqlSelect = "SELECT email, firstName, lastName, phone, type FROM user WHERE id= ?";
+  const sqlSelect =
+    "SELECT email, firstName, lastName, phone, type FROM user WHERE id= ?";
   db.query(sqlSelect, userId, (err, result) => {
     if (err) {
       console.log(err);
@@ -229,17 +231,29 @@ app.post("/get/user", (req, res) => {
 /* Updates user information */
 
 app.post("/update/user", (req, res) => {
-  const firstName = req.body.name.split(' ').slice(0, -1).join(' ');
-  const lastName = req.body.name.split(' ').slice(-1).join(' ');
-  const sqlSelect = "UPDATE user SET firstName=?, lastName=?, email=?, phone=?, type=? WHERE id=?";
-  db.query(sqlSelect, [firstName, lastName, req.body.email, req.body.phone, req.body.creds, req.body.uid], (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    } else {
-      res.send(result);
+  const firstName = req.body.name.split(" ").slice(0, -1).join(" ");
+  const lastName = req.body.name.split(" ").slice(-1).join(" ");
+  const sqlSelect =
+    "UPDATE user SET firstName=?, lastName=?, email=?, phone=?, type=? WHERE id=?";
+  db.query(
+    sqlSelect,
+    [
+      firstName,
+      lastName,
+      req.body.email,
+      req.body.phone,
+      req.body.creds,
+      req.body.uid,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        res.send(result);
+      }
     }
-  });
+  );
 });
 
 /* Updates user password */
@@ -247,17 +261,17 @@ app.post("/update/user", (req, res) => {
 app.post("/update/password", async (req, res) => {
   const oldPass = req.body.old;
   const newPass = req.body.update;
-  const repeatPass = req.body.repeat;  
-  let hashedOldPass = ""
+  const repeatPass = req.body.repeat;
+  let hashedOldPass = "";
   const hashedNewPass = await bcrypt.hash(newPass, 10);
   const sqlPass = "SELECT password FROM user WHERE id=?";
   const sqlUpdate = "UPDATE user SET password=? WHERE id=?";
-  
-  if(newPass !== repeatPass) {
-      console.log("no match");
-      return;
+
+  if (newPass !== repeatPass) {
+    console.log("no match");
+    return;
   }
- 
+
   db.query(sqlPass, req.body.uid, (err, result) => {
     if (err) {
       console.log(err);
@@ -266,16 +280,16 @@ app.post("/update/password", async (req, res) => {
       hashedOldPass = result[0].password;
     }
   });
-     
+
   if (bcrypt.compare(oldPass, hashedOldPass)) {
-      db.query(sqlUpdate, [hashedNewPass, req.body.uid], (err, result) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send(err);
-        } else {
-          res.send(result);
-        }
-      });
+    db.query(sqlUpdate, [hashedNewPass, req.body.uid], (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        res.send(result);
+      }
+    });
   }
 });
 
@@ -324,22 +338,21 @@ app.post("/reserve", async (req, res) => {
 
   const rooms = await new Promise((resolve, reject) => {
     db.query(sqlRoomsQuery, hotel_id, (err, result) => {
-      if(err) return reject(err);
+      if (err) return reject(err);
       return resolve(result[0].rooms);
-    })
-  })
-
+    });
+  });
 
   let roomToReserve = -1;
   let reservedRooms = [];
   for (let i = 1; i <= rooms; i++) {
     let conflict = false;
-    reservedRooms = await new Promise((resolve, reject) =>{
+    reservedRooms = await new Promise((resolve, reject) => {
       db.query(sqlSearch, [hotel_id, i], (err, result) => {
         if (err) return reject(err);
         return resolve(result);
-      })
-    })
+      });
+    });
 
     if (!reservedRooms[0]) {
       roomToReserve = i;
@@ -347,11 +360,12 @@ app.post("/reserve", async (req, res) => {
     }
 
     reservedRooms.map((room) => {
-      let roomStart = room.start_dt.toISOString().split('T')[0];
-      let roomEnd = room.end_dt.toISOString().split('T')[0];
+      let roomStart = room.start_dt.toISOString().split("T")[0];
+      let roomEnd = room.end_dt.toISOString().split("T")[0];
 
       if (
-        (roomStart === start_dt && end_dt === roomEnd) ||
+        roomStart === start_dt ||
+        end_dt === roomEnd ||
         (roomStart < start_dt && start_dt < roomEnd) ||
         (roomStart < end_dt && end_dt < roomEnd) ||
         (start_dt < roomStart && end_dt > roomEnd)
@@ -374,13 +388,13 @@ app.post("/reserve", async (req, res) => {
         if (err) {
           res.send({
             msg: "Failed to book reservation: System error - " + err,
-            success: false
+            success: false,
           });
         } else {
           res.send({
             msg: "Reservation made! Your room is #" + roomToReserve,
             success: true,
-            room: roomToReserve
+            room: roomToReserve,
           });
         }
       }
@@ -388,7 +402,7 @@ app.post("/reserve", async (req, res) => {
   } else {
     res.send({
       msg: "Failed to book reservation: All rooms occupied for requested timespan",
-      success: false
+      success: false,
     });
   }
   //res.send({msg: "", success: false});
