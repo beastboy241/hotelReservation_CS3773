@@ -52,13 +52,20 @@ const SingleHotel = () => {
       setMsg({msg: "You've already made a reservation for this hotel; room: " + room, display: true});
     }
     else{
-      await Axios.post("http://localhost:3001/reserve", {
+
+      let reservation ={
         hotelId: id,
-        usrId: user.id,
-        room_type: selectedValue.value,
-        start_dt: startDate,
-        end_dt: endDate 
-      }).then(
+        usrId: 0,
+        type: selectedValue.value,
+        startDt: startDate.toISOString().split('T')[0],
+        endDt: endDate.toISOString().split('T')[0]
+      }
+
+      if(user.login){
+        reservation["usrId"] = user.id;
+      }
+
+      await Axios.post("http://localhost:3001/reserve", reservation).then(
         (response) => {
           if(response.data.success){
             setReservation(true);

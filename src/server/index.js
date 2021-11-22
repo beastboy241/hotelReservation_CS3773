@@ -311,7 +311,7 @@ app.post("/get/hotel", (req, res) => {
 
 app.post("/reserve", async (req, res) => {
   const hotel_id = req.body.hotelId;
-  const usr_id = req.body.userId;
+  const usr_id = req.body.usrId;
   const room_type = req.body.type;
   const start_dt = req.body.startDt;
   const end_dt = req.body.endDt;
@@ -322,29 +322,24 @@ app.post("/reserve", async (req, res) => {
   const sqlInsert =
     "INSERT INTO reservations (hotel_id, usr_id, room, type, start_dt, end_dt) VALUES (?, ?, ?, ?, ?, ?)";
 
-  let rooms = 0;
-  await db.query(sqlRoomsQuery, hotel_id, (err, result) => {
-    rooms = result[0].rooms;
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-      return;
-    }
-  });
+  const rooms = await new Promise((resolve, reject) => {
+    db.query(sqlRoomsQuery, hotel_id, (err, result) => {
+      if(err) return reject(err);
+      return resolve(result[0].rooms);
+    })
+  })
+
 
   let roomToReserve = -1;
   let reservedRooms = [];
   for (let i = 1; i <= rooms; i++) {
     let conflict = false;
-    await db.query(sqlSearch, [hotel_id, i], (err, result) => {
-      reservedRooms = result;
-
-      if (err) {
-        console.log(err);
-        res.status(500).send(err);
-        return;
-      }
-    });
+    reservedRooms = await new Promise((resolve, reject) =>{
+      db.query(sqlSearch, [hotel_id, i], (err, result) => {
+        if (err) return reject(err);
+        return resolve(result);
+      })
+    })
 
     if (!reservedRooms[0]) {
       roomToReserve = i;
@@ -352,10 +347,14 @@ app.post("/reserve", async (req, res) => {
     }
 
     reservedRooms.map((room) => {
+      let roomStart = room.start_dt.toISOString().split('T')[0];
+      let roomEnd = room.end_dt.toISOString().split('T')[0];
+
       if (
-        (room.start_dt < start_dt && start_dt < room.endDt) ||
-        (room.start_dt < end_dt && end_dt < room.end_dt) ||
-        (start_dt < room.start_dt && end_dt > room.end_dt)
+        (roomStart === start_dt && end_dt === roomEnd) ||
+        (roomStart < start_dt && start_dt < roomEnd) ||
+        (roomStart < end_dt && end_dt < roomEnd) ||
+        (start_dt < roomStart && end_dt > roomEnd)
       ) {
         conflict = true;
       }
@@ -392,6 +391,7 @@ app.post("/reserve", async (req, res) => {
       success: false
     });
   }
+  //res.send({msg: "", success: false});
 });
 
 app.post("/get/reservations", (req, res) => {
