@@ -104,6 +104,7 @@ const SingleHotel = () => {
         {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
         {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
         {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office</i> : ""}
+        <i className="fas fa-wifi"> Wifi</i>
       </div>
       <h3>Room availability: {hotel.rooms} rooms </h3>
       <div className="grid-2">
