@@ -17,6 +17,7 @@ class Login extends Component {
       phoneNumber: "",
       creds: "u",
       id: 0,
+      msg: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -51,12 +52,11 @@ class Login extends Component {
     } else {
       Axios.post("http://localhost:3001/login/verify", this.state).then(
         (response) => {
+          this.setState({ msg: response.data.msg });
           if (response.data.success) {
             this.state.id = response.data.id;
             this.state.creds = response.data.type;
             this.setSession();
-          }else{
-            console.log(response.data.msg);
           }
         }
       );
@@ -69,8 +69,10 @@ class Login extends Component {
 
   setSession = () => {
     session.set(this.state).then(() => {
-      this.setState({ redirect: true })
-      window.location.reload();
+      setTimeout(() => {
+        this.setState({ redirect: true });
+        window.location.reload();
+      }, 500);
     });
   };
 
@@ -201,6 +203,7 @@ class Login extends Component {
             <span>Create an account</span>
           </div>
         </header>
+        <h6>{this.state.msg}</h6>
         <ul className="options">
           <li
             className={this.state.option === 1 ? "active" : ""}

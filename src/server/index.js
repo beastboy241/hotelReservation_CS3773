@@ -51,50 +51,62 @@ app.get("/build", (req, res) => {
 
   const testData = fs.readFileSync("./db_scripts/testData.sql").toString();
 
-  let success = true;
-  db.query(createHotel, (err, result) => {
-    console.log(result);
-    if (err) {
-      success = false;
-      res.send("Error building: " + err);
-    }
-  });
-
-  db.query(createReservations, (err, result) => {
-    console.log(result);
-    if (err) {
-      success = false;
-      res.send("Error building: " + err);
-    }
-  });
-
-  db.query(populateHotel, (err, result) => {
-    console.log(result);
-    if (err) {
-      success = false;
-      res.send("Error building: " + err);
-    }
-  });
-
-  db.query(createUser, (err, result) => {
-    console.log(result);
-    if (err) {
-      success = false;
-      res.send("Error building: " + err);
-    }
-  });
-
-  db.query(testData, (err, result) => {
-    console.log(result);
-    if (err) {
-      success = false;
-      res.send("Error building: " + err);
-    }
-  });
-
-  if (success) {
-    res.send("Success! Database built.");
+  try {
+    db.query(createHotel, (err, result) => {
+      console.log(result);
+      if (err) {
+        throw err;
+      }
+    });
+  } catch (err) {
+    res.send("Error Building: " + err);
   }
+
+  try {
+    db.query(createReservations, (err, result) => {
+      console.log(result);
+      if (err) {
+        throw err;
+      }
+    });
+  } catch (err) {
+    res.send("Error Building: " + err);
+  }
+
+  try {
+    db.query(populateHotel, (err, result) => {
+      console.log(result);
+      if (err) {
+        throw err;
+      }
+    });
+  } catch (err) {
+    res.send("Error Building: " + err);
+  }
+
+  try {
+    db.query(createUser, (err, result) => {
+      console.log(result);
+      if (err) {
+        throw err;
+      }
+    });
+  } catch (err) {
+    res.send("Error Building: " + err);
+  }
+
+  try {
+    db.query(testData, (err, result) => {
+      console.log(result);
+      if (err) {
+        throw err;
+      }
+    });
+  } catch (err) {
+    res.send("Error Building: " + err);
+  }
+
+  res.send("Success! Database built.");
 });
 
 /* Login/SignUp */
@@ -119,7 +131,7 @@ app.post("/login/create", async (req, res) => {
           res.status(500).send("Failed to Create Account: " + err);
         } else {
           res.send({
-            msg: "Account Successfully Created",
+            msg: "Account Created Successfully",
             id: result.insertId,
           });
         }
@@ -146,7 +158,7 @@ app.post("/login/verify", async (req, res) => {
       return;
     }
     if (result[0] == null) {
-      res.status(404).send("User does not exist");
+      res.send({ msg: "User does not exist", success: false });
       return;
     }
     userId = result[0].id;
@@ -155,9 +167,14 @@ app.post("/login/verify", async (req, res) => {
 
     try {
       if (await bcrypt.compare(userPass, sqlPass.toString())) {
-        res.send({ msg: "Login Success!", id: userId, type: type , success: true});
+        res.send({
+          msg: "Login Success!",
+          id: userId,
+          type: type,
+          success: true,
+        });
       } else {
-        res.send({ msg: "Login Failed: Incorrect password", success: false});
+        res.send({ msg: "Login Failed: Incorrect password", success: false });
       }
     } catch {
       console.log("try failed");
