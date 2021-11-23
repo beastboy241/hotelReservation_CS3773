@@ -18,23 +18,25 @@ export default class DatePicker extends React.Component {
 
   handleStartDayChange(day) {
     this.setState({ startDay: day });
+    this.props.startFunc(day);
   }
 
   handleEndDayChange(day) {
     this.setState({ endDay: day });
+    this.props.endFunc(day);
   }
-
 
   render() {
     const { startDay } = this.state;
     const { endDay } = this.state;
     return (
       <div className="date-container" style={{color: "black"}}>
-        {startDay && <p>Check In: {startDay.toLocaleDateString()}</p>}
+        <p>{this.message}</p>
+        {startDay && <p style={{color: "white"}}>Check In: {startDay.toLocaleDateString()}</p>}
         {!startDay && <p style={{color: "white"}}> Check In: </p>}
         <DayPickerInput onDayChange={this.handleStartDayChange} />
         <p> </p>
-        {endDay && <p>Check Out: {endDay.toLocaleDateString()}</p>}
+        {endDay && <p style={{color: "white"}}>Check Out: {endDay.toLocaleDateString()}</p>}
         {!endDay && <p style={{color: "white"}}> Check Out:</p>}
         <DayPickerInput onDayChange={this.handleEndDayChange} />
       </div>

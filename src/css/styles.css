@@ -153,6 +153,16 @@ column-2 {
 
 }
 
+.grid-2 {
+  width: 100%;
+  color: #fefefe;
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  display: grid;
+  padding: 0.5rem;
+  text-align: left;
+  border-radius: 30px;
+}
 
 .grid-3 {
   width: 100%;
@@ -163,7 +173,6 @@ column-2 {
   padding: 0.5rem;
   text-align: left;
   border-radius: 30px;
-  
 }
 
 .Type-title {
@@ -355,7 +364,7 @@ column-2 {
 
 
 @media screen and (max-width: 960px) {
-  .grid-3 {
+  .grid-2 .grid-3 {
     grid-template-columns: 1fr;
     grid-template-rows: 0.5fr 0.5fr;
     grid-template-areas: 
@@ -364,5 +373,4 @@ column-2 {
     align-items: center;
     justify-content: center;
   } 
- 
 }

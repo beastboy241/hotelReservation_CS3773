@@ -60,6 +60,9 @@ const ModifyUser = () => {
           document.getElementById("updateUser").textContent = "Update User";
         }, 3000);
       }
+      
+      if(user.id === id)
+        session.set({id: user.id, email: newEmail, creds: type, login: true});
     });
   };
 
@@ -220,8 +223,9 @@ const ModifyUser = () => {
                 className="btn-submit-form"
                 type="submit"
                 onClick={(e) => {
+                  console.log(user.id);
                   updateUserProfile(
-                    user.id["userId"],
+                    user.id,
                     { name }["name"],
                     { email }["email"],
                     { phone }["phone"],
@@ -278,7 +282,7 @@ const ModifyUser = () => {
                 type="updatePass"
                 onClick={(e) => {
                   updateUserPassword(
-                    user.id["userId"],
+                    user.id,
                     { oldPass }["oldPass"],
                     { newPass }["newPass"],
                     { repeatPass }["repeatPass"]
