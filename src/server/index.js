@@ -155,9 +155,9 @@ app.post("/login/verify", async (req, res) => {
 
     try {
       if (await bcrypt.compare(userPass, sqlPass.toString())) {
-        res.send({ msg: "Login Success!", id: userId, type: type });
+        res.send({ msg: "Login Success!", id: userId, type: type , success: true});
       } else {
-        res.send("Login Failed: Incorrect password");
+        res.send({ msg: "Login Failed: Incorrect password", success: false});
       }
     } catch {
       console.log("try failed");

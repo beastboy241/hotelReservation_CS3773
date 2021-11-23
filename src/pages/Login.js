@@ -51,10 +51,12 @@ class Login extends Component {
     } else {
       Axios.post("http://localhost:3001/login/verify", this.state).then(
         (response) => {
-          if (response.status == 200) {
+          if (response.data.success) {
             this.state.id = response.data.id;
             this.state.creds = response.data.type;
             this.setSession();
+          }else{
+            console.log(response.data.msg);
           }
         }
       );
