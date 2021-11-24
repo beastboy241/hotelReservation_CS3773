@@ -34,7 +34,7 @@ class Login extends Component {
     } else {
       Axios.post("http://localhost:3001/login/create", this.state).then(
         (response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             this.state.id = response.data.id;
             this.state.creds = "u";
             this.setSession();

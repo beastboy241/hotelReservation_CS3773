@@ -22,14 +22,14 @@ export const MenuItems = [
 
   {
     title: "Users",
-    url: "/",
+    url: "/users",
     cName: "nav-links-admin",
     type: "admin",
   },
 
   {
     title: "Reservations",
-    url: "/",
+    url: "/reservations",
     cName: "nav-links-admin",
     type: "admin",
   },

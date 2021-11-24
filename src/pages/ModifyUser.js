@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import "../css/styles.css";
 import session from "../components/SessionManager";
@@ -173,7 +173,7 @@ const ModifyUser = () => {
         <>
           <div class="home-container">
             <div class="home-title">
-              <h1>Update user profile</h1>
+              <h1>Update User Profile</h1>
             </div>
 
             <form
@@ -303,7 +303,7 @@ const ModifyUser = () => {
         <>
           <div class="home-container">
             <div class="home-title">
-              <h1>Admin control panel</h1>
+              <h1>Admin Control Panel</h1>
             </div>
 
             <form
