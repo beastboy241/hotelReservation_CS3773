@@ -19,7 +19,7 @@ const home = () => {
       </div>
       <footer>
         <div class="home-footer">
-          <p>  Copyright © 2021 All right reserved </p>
+          <p>  Copyright © 2021 All right reserved. Made by Group #2 </p>
         </div>
       </footer> 
       
