@@ -42,8 +42,8 @@ const UserPage = () => {
           return reservation.start_dt.toString().includes(input)
           || reservation.end_dt.toString().includes(input);
       else return reservation.type.toLowerCase().includes(input)
-          || reservation.room.toString().includes(input)
-          || (reservation.hotel_id * 1000 + reservation.room).toString().includes(input);
+          || reservation.id.toString().includes(input)
+          || (reservation.hotel_id * 1000 + reservation.id).toString().includes(input);
     });
     if(filteredHotel.length !== 0) {
         setHotelList(filteredHotel);
@@ -53,51 +53,6 @@ const UserPage = () => {
         setReservationList(filteredReservation);
         setHotelList(hotelListDefault);
     }
-  };
-  
-  const standardPrice = () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.standard_price <= 50;
-    });
-    setHotelList(filtered);
-  };
-  const luxuryPrice = () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.standard_price >= 100;
-    });
-    setHotelList(filtered);
-  };
-
-  // Pool chekced
-  const updatePool = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.POOL;
-    });
-    setHotelList(filtered);
-  };
-
-  // Gym checked
-  const updateGym = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.GYM;
-    });
-    setHotelList(filtered);
-  };
-
-  // Spa checked
-  const updateSpa = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.SPA;
-    });
-    setHotelList(filtered);
-  };
-
-  // Office checked
-  const updateOffice = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.OFFICE;
-    });
-    setHotelList(filtered);
   };
   
   
@@ -202,9 +157,9 @@ const UserPage = () => {
                         reservation.type = "King";
                     return (
                       <a
-                        href={"http://localhost:3000/account/" + (reservation.hotel_id * 1000 + reservation.room)}
+                        href={"http://localhost:3000/account/" + (reservation.hotel_id * 1000 + reservation.id)}
                         style={{ textDecoration: "none" }}
-                        key={reservation.hotel_id * 1000 + reservation.room}
+                        key={reservation.hotel_id * 1000 + reservation.id}
                       >
                         <div className="hotels">
                           <h2>{currentHotel['name']}</h2>
@@ -238,7 +193,7 @@ const UserPage = () => {
                           <h4>{reservation.type} Room</h4>
                           <h4>CHECK IN DATE: {reservation.start_dt}</h4>
                           <h4>CHECK OUT DATE: {reservation.end_dt}</h4>
-                          <h6>RESERVATION ID: {reservation.hotel_id * 1000 + reservation.room}</h6>
+                          <h6>RESERVATION ID: {reservation.hotel_id * 1000 + reservation.id}</h6>
                           {/*<button
                             id="cancelReservation"
                             className="btn-submit-form"

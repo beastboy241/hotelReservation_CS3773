@@ -14,13 +14,12 @@ const SingleReservation = () => {
   const [reservationUser, setReservationUser] = useState([]);
   let id = Math.floor(window.location.href.substring(
     window.location.href.lastIndexOf("/") + 1) / 1000);
-  let room = Math.floor(window.location.href.substring(
+  let rid = Math.floor(window.location.href.substring(
     window.location.href.lastIndexOf("/") + 1) % 1000);
 
   const cancelRoom = () => {
     Axios.post("http://localhost:3001/cancel/reservation", {
-      hotelId: id,
-      roomId: room,
+      reservation: rid,
     }).then((response) => {
       document.getElementById("cancelReservation").textContent = "Reservation Canceled!";
       document.getElementById("cancelReservation").style.backgroundColor = "#4ad9e4";
@@ -33,8 +32,7 @@ const SingleReservation = () => {
   
   const loadUserInformation = () => {
     Axios.post("http://localhost:3001/get/reservation/user", {
-      hotelId: id,
-      rid: room,
+      reservation: rid,
     }).then((response) => {
       setReservationUser(response.data[0]);
     });
@@ -47,7 +45,7 @@ const SingleReservation = () => {
       }
     );
     
-    Axios.post("http://localhost:3001/get/reservation", { hotelId: id, rid: room }).then(
+    Axios.post("http://localhost:3001/get/reservation", { reservation: rid, }).then(
       (response) => {
         let reservationData = response.data[0];
         reservationData['start_dt'] = reservationData['start_dt'].substring(0, 10);

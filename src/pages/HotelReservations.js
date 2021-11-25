@@ -25,9 +25,9 @@ const HotelReservations = () => {
         return reservation.start_dt.toString().includes(input)
           || reservation.end_dt.toString().includes(input);
         else return reservation.type.toLowerCase().includes(input)
-          || reservation.room.toString().includes(input)
-          || (reservation.hotel_id * 1000 + reservation.room).toString().includes(input)
-          || (id * 1000 + reservation.room).toString().includes(input);
+          || reservation.id.toString().includes(input)
+          || (reservation.hotel_id * 1000 + reservation.id).toString().includes(input)
+          || (id * 1000 + reservation.id).toString().includes(input);
     });
     setReservationList(filtered);
   };
@@ -92,9 +92,9 @@ const HotelReservations = () => {
                     reservation.type = "King";
                 return (
                   <a
-                    href={"http://localhost:3000/account/" + (id * 1000 + reservation.room)}
+                    href={"http://localhost:3000/account/" + (id * 1000 + reservation.id)}
                     style={{ textDecoration: "none" }}
-                    key={reservation.hotel_id * 1000 + reservation.room}
+                    key={reservation.hotel_id * 1000 + reservation.id}
                   >
                     <div className="hotels">
                       <h2>{currentHotel['name']}</h2>
@@ -129,7 +129,7 @@ const HotelReservations = () => {
                       <h4>CHECK IN DATE: {reservation.start_dt}</h4>
                       <h4>CHECK OUT DATE: {reservation.end_dt}</h4>
                       <h6>USER ID: {reservation.usr_id}</h6>
-                      <h6>RESERVATION ID: {id * 1000 + reservation.room}</h6>
+                      <h6>RESERVATION ID: {id * 1000 + reservation.id}</h6>
                     </div>
                   </a>
                   );

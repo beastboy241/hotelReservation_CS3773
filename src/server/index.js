@@ -430,7 +430,7 @@ app.post("/reserve", async (req, res) => {
 app.post("/get/reservations",  async (req, res) => {
   const user_id = req.body.id;
   const selectSql =
-    "SELECT hotel_id, room, type, start_dt, end_dt FROM reservations WHERE usr_id = ?";
+    "SELECT * FROM reservations WHERE usr_id = ?";
   db.query(selectSql, user_id, (err, result) => {
     if (err) {
       console.log(err);
@@ -441,14 +441,13 @@ app.post("/get/reservations",  async (req, res) => {
   });
 });
 
-/* Gets reservation data using hotel id and room id */
+/* Gets reservation data using reservation id */
 
 app.post("/get/reservation", (req, res) => {
-  const hotel_id = req.body.hotelId;
-  const room_id = req.body.rid;
+  const id = req.body.reservation;
   const selectSql =
-    "SELECT type, start_dt, end_dt FROM reservations WHERE hotel_id = ? AND room = ?";
-  db.query(selectSql, [hotel_id, room_id], (err, result) => {
+    "SELECT * FROM reservations WHERE id = ?";
+  db.query(selectSql, id, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
@@ -461,11 +460,10 @@ app.post("/get/reservation", (req, res) => {
 /* Gets user information by reservation */
 
 app.post("/get/reservation/user", (req, res) => {
-  const hotel_id = req.body.hotelId;
-  const room_id = req.body.rid;
-  const sqlSelect = "SELECT usr_id FROM reservations WHERE hotel_id = ? AND room = ?";
+  const id = req.body.reservation;
+  const sqlSelect = "SELECT usr_id FROM reservations WHERE id = ?";
   const sqlUser = "SELECT id, email, firstName, lastName, phone, type FROM user WHERE id= ?"
-  db.query(sqlSelect, [hotel_id, room_id], (err, result) => {
+  db.query(sqlSelect, id, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
@@ -487,7 +485,7 @@ app.post("/get/reservation/user", (req, res) => {
 app.post("/get/reservations/hotel", (req, res) => {
   const hotel_id = req.body.hotelId;
   const selectSql =
-    "SELECT usr_id, room, type, start_dt, end_dt FROM reservations WHERE hotel_id = ?";
+    "SELECT * FROM reservations WHERE hotel_id = ?";
   db.query(selectSql, hotel_id, (err, result) => {
     if (err) {
       console.log(err);
@@ -513,11 +511,10 @@ app.get("/get/reservations/all", (req, res) => {
 });
 
 app.post("/cancel/reservation", (req, res) => {
-  const hotel_id = req.body.hotelId;
-  const room_id = req.body.roomId;
+  const id = req.body.reservation;
   const selectSql =
-    "DELETE FROM reservations WHERE hotel_id = ? AND room = ?";
-  db.query(selectSql, [hotel_id, room_id], (err, result) => {
+    "DELETE FROM reservations WHERE id = ?";
+  db.query(selectSql, id, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
