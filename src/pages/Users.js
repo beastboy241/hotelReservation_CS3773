@@ -69,38 +69,32 @@ if (user.login) {
     if(user.creds === "a") {
       return (
         <>
-          <div class="home-container">
-            <div class="home-title">
+          <div class="user-container">
+            <div class="user-title">
                 <h1>User List</h1>
+            </div>
+            <div className="search_section">
+              <input
+               className="searchBar"
+                type="search"
+                placeholder={"search user..."}
+                id="input"
+                onChange={updateInput}
+              />
             </div>
           </div>
           
-          <div className="search_section">
-            <input
-              className="searchBar"
-              type="search"
-              placeholder={"search user..."}
-              id="input"
-              onChange={updateInput}
-            />
-          </div>
-          <div className="container grid-2">
-            <div className="column-1">
-              <table>
-                <tr>
-                  <td>
-                    <label>
+          
+          <div className="userlist-filter">
+            <table>
+              <td> User type:</td>
+              <td>
                       <input type="checkbox" id="userCheck" onClick={updateUser} /> User
-                    </label>
-                  </td>
-                  <td>
-                    <label>
+               </td>
+               <td>
                       <input type="checkbox" id="adminCheck" onClick={updateAdmin} /> Admin
-                    </label>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                </td>
+               </table>     
             </div>
            {userList.map((currentUser) => {
                if(currentUser.type === "u")
