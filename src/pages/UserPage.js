@@ -3,6 +3,8 @@ import { Amenity } from "../components/AmenityTable";
 import "../css/styles.css";
 import session from "../components/SessionManager";
 import Axios from "axios";
+import cancelRoom from "./SingleReservation";
+
 
 const UserPage = () => {
   const user = session.GetUser();
@@ -232,6 +234,16 @@ const UserPage = () => {
                           <h4>CHECK IN DATE: {reservation.start_dt}</h4>
                           <h4>CHECK OUT DATE: {reservation.end_dt}</h4>
                           <h6>RESERVATION ID: {reservation.hotel_id * 1000 + reservation.room}</h6>
+                          <button
+                            id="cancelReservation"
+                            className="btn-submit-form"
+                            type="cancelReservation"
+                            onClick={(e) => {
+                              cancelRoom();
+                            }}
+                          >
+                            Cancel Reservation
+                          </button>
                         </div>
                       </a>
                     );
