@@ -77,7 +77,7 @@ const SingleReservation = () => {
             {hotel.amenities & Amenity.WIFI ? <i className="fas fa-briefcase"> WiFi</i> : ""}
           </div>
           
-          <h4>{reservation.type} Room</h4>
+          <h4>{reservation.type} Room #{reservation.room}</h4>
           <h4>CHECK IN DATE: {reservation.start_dt}</h4>
           <h4>CHECK OUT DATE: {reservation.end_dt}</h4>
           <h6>USER ID: {reservationUser.id}</h6>

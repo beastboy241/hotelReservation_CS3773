@@ -125,7 +125,7 @@ const HotelReservations = () => {
                           ""
                         )}
                       </h5>
-                      <h4>{reservation.type} Room</h4>
+                      <h4>{reservation.type} Room #{reservation.room}</h4>
                       <h4>CHECK IN DATE: {reservation.start_dt}</h4>
                       <h4>CHECK OUT DATE: {reservation.end_dt}</h4>
                       <h6>USER ID: {reservation.usr_id}</h6>
