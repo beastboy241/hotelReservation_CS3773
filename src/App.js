@@ -28,9 +28,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/hotels/" component={Hotels} />
+          <Route exact path="/hotels/create" component={CreateHotel} />
           <Route exact path="/login/" component={Login} />
           <Route exact path="/logout/" component={Logout} />
           <Route exact path="/hotels/:slug" component={SingleHotel} />
+          <Route exact path="/hotels/:slug/update" component={ModifyHotel} />
           <Route exact path="/account/" component={UserPage} />
           <Route exact path="/account/edit" component={ModifyUser} />
           <Route exact path="/account/:slug" component={SingleReservation} />
@@ -46,7 +48,3 @@ function App() {
 }
 
 export default App;
- /*
-<Route exact path="/CreateHotel/" component={CreateHotel} />
-<Route exact path="/ModifyHotel/" component={ModifyHotel} />
-*/

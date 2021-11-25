@@ -8,128 +8,117 @@ const ModifyHotel = () => {
         <>
           <div class="home-container">
             <div class="home-title">
-              <h1>Admin Control Panel</h1>
+              <h1>Update Hotel</h1>
             </div>
             <form
               className="account-form"
               onSubmit={(evt) => evt.preventDefault()}
             >
-              <div className="account-form-fields update">
-                <h5>Hotel Name</h5>
-                <input
-                  id="updatedName"
-                  name="updatedName"
-                  type="text"
-                  placeholder="updatedName"
-                  required
-                />
-                <h5>Rooms</h5>
-                <input
-                  id="updateRooms"
-                  name="updateRooms"
-                  type="text"
-                  placeholder="New room number"
-                  required
-                />
-                <h5>Standard price </h5>
-                <input
-                  id="updateStandard"
-                  name="updateStandard"
-                  type="number"
-                  placeholder="New standard price"
-                  required
-                />
-               <h5>Queen price </h5>
-                <input
-                  id="updateQueen"
-                  name="updateQueen"
-                  type="number"
-                  placeholder="New queen price"
-                  required
-                />
-                <h5>King price </h5>
-                <input
-                  id="updateKing"
-                  name="updateKing"
-                  type="number"
-                  placeholder="New King price"
-                  required
-                />
-                <h5> Weekend differential </h5>
-                <input
-                  id="update_weekend_differentiale"
-                  name="update_weekend_differentiale"
-                  type="number"
-                  placeholder="New weekend differential"
-                  required
-                />
+            <input 
+            type="text" 
+            id="name" 
+            className='form-control' 
+            placeholder='Hotel name'
+            required/>
 
-                <div className="col-md-5">
-                <label>Pool</label>
-                <input 
-                type="checkbox" 
-                className='form-control' 
-                name="pool" 
-                id="pool" 
-                checked={this.state.pool}
-                onChange={this.handleInputChange} />         
+            <input 
+            type="number" 
+            id="rooms"
+            min="1"
+            className='form-control' 
+            placeholder='Number of rooms'
+            required/>
+
+            <input 
+            type="number"
+            step="0.01"
+            min="0"
+            id="standard_price" 
+            className='form-control' 
+            placeholder='Standard price'
+            required/>
+
+            <input 
+            type="number"
+            step="0.01"
+            min="0"
+            id="queen_price" 
+            className='form-control' 
+            placeholder='Queen price'
+            required/>
+
+            <input 
+            type="number"
+            step="0.01"
+            min="0"
+            id="king_price"
+            className='form-control'
+            placeholder='King price'
+            required/>
            
-                <label>Gym</label>
-                <input 
-                type="checkbox" 
-                className='form-control' 
-                name="gym"
-                id="gym" 
-                checked={this.state.gym}
-                onChange={this.handleInputChange} />         
+            <input 
+            type="number"
+            step="0.01"
+            min="0"
+            id="weekend_differential" 
+            className='form-control' 
+            placeholder='Weekend Differential'
+            required/>
+
+            <label>Pool</label>
+            <input 
+            type="checkbox"
+            name="pool" 
+            id="pool" 
+            />         
            
-                <label>Spa</label> 
-                <input 
-                type="checkbox" 
-                className='form-control' 
-                name="spa" 
-                id="spa" 
-                checked={this.state.spa} 
-                onChange={this.handleInputChange} />                        
+            <label>Gym</label>
+            <input 
+            type="checkbox" 
+            name="gym" id="gym" 
+            />         
+           
+            <label>Spa</label> 
+            <input 
+            type="checkbox"
+            name="spa" 
+            id="spa"
+            />                        
                      
-                 <label>Office</label>
-                 <input 
-                 type="checkbox" 
-                 className='form-control' 
-                 name="office" id="office" 
-                 name="office" 
-                 checked={this.state.office} 
-                 onChange={this.handleInputChange} />
+            <label>Office</label>
+            <input 
+            type="checkbox"
+            name="office"
+            id="office"
+            />
                   
-                <label>Wifi</label>
-                <input 
-                type="checkbox" 
-                className='form-control' 
-                name="wifi" id="wifi" 
-                checked={this.state.wifi}
-                onChange={this.handleInputChange} />  
-            </div>  
-
-        </div>
+            <label>Wifi</label>
+            <input 
+            type="checkbox"
+            name="wifi" 
+            id="wifi"
+            />
+          </form>
+            <div>
               <button
                 id="updateHotel"
                 className="btn-submit-form"
                 type="updateHotel"
                 onClick={(e) => {
                   ModifyHotel(
-                    document.getElementById("updatedName").value,
-                    document.getElementById("updateRooms").value,
-                    document.getElementById("updateStandard").value,
-                    document.getElementById("updateQueen").value,
-                    document.getElementById("updateKing").value,
-                    document.getElementById("update_weekend_differentiale").value
+                    document.getElementById("name").value,
+                    document.getElementById("rooms").value,
+                    document.getElementById("standard_price").value,
+                    document.getElementById("queen_price").value,
+                    document.getElementById("king_price").value,
+                    document.getElementById("weekend_differential").value
 
                   );
                 }}
               >
                 Update Hotel
               </button>
-            </form>
+            </div>
           </div>
         </>
       );
