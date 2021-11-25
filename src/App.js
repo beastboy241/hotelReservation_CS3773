@@ -39,8 +39,6 @@ function App() {
           <Route exact path="/reservations/" component={Reservations} />
           <Route exact path="/reservations/:slug" component={HotelReservations} />
           <Route component={Error} />
-          <Route exact path="/ModifyHotel/" component={ModifyHotel} />
-
         </Switch>
       </BrowserRouter>
     </div>
