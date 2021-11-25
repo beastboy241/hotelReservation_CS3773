@@ -75,7 +75,8 @@ const SingleReservation = () => {
             {hotel.amenities & Amenity.POOL ? <i className="fas fa-water"> Pool </i> : ""}
             {hotel.amenities & Amenity.GYM ? <i className="fas fa-dumbbell"> Gym </i> : ""}
             {hotel.amenities & Amenity.SPA ? <i className="fas fa-spa"> Spa </i> : ""}
-            {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Business Office</i> : ""}
+            {hotel.amenities & Amenity.OFFICE ? <i className="fas fa-briefcase"> Office</i> : ""}
+            {hotel.amenities & Amenity.WIFI ? <i className="fas fa-briefcase"> WiFi</i> : ""}
           </div>
           
           <h4>{reservation.type} Room</h4>

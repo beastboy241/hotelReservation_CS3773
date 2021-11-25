@@ -225,7 +225,12 @@ const UserPage = () => {
                               ""
                             )}
                             {currentHotel.amenities & Amenity.OFFICE ? (
-                              <i className="fas fa-briefcase"> Business Office </i>
+                              <i className="fas fa-briefcase"> Office </i>
+                            ) : (
+                              ""
+                            )}
+                            {currentHotel.amenities & Amenity.WIFI ? (
+                              <i className="fas fa-briefcase"> WiFi </i>
                             ) : (
                               ""
                             )}
