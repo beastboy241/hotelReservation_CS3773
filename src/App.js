@@ -16,8 +16,9 @@ import Users from "./pages/Users";
 import SingleUser from "./pages/SingleUser";
 import Reservations from "./pages/Reservations";
 import HotelReservations from "./pages/HotelReservations";
-
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import CreateHotel from "./pages/CreateHotel";
+import ModifyHotel from "./pages/ModifyHotel";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
           <Route exact path="/reservations/" component={Reservations} />
           <Route exact path="/reservations/:slug" component={HotelReservations} />
           <Route component={Error} />
+          <Route exact path="/ModifyHotel/" component={ModifyHotel} />
+
         </Switch>
       </BrowserRouter>
     </div>
@@ -45,3 +48,7 @@ function App() {
 }
 
 export default App;
+ /*
+<Route exact path="/CreateHotel/" component={CreateHotel} />
+<Route exact path="/ModifyHotel/" component={ModifyHotel} />
+*/

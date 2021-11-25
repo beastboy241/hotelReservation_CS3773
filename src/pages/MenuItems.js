@@ -47,4 +47,19 @@ export const MenuItems = [
     cName: "nav-links-mobile",
     type: "logged in",
   },
+ /* 
+ {
+    title: "CreateHotel",
+    url: "/CreateHotel",
+    cName: "nav-links-mobile",
+    type: "admin",
+  },
+  {
+    title: "ModifyHotel",
+    url: "/ModifyHotel",
+    cName: "nav-links-mobile",
+    type: "admin",
+    
+  },
+*/
 ];
