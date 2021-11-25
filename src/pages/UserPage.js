@@ -113,28 +113,27 @@ const UserPage = () => {
           //needs spacing fix for reservation text box
           return (
             <>
-              <div class="home-container">
-                <div class="home-title">
+              <div class="user-container">
+                <div class="user-title">
                   <h1> Welcome {user.email}!</h1>
                   
                   <h4>
+                    <button className="edit-btn">
                     <a
                       href="http://localhost:3000/account/edit"
                       style={{ "text-decoration": "none", "color":"white"}}
                     >
                       Edit Profile Information
                     </a>
+                    </button>
                   </h4>
                 </div>
               </div>
               
-              <div class="home-container">
-                <div class="home-title">
-                  <h1>Active Reservations</h1>
+              <div class="reservation-container">
+                <div class="reservation-title">
+                  <h1>Active Reservations:</h1>
                 </div>
-              </div>
-             
-              <div className="search_section">
                 <input
                   className="searchBar"
                   type="search"
@@ -143,8 +142,11 @@ const UserPage = () => {
                   onChange={updateInput}
                 />
               </div>
+             
               
-            <div className="container grid-2">
+
+            {/* 
+           <div className="container grid-2"> 
             <div className="column-1">
               <table>
                 <tr>
@@ -182,7 +184,7 @@ const UserPage = () => {
               </button>
             </div>
           </div>
-          
+            */}
           {reservationList.map((reservation) => {
               //filtering doesnt work for multiple options :^(
               for(var i = 0; i < hotelList.length; i++) {
