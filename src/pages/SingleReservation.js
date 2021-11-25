@@ -25,6 +25,9 @@ const SingleReservation = () => {
       document.getElementById("cancelReservation").textContent = "Reservation Canceled!";
       document.getElementById("cancelReservation").style.backgroundColor = "#4ad9e4";
       document.getElementById("cancelReservation").disabled = true;
+      setTimeout(() => {
+        window.history.back();
+      }, 500);
     });
   };
   

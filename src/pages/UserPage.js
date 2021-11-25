@@ -3,7 +3,7 @@ import { Amenity } from "../components/AmenityTable";
 import "../css/styles.css";
 import session from "../components/SessionManager";
 import Axios from "axios";
-import cancelRoom from "./SingleReservation";
+//import cancelRoom from "./SingleReservation";
 
 
 const UserPage = () => {
@@ -234,7 +234,7 @@ const UserPage = () => {
                           <h4>CHECK IN DATE: {reservation.start_dt}</h4>
                           <h4>CHECK OUT DATE: {reservation.end_dt}</h4>
                           <h6>RESERVATION ID: {reservation.hotel_id * 1000 + reservation.room}</h6>
-                          <button
+                          {/*<button
                             id="cancelReservation"
                             className="btn-submit-form"
                             type="cancelReservation"
@@ -243,7 +243,7 @@ const UserPage = () => {
                             }}
                           >
                             Cancel Reservation
-                          </button>
+                          </button>*/}
                         </div>
                       </a>
                     );
