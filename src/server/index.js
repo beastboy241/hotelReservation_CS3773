@@ -338,6 +338,48 @@ app.post("/get/hotel", (req, res) => {
   });
 });
 
+app.post("/update/hotel", (req, res) => {
+  const id = req.body.id;
+  const name = req.body.name;
+  const rooms = req.body.rooms;
+  const amenities = req.body.amenities;
+  const standard = req.body.standard_price;
+  const queen = req.body.queen_price;
+  const king = req.body.king_price;
+  const differential = req.body.weekend_differential;
+
+  const sqlUpdate = "UPDATE hotel SET name=?, rooms=?, amenities=?, standard_price=?, queen_price=?, king_price=?, weekend_differential=? WHERE id=?";
+
+  db.query(sqlUpdate, [name, rooms, amenities, standard, queen, king, differential, id], (err, result) => {
+    if(err){
+      console.log(err);
+      res.status(500).send("Error with insert: " + err);
+    }
+    res.send({msg: "Hotel successfully updated!", success: true});
+  })
+});
+
+app.post("/create/hotel", (req, res) => {
+  const name = req.body.name;
+  const rooms = req.body.rooms;
+  const amenities = req.body.amenities;
+  const standard = req.body.standard;
+  const queen = req.body.queen;
+  const king = req.body.king;
+  const differential = req.body.differential;
+
+  const sqlInsert = "INSERT INTO hotel (name, rooms, amenities, standard_price, queen_price, king_price, weekend_differential) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(sqlInsert, [name, rooms, amenities, standard, queen, king, differential], (err, result) => {
+    if(err){
+      console.log(err);
+      res.status(500).send("Error with insert: " + err);
+    }
+    res.send({msg: "Hotel successfully created!", success: true});
+  })
+
+});
+
 /* Reservations */
 
 app.post("/reserve", async (req, res) => {
