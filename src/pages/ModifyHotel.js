@@ -81,7 +81,7 @@ const ModifyHotel = () => {
             if(response.data.success){
               setMsg(response.data.msg);
               setTimeout(() => {
-                window.history.back();
+                window.location.replace("http://localhost:3000/hotels");
               }, 500);
             }
           }

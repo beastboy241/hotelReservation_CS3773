@@ -9,7 +9,7 @@ import session from "../components/SessionManager";
 const SingleHotel = () => {
   const user = session.GetUser();
   const [hotel, setHotel] = useState([]);
-  let id = window.location.href.substring(
+  const id = window.location.href.substring(
     window.location.href.lastIndexOf("/") + 1
   );
   const actions = [
@@ -84,6 +84,10 @@ const SingleHotel = () => {
 
   const handleRedirect = () => {
     window.location.replace("http://localhost:3000/login");
+  };
+
+  const handleUpdateRedirect = () => {
+    window.location.replace("http://localhost:3000/hotels/update/" + id);
   };
 
   useEffect(() => {
@@ -174,6 +178,16 @@ const SingleHotel = () => {
             </h5>
           </div>
         </div>
+
+        {user.login ? 
+          (user.creds === 'a' ?
+            <div style={{textAlign : "center"}}>
+            <button className="btn-submit-form" onClick={handleUpdateRedirect}>
+              <h3>Update Hotel</h3>
+            </button>
+            </div>
+            : "") 
+        : ""}
       </div>
 
       {user.login ? (

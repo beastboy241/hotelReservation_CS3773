@@ -5,11 +5,13 @@ import "../css/styles.css";
 import { Amenity } from "../components/AmenityTable";
 import "../pages/DayPicker.jsx";
 import { useScrollTrigger } from "@material-ui/core";
+import session from "../components/SessionManager";
 
 //import { render } from "@testing-library/react";
 // import { setConstantValue } from "typescript";
 
 const Hotels = () => {
+  const user = session.GetUser();
   const [hotelListFiltered, setHotelListFiltered] = useState([]);
   const [hotelListDefault, setHotelListDefault] = useState([]);
   const [hotelList, setHotelList] = useState([]);
@@ -81,6 +83,10 @@ const Hotels = () => {
     setHotelList(filtered);
   };
 
+  const handleRedirect = () => {
+    window.location.replace("http://localhost:3000/hotels/create");
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -143,6 +149,16 @@ const Hotels = () => {
           </button>
         </div>
       </div>
+
+      {user.login ? 
+        (user.creds === 'a' ?
+          <div style={{textAlign : "center"}}>
+          <button className="btn-submit-form" onClick={handleRedirect}>
+            <h3>New Hotel</h3>
+          </button>
+          </div>
+          : "") 
+      : ""}
 
       {hotelList.map((hotel) => {
         return (
