@@ -49,8 +49,6 @@ app.get("/build", (req, res) => {
     .toString();
   const createUser = fs.readFileSync("./db_scripts/createUser.sql").toString();
 
-  const testData = fs.readFileSync("./db_scripts/testData.sql").toString();
-
   try {
     db.query(createHotel, (err, result) => {
       console.log(result);
@@ -95,6 +93,12 @@ app.get("/build", (req, res) => {
     res.send("Error Building: " + err);
   }
 
+  res.send("Success! Database built.");
+});
+
+app.get("/build/test", (req, res) => {
+  const testData = fs.readFileSync("./db_scripts/testData.sql").toString();
+
   try {
     db.query(testData, (err, result) => {
       console.log(result);
@@ -106,8 +110,9 @@ app.get("/build", (req, res) => {
     res.send("Error Building: " + err);
   }
 
-  res.send("Success! Database built.");
-});
+  res.send("Success! Test Data Created.");
+
+})
 
 /* Login/SignUp */
 
