@@ -14,8 +14,18 @@ const Reservations = () => {
   const fetchData = async () => {
     return await Axios.get("http://localhost:3001/get/hotels").then(
       (response) => {
-        setHotelListDefault(response.data);
-        setHotelList(response.data);
+        let hotels = response.data;
+        Axios.get("http://localhost:3001/get/reservations/all").then(
+          (response) => {
+            const filtered = hotels.filter((hotel) => {
+              return response.data.find(element => {
+                return element.hotel_id === hotel.id;
+              })
+            })
+            setHotelList(filtered);
+            setHotelListDefault(filtered);
+          }
+        );
       }
     );
   };
@@ -24,51 +34,6 @@ const Reservations = () => {
     let input = document.getElementById("input").value.toLowerCase();
     const filtered = hotelListDefault.filter((hotel) => {
       return hotel.name.toLowerCase().includes(input);
-    });
-    setHotelList(filtered);
-  };
-  
-  const standardPrice = () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.standard_price <= 50;
-    });
-    setHotelList(filtered);
-  };
-  const luxuryPrice = () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.standard_price >= 100;
-    });
-    setHotelList(filtered);
-  };
-
-  // Pool chekced
-  const updatePool = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.POOL;
-    });
-    setHotelList(filtered);
-  };
-
-  // Gym checked
-  const updateGym = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.GYM;
-    });
-    setHotelList(filtered);
-  };
-
-  // Spa checked
-  const updateSpa = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.SPA;
-    });
-    setHotelList(filtered);
-  };
-
-  // Office checked
-  const updateOffice = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.OFFICE;
     });
     setHotelList(filtered);
   };
@@ -98,44 +63,6 @@ if (user.login) {
                   id="input"
                   onChange={updateInput}
                 />
-              </div>
-          <div className="container grid-2">
-            <div className="column-1">
-              <table>
-                <tr>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="pool" onClick={updatePool} /> Pool
-                    </label>
-                  </td>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="gym" onClick={updateGym} /> Gym
-                    </label>
-                  </td>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="spa" onClick={updateSpa} /> Spa
-                    </label>
-                  </td>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="office" onClick={updateOffice} />{" "}
-                      Bussiness Office
-                    </label>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div className="column-2">
-              <h5>Hotel Reference</h5>
-              <button className="btn" onClick={standardPrice}>
-                Standard
-              </button>
-              <button className="btn" onClick={luxuryPrice}>
-                Luxury
-              </button>
-            </div>
           </div>
           
            {hotelList.map((hotel) => {
@@ -164,12 +91,12 @@ if (user.login) {
                           ""
                         )}
                         {hotel.amenities & Amenity.OFFICE ? (
-                          <i className="fas fa-briefcase">Office </i>
+                          <i className="fas fa-briefcase"> Office </i>
                         ) : (
                           ""
                         )}
                         {hotel.amenities & Amenity.WIFI ? ( 
-                          <i className="fas fa-briefcase"> WiFi</i>
+                          <i className="fas fa-wifi"> WiFi </i>
                         ) : (
                           ""
                         )}
