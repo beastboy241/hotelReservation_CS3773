@@ -380,6 +380,18 @@ app.post("/create/hotel", (req, res) => {
 
 });
 
+app.post("/delete/hotel", (req, res) => {
+  const id = req.body.hotelId;
+  const deleteSql = "DELETE FROM hotel WHERE id=?";
+  db.query(deleteSql, id, (err, result) => {
+    if(err){
+      console.log(err);
+      res.status(500).send("Delete failed err: " + err);
+    }
+    res.send({success: true});
+  })
+})
+
 /* Reservations */
 
 app.post("/reserve", async (req, res) => {

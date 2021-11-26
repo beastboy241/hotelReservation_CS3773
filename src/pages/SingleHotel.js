@@ -90,6 +90,16 @@ const SingleHotel = () => {
     window.location.replace("http://localhost:3000/hotels/update/" + id);
   };
 
+  const dropHotel = () => {
+    Axios.post("http://localhost:3001/delete/hotel", {hotelId: id}).then(
+      (response) => {
+        if(response.data.success){
+          window.location.replace("http://localhost:3000/hotels");
+        }
+      }
+    )
+  }
+
   useEffect(() => {
     Axios.post("http://localhost:3001/get/hotel", { hotelId: id }).then(
       (response) => {
@@ -184,6 +194,12 @@ const SingleHotel = () => {
             <div style={{textAlign : "center"}}>
             <button className="btn-submit-form" onClick={handleUpdateRedirect}>
               <h3>Update Hotel</h3>
+            </button>
+
+            <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
+
+            <button className="btn-submit-form" onClick={dropHotel}>
+              <h3>Delete Hotel</h3>
             </button>
             </div>
             : "") 
