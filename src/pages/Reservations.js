@@ -164,7 +164,12 @@ if (user.login) {
                           ""
                         )}
                         {hotel.amenities & Amenity.OFFICE ? (
-                          <i className="fas fa-briefcase"> Business Office </i>
+                          <i className="fas fa-briefcase">Office </i>
+                        ) : (
+                          ""
+                        )}
+                        {hotel.amenities & Amenity.WIFI ? ( 
+                          <i className="fas fa-briefcase"> WiFi</i>
                         ) : (
                           ""
                         )}
