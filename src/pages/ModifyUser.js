@@ -168,10 +168,9 @@ const ModifyUser = () => {
       getUser(user.id);
       setSession(true);
     }
-    if (user.creds === "u") {
       return (
         <>
-          <div class="home-container">
+          <div class="container">
             <div class="home-title">
               <h1>Update User Profile</h1>
             </div>
@@ -218,6 +217,7 @@ const ModifyUser = () => {
                   required
                 />
               </div>
+              <br/>
               <button
                 id="submit"
                 className="btn-submit-form"
@@ -293,83 +293,12 @@ const ModifyUser = () => {
               </button>
             </form>
           </div>
-        </>
-      );
-    }
-
-    // Admin account page
-    else if (user.creds === "a") {
-      return (
-        <>
-          <div class="home-container">
+          
+          {user.creds === 'a' ? (
+            <div class="container">
             <div class="home-title">
-              <h1>Admin Control Panel</h1>
+              <h1>Create New User</h1>
             </div>
-
-            <form
-              className="account-form"
-              onSubmit={(evt) => evt.preventDefault()}
-            >
-              <div className="account-form-fields update">
-                <h5>User ID</h5>
-                <input
-                  id="userID"
-                  name="userID"
-                  type="text"
-                  placeholder="User ID"
-                  onChange={() =>
-                    loadUser(document.getElementById("userID").value)
-                  }
-                  required
-                />
-                <h5>Name</h5>
-                <input
-                  id="updateName"
-                  name="updateName"
-                  type="text"
-                  placeholder="New Name"
-                  required
-                />
-                <h5>E-mail Address</h5>
-                <input
-                  id="updateEmail"
-                  name="updateEmail"
-                  type="email"
-                  placeholder="New E-mail Address"
-                  required
-                />
-                <h5>Phone Number</h5>
-                <input
-                  id="updatePhone"
-                  name="updatePhone"
-                  type="text"
-                  placeholder="New Phone Number"
-                  required
-                />
-                <h5>Account Type</h5>
-                <select name="updateType" id="updateType">
-                  <option value="User">User</option>
-                  <option value="Admin">Admin</option>
-                </select>
-              </div>
-              <button
-                id="updateUser"
-                className="btn-submit-form"
-                type="updateUser"
-                onClick={(e) => {
-                  updateUserProfile(
-                    document.getElementById("userID").value,
-                    document.getElementById("updateName").value,
-                    document.getElementById("updateEmail").value,
-                    document.getElementById("updatePhone").value,
-                    document.getElementById("updateType").value
-                  );
-                }}
-              >
-                Update User
-              </button>
-            </form>
-
             <form
               className="account-form"
               onSubmit={(evt) => evt.preventDefault()}
@@ -431,9 +360,11 @@ const ModifyUser = () => {
               </button>
             </form>
           </div>
+          ) : (
+            ""
+          )}
         </>
       );
-    }
   } else return null;
 };
 

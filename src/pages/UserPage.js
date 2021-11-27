@@ -66,7 +66,6 @@ const UserPage = () => {
       getUserReservations(user.id);
       setSession(true);
     }
-      if(user.creds === "u") {
           //needs spacing fix for reservation text box
           return (
             <>
@@ -161,26 +160,6 @@ const UserPage = () => {
               })}
             </>
           );
-      } else if(user.creds === "a") {
-          return (
-            <>
-              <div class="home-container">
-                <div class="home-title">
-                  <h1> Welcome {user.email}!</h1>
-                  
-                  <h4>
-                    <a
-                      href="http://localhost:3000/account/edit"
-                      style={{ "text-decoration": "none", "color":"white"}}
-                    >
-                      Admin Control Panel
-                    </a>
-                  </h4>
-                </div>
-              </div>
-              </>
-              );
-      } else return null;
   } else return null;
 };
 

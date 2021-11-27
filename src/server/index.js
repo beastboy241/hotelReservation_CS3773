@@ -110,7 +110,7 @@ app.get("/build/test", (req, res) => {
     res.send("Error Building: " + err);
   }
 
-  db.query("DELETE FROM user");
+  db.query("TRUNCATE TABLE user");
   
   const userData = JSON.parse(fs.readFileSync("./db_scripts/userData.json"));
 
