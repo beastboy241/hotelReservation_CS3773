@@ -7,7 +7,6 @@ import Hotels from "./pages/Hotels";
 import Login from "./pages/Login";
 import SingleHotel from "./pages/SingleHotel";
 import Error from "./pages/Error";
-import AddHotel from "./pages/AddHotel";
 import UserPage from "./pages/UserPage";
 import Logout from "./pages/Logout";
 import ModifyUser from "./pages/ModifyUser";
@@ -19,6 +18,7 @@ import HotelReservations from "./pages/HotelReservations";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CreateHotel from "./pages/CreateHotel";
 import ModifyHotel from "./pages/ModifyHotel";
+import CreateUser from "./pages/CreateUser";
 
 function App() {
   return (
@@ -38,6 +38,7 @@ function App() {
           <Route exact path="/account/:slug" component={SingleReservation} />
           <Route exact path="/users/" component={Users} />
           <Route exact path="/users/:slug" component={SingleUser} />
+          <Route exact path="/create/user" component={CreateUser} />
           <Route exact path="/reservations/" component={Reservations} />
           <Route exact path="/reservations/:slug" component={HotelReservations} />
           <Route component={Error} />

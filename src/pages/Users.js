@@ -56,6 +56,10 @@ const Users = () => {
     });
     setUserList(filtered);
   };
+
+  const handleRedirect = () =>{
+    window.location.replace("http://localhost:3000/create/user");
+  }
   
   useEffect(() => {
     getAllUsers();
@@ -117,7 +121,14 @@ if (user.login) {
                   </a>
                 );
               })}
-          </>
+
+        <div style={{textAlign : "center"}}>
+          <button className="btn-submit-form" onClick={handleRedirect}>
+            <h3>Create New User</h3>
+          </button>
+        </div>
+
+        </>
         );
     } else return null;
   } else return null;
