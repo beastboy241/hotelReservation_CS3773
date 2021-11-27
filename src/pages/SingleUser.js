@@ -14,7 +14,7 @@ const SingleUser = () => {
   const [hotelListDefault, setHotelListDefault] = useState();
   const [hotelList, setHotelList] = useState([]);
 
-  let uid = window.location.href.substring(
+  const uid = window.location.href.substring(
     window.location.href.lastIndexOf("/") + 1);
 
   
@@ -101,74 +101,6 @@ const SingleUser = () => {
       }
     );
   };
-  
-  const updateInput = async () => {
-    let input = document.getElementById("input").value.toLowerCase();
-    const filteredHotel = hotelListDefault.filter((hotel) => {
-      return hotel.name.toLowerCase().includes(input);
-    });
-    const filteredReservation = reservationListDefault.filter((reservation) => {
-      if(input.match(/^(20\d{2})\-(\d{2})\-(\d{2})$/))
-        return reservation.start_dt.toString().includes(input)
-          || reservation.end_dt.toString().includes(input);
-        else return reservation.type.toLowerCase().includes(input)
-          || reservation.room.toString().includes(input)
-          || (reservation.hotel_id * 1000 + reservation.room).toString().includes(input);
-    });
-    if(filteredHotel.length !== 0) {
-        setHotelList(filteredHotel);
-        setReservationList(reservationListDefault);
-    }
-    if(filteredReservation.length !== 0) {
-        setReservationList(filteredReservation);
-        setHotelList(hotelListDefault);
-    }
-  };
-  
-  const standardPrice = () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.standard_price <= 50;
-    });
-    setHotelList(filtered);
-  };
-  const luxuryPrice = () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.standard_price >= 100;
-    });
-    setHotelList(filtered);
-  };
-
-  // Pool chekced
-  const updatePool = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.POOL;
-    });
-    setHotelList(filtered);
-  };
-
-  // Gym checked
-  const updateGym = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.GYM;
-    });
-    setHotelList(filtered);
-  };
-
-  // Spa checked
-  const updateSpa = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.SPA;
-    });
-    setHotelList(filtered);
-  };
-
-  // Office checked
-  const updateOffice = async () => {
-    const filtered = hotelListDefault.filter((hotel) => {
-      return hotel.amenities & Amenity.OFFICE;
-    });
-    setHotelList(filtered);
-  };
 
   useEffect(() => {
     
@@ -196,16 +128,6 @@ const SingleUser = () => {
                   onSubmit={(evt) => evt.preventDefault()}
                 >
                   <div className="account-form-fields update">
-                    <h5>User ID</h5>
-                    <input
-                      id="userID"
-                      name="userID"
-                      type="text"
-                      placeholder="User ID"
-                      value={uid}
-                      disabled="true"
-                      required
-                    />
                     <h5>Name</h5>
                     <input
                       id="updateName"
@@ -242,7 +164,7 @@ const SingleUser = () => {
                     type="updateUser"
                     onClick={(e) => {
                       updateUserProfile(
-                        document.getElementById("userID").value,
+                        uid,
                         document.getElementById("updateName").value,
                         document.getElementById("updateEmail").value,
                         document.getElementById("updatePhone").value,
@@ -268,16 +190,6 @@ const SingleUser = () => {
                   onSubmit={(evt) => evt.preventDefault()}
                 >
                   <div className="account-form-fields update">
-                    <h5>User ID</h5>
-                    <input
-                      id="userID"
-                      name="userID"
-                      type="text"
-                      placeholder="User ID"
-                      value={uid}
-                      disabled="true"
-                      required
-                    />
                     <h5>Name</h5>
                     <input
                       id="updateName"
@@ -314,7 +226,7 @@ const SingleUser = () => {
                     type="updateUser"
                     onClick={(e) => {
                       updateUserProfile(
-                        document.getElementById("userID").value,
+                        uid,
                         document.getElementById("updateName").value,
                         document.getElementById("updateEmail").value,
                         document.getElementById("updatePhone").value,
@@ -326,54 +238,11 @@ const SingleUser = () => {
                   </button>
                 </form>
                 </div>
-                                
-              <div className="search_section">
-                <input
-                  className="searchBar"
-                  type="search"
-                  placeholder={"search hotel or reservation..."}
-                  id="input"
-                  onChange={updateInput}
-                />
+              
+              <div className="container">
+                <h3>Reservations</h3>
               </div>
-              <div className="container grid-2">
-                <div className="column-1">
-                  <table>
-                    <tr>
-                      <td>
-                        <label>
-                          <input type="checkbox" rel="pool" onClick={updatePool} /> Pool
-                        </label>
-                      </td>
-                      <td>
-                        <label>
-                          <input type="checkbox" rel="gym" onClick={updateGym} /> Gym
-                        </label>
-                      </td>
-                      <td>
-                        <label>
-                          <input type="checkbox" rel="spa" onClick={updateSpa} /> Spa
-                        </label>
-                      </td>
-                      <td>
-                        <label>
-                          <input type="checkbox" rel="office" onClick={updateOffice} />{" "}
-                          Bussiness Office
-                        </label>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <div className="column-2">
-                  <h5>Hotel Reference</h5>
-                  <button className="btn" onClick={standardPrice}>
-                    Standard
-                  </button>
-                  <button className="btn" onClick={luxuryPrice}>
-                    Luxury
-                  </button>
-                </div>
-              </div>
+              
               
               {reservationList.map((reservation) => {
                   //filtering doesnt work for multiple options :^(
@@ -413,7 +282,12 @@ const SingleUser = () => {
                                   ""
                                 )}
                                 {currentHotel.amenities & Amenity.OFFICE ? (
-                                  <i className="fas fa-briefcase"> Business Office </i>
+                                  <i className="fas fa-briefcase"> Office </i>
+                                ) : (
+                                  ""
+                                )}
+                                {currentHotel.amenities & Amenity.WIFI ? (
+                                  <i className="fas fa-wifi"> WiFi </i>
                                 ) : (
                                   ""
                                 )}

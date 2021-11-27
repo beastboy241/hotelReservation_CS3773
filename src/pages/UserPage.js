@@ -100,48 +100,7 @@ const UserPage = () => {
                 />
               </div>
              
-              
-
-            {/* 
-           <div className="container grid-2"> 
-            <div className="column-1">
-              <table>
-                <tr>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="pool" onClick={updatePool} /> Pool
-                    </label>
-                  </td>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="gym" onClick={updateGym} /> Gym
-                    </label>
-                  </td>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="spa" onClick={updateSpa} /> Spa
-                    </label>
-                  </td>
-                  <td>
-                    <label>
-                      <input type="checkbox" rel="office" onClick={updateOffice} />{" "}
-                      Bussiness Office
-                    </label>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div className="column-2">
-              <h5>Hotel Reference</h5>
-              <button className="btn" onClick={standardPrice}>
-                Standard
-              </button>
-              <button className="btn" onClick={luxuryPrice}>
-                Luxury
-              </button>
-            </div>
-          </div>
-            */}
+          
           {reservationList.map((reservation) => {
               //filtering doesnt work for multiple options :^(
               for(var i = 0; i < hotelList.length; i++) {
@@ -185,7 +144,7 @@ const UserPage = () => {
                               ""
                             )}
                             {currentHotel.amenities & Amenity.WIFI ? (
-                              <i className="fas fa-briefcase"> WiFi </i>
+                              <i className="fas fa-wifi"> WiFi </i>
                             ) : (
                               ""
                             )}
@@ -194,16 +153,6 @@ const UserPage = () => {
                           <h4>CHECK IN DATE: {reservation.start_dt}</h4>
                           <h4>CHECK OUT DATE: {reservation.end_dt}</h4>
                           <h6>RESERVATION ID: {reservation.hotel_id * 1000 + reservation.id}</h6>
-                          {/*<button
-                            id="cancelReservation"
-                            className="btn-submit-form"
-                            type="cancelReservation"
-                            onClick={(e) => {
-                              cancelRoom();
-                            }}
-                          >
-                            Cancel Reservation
-                          </button>*/}
                         </div>
                       </a>
                     );

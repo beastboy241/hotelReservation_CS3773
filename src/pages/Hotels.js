@@ -93,6 +93,12 @@ const Hotels = () => {
 
   return (
     <>
+      <div class="container">
+            <div class="home-title">
+                <h1>Hotel List</h1>
+            </div>
+      </div>
+
       <div className="search_section">
         <input
           className="searchBar"

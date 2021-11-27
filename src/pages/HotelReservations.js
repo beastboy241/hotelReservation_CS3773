@@ -63,7 +63,7 @@ const HotelReservations = () => {
     if(user.creds === "a") {
       return (
         <>
-          <div class="home-container">
+          <div class="container">
             <div class="home-title">
                 <h1>Reservations</h1>
             </div>

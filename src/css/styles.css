@@ -205,7 +205,7 @@ column-2 {
 /* Login Section */
 .container {
   text-align: center;
-  color: #000;
+  color: rgb(255, 255, 255);
   margin: 100px auto 0 auto;
   background-color: #4468e4;
   border-radius: 30px;

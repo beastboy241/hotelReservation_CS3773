@@ -50,9 +50,9 @@ if (user.login) {
     if(user.creds === "a") {
       return (
         <>
-          <div class="home-container">
+          <div class="container">
             <div class="home-title">
-                <h1>Hotel List</h1>
+                <h1>Reserved Hotels</h1>
             </div>
           </div>
           <div className="search_section">
