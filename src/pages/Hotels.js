@@ -93,11 +93,10 @@ const Hotels = () => {
 
   return (
     <>
-      <div class="container">
+      <div class="user-container">
             <div class="home-title">
                 <h1>Hotel List</h1>
             </div>
-      </div>
 
       <div className="search_section">
         <input
@@ -108,7 +107,9 @@ const Hotels = () => {
           onChange={updateInput}
         />
       </div>
-      <div className="container grid-2">
+      </div>
+
+      <div className="slim-container grid-2">
         <div className="column-1">
           <table>
             <tr>
@@ -156,16 +157,6 @@ const Hotels = () => {
         </div>
       </div>
 
-      {user.login ? 
-        (user.creds === 'a' ?
-          <div style={{textAlign : "center"}}>
-          <button className="btn-submit-form" onClick={handleRedirect}>
-            <h3>New Hotel</h3>
-          </button>
-          </div>
-          : "") 
-      : ""}
-
       {hotelList.map((hotel) => {
         return (
           <a
@@ -193,7 +184,7 @@ const Hotels = () => {
                   ""
                 )}
                 {hotel.amenities & Amenity.OFFICE ? (
-                  <i className="fas fa-briefcase"> Business Office </i>
+                  <i className="fas fa-briefcase"> Office </i>
                 ) : (
                   ""
                 )}
@@ -207,6 +198,16 @@ const Hotels = () => {
           </a>
         );
       })}
+
+      {user.login ? 
+        (user.creds === 'a' ?
+          <div style={{textAlign : "center"}}>
+          <button className="btn-submit-form" onClick={handleRedirect}>
+            <h3>New Hotel</h3>
+          </button>
+          </div>
+          : "") 
+      : ""}
     </>
   );
 };

@@ -63,11 +63,10 @@ const HotelReservations = () => {
     if(user.creds === "a") {
       return (
         <>
-          <div class="container">
+          <div class="user-container">
             <div class="home-title">
                 <h1>Reservations</h1>
             </div>
-          </div>
           
               <div className="search_section">
                 <input
@@ -78,6 +77,7 @@ const HotelReservations = () => {
                   onChange={updateInput}
                 />
               </div>
+            </div>
           
           {reservationList.map((reservation) => {
                 //filtering doesnt work for multiple options :^(

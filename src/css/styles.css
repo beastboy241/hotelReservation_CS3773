@@ -88,7 +88,7 @@ column-2 {
 .btn:hover {
   background-color: #fff;
 }
-/* .search_section {
+/*.search_section {
   margin-top: 0.5rem;
   padding: 0.5rem;
   border-radius: 10px;
@@ -99,7 +99,7 @@ column-2 {
   text-align: center;
   margin-top: 1.2rem;
   color: #fefefe;
-} */
+}*/
 
 .searchBar {
   display: block;
@@ -384,6 +384,15 @@ column-2 {
 }
 .reservation-container {
   background-color: #2e56e0;
+  width: 35%;
+  color: #fefefe;
+  text-align: center;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 1px;
+}
+.slim-container {
+  background-color: #4468e4;
   width: 35%;
   color: #fefefe;
   text-align: center;

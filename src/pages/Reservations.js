@@ -50,11 +50,10 @@ if (user.login) {
     if(user.creds === "a") {
       return (
         <>
-          <div class="container">
+          <div class="user-container">
             <div class="home-title">
                 <h1>Reserved Hotels</h1>
             </div>
-          </div>
           <div className="search_section">
                 <input
                   className="searchBar"
@@ -63,6 +62,7 @@ if (user.login) {
                   id="input"
                   onChange={updateInput}
                 />
+          </div>
           </div>
           
            {hotelList.map((hotel) => {
