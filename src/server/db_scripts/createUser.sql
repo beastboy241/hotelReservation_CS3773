@@ -4,7 +4,7 @@ create table `user` (
     `firstName` varchar(100),
     `lastName` varchar(100),
     `email` varchar(100) not null unique,
-    `phone` int,
+    `phone` bigint,
     `type` char default 'u',
     `password` varchar(200) not null,
     primary key (`id`)

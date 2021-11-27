@@ -110,6 +110,34 @@ app.get("/build/test", (req, res) => {
     res.send("Error Building: " + err);
   }
 
+  db.query("DELETE FROM user");
+  
+  const userData = JSON.parse(fs.readFileSync("./db_scripts/userData.json"));
+
+  userData.map(async (user) => {
+    try {
+      const hashedPass = await bcrypt.hash(user.password, 10);
+      const sqlInsert =
+        "INSERT INTO user (firstName, lastName, email, phone, password, type) VALUES (?, ?, ?, ?, ?, ?)";
+      try{
+        db.query(
+        sqlInsert,
+        [user.firstName, user.lastName, user.email, user.phoneNumber, hashedPass, user.creds],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            throw(err);
+          }
+        }
+      )
+      } catch (err) {
+        throw(err);
+      }
+    } catch (err) {
+      res.send("Error Building: " + err);
+    }
+  })
+
   res.send("Success! Test Data Created.");
 
 })

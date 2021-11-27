@@ -1,0 +1,75 @@
+[    
+    {
+        "email": "jon@gmail.com",
+        "password": "GrapeFruit",
+        "firstName": "Jon", 
+        "lastName":"Villarreal",
+        "phoneNumber": "2876565643",
+        "creds": "a" 
+    }, 
+    {
+        "email": "locnguyen@gmail.com",
+        "password": "GrapeFruit",
+        "firstName": "Loc", 
+        "lastName":"Nguyen",
+        "phoneNumber": "2876565643",
+        "creds": "a" 
+    },   
+    {
+        "email": "williamburroughs@gmail.com",
+        "password": "password",
+        "firstName": "William", 
+        "lastName":"Burroughs",
+        "phoneNumber": "2876565643",
+        "creds": "a" 
+    },   
+    {
+        "email": "emilioibarra@gmail.com",
+        "password": "password",
+        "firstName": "Emilio", 
+        "lastName":"Ibarra",
+        "phoneNumber": "2326656780",
+        "creds": "u" 
+    },   
+    {
+        "email": "mariavanesa@gmail.com",
+        "password": "wintermelon",
+        "firstName": "Mariavanesa", 
+        "lastName":"Rivera",
+        "phoneNumber": "3242459978",
+        "creds": "u" 
+    },
+    {
+        
+        "email": "alexanderprice4948@gmail.com",
+        "password": "WinterMelon",
+        "firstName": "Alexander", 
+        "lastName":"Price",
+        "phoneNumber": "2513344668",
+        "creds": "u" 
+    },
+    {
+        "email": "elijahchappell9091@gmail.com",
+        "password": "HoneyLemon",
+        "firstName": "Elijah", 
+        "lastName":"Chappell",
+        "phoneNumber": "2109394344",
+        "creds": "u" 
+    },
+    {
+        "email": "lilylopez8094@gmail.com",
+        "password": "StrawberryLemon",
+        "firstName": "Lily", 
+        "lastName":"Lopez",
+        "phoneNumber": "2319886453",
+        "creds": "u" 
+    },
+    {
+        "email": "jamesdoe@gmail.com",
+        "password": "StrawberryLemon",
+        "firstName": "James", 
+        "lastName":"Doe",
+        "phoneNumber": "2019186057",
+        "creds": "u" 
+    }   
+]
