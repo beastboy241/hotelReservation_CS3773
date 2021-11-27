@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Set up
+
 ### Step1: Install MariaDB and create root password when setup
 
 go to CMD and type the following command:
@@ -18,14 +20,7 @@ Enter root password
 
 ### `flush privileges;`
 
-### Step2: Setting up the database
-
-You can either copy the scripts in db_scripts, or if you have the server
-up and running head to http://localhost:3001/api/build to have them all auto-run
-
-## Available Scripts
-
-### Step3: Running the server
+### Step2: Running the website/server
 
 In the project directory, you can run:
 
@@ -41,13 +36,38 @@ In the project directory, you can run:
 
 ### `npm start`
 
-## To run the server
+In the server directory, you can run:
 
-### `cd src/server`
+### `cd hotelReservation_CS3773/src/server`
+
+### `npm install bcrypt`
+
+### `npm install express --save`
+
+### `npm install cors`
+
+### `npm run start`
+
+or to run in development mode
 
 ### `npm run devStart`
 
-Runs the app in the development mode.\
+### Step3: Setting up the database
+
+head to
+
+### http://localhost:3001/build
+
+to create schema and populate hotels
+
+head to
+
+### http://localhost:3001/build/test
+
+to populate user and reservations tables with test data
+
+## View and Debug
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
