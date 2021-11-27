@@ -33,13 +33,11 @@ const Navbar = () => {
 
           if (returnFlag) {
             return (
-              
               <li key={index}>
                 <a className={item.cName} href={item.url}>
                   {item.title}
                 </a>
               </li>
-              
             );
           }
         })}

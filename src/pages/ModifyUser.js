@@ -58,9 +58,9 @@ const ModifyUser = () => {
           document.getElementById("updateUser").textContent = "Update User";
         }, 3000);
       }
-      
-      if(user.id === id)
-        session.set({id: user.id, email: newEmail, creds: type, login: true});
+
+      if (user.id === id)
+        session.set({ id: user.id, email: newEmail, creds: type, login: true });
     });
   };
 
@@ -97,133 +97,131 @@ const ModifyUser = () => {
       getUser(user.id);
       setSession(true);
     }
-      return (
-        <>
-          <div class="container">
-            <div class="home-title">
-              <h1>Update User Profile</h1>
-            </div>
-
-            <form
-              className="account-form"
-              onSubmit={(evt) => evt.preventDefault()}
-            >
-              <div className="account-form-fields update">
-                <h5>Name</h5>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="New Name"
-                  value={name}
-                  onChange={() =>
-                    setName(document.getElementById("name").value)
-                  }
-                  required
-                />
-                <h5>E-mail Address</h5>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="New E-mail Address"
-                  value={email}
-                  onChange={() =>
-                    setEmail(document.getElementById("email").value)
-                  }
-                  required
-                />
-                <h5>Phone Number</h5>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="text"
-                  placeholder="New Phone Number"
-                  value={phone}
-                  onChange={() =>
-                    setPhone(document.getElementById("phone").value)
-                  }
-                  required
-                />
-              </div>
-              <br/>
-              <button
-                id="submit"
-                className="btn-submit-form"
-                type="submit"
-                onClick={(e) => {
-                  console.log(user.id);
-                  updateUserProfile(
-                    user.id,
-                    { name }["name"],
-                    { email }["email"],
-                    { phone }["phone"],
-                    user.creds
-                  );
-                }}
-              >
-                Save Changes
-              </button>
-            </form>
-
-            <form
-              className="account-form"
-              onSubmit={(evt) => evt.preventDefault()}
-            >
-              <div className="account-form-fields update">
-                <h5>Old Password</h5>
-                <input
-                  id="oldPass"
-                  name="oldPass"
-                  type="text"
-                  placeholder="Old Password"
-                  onChange={() =>
-                    setOldPass(document.getElementById("oldPass").value)
-                  }
-                  required
-                />
-                <h5>New Password</h5>
-                <input
-                  id="newPass"
-                  name="newPass"
-                  type="text"
-                  placeholder="New Password"
-                  onChange={() =>
-                    setNewPass(document.getElementById("newPass").value)
-                  }
-                  required
-                />
-                <h5>Repeat New Password</h5>
-                <input
-                  id="repeatPass"
-                  name="repeatPass"
-                  type="text"
-                  placeholder="Repeat New Password"
-                  onChange={() =>
-                    setRepeatPass(document.getElementById("repeatPass").value)
-                  }
-                  required
-                />
-              </div>
-              <button
-                id="updatePass"
-                className="btn-submit-form"
-                type="updatePass"
-                onClick={(e) => {
-                  updateUserPassword(
-                    user.id,
-                    { oldPass }["oldPass"],
-                    { newPass }["newPass"],
-                    { repeatPass }["repeatPass"]
-                  );
-                }}
-              >
-                Update Password
-              </button>
-            </form>
+    return (
+      <>
+        <div class="container">
+          <div class="home-title">
+            <h1>Update User Profile</h1>
           </div>
-        </>
-      );
+
+          <form
+            className="account-form"
+            onSubmit={(evt) => evt.preventDefault()}
+          >
+            <div className="account-form-fields update">
+              <h5>Name</h5>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="New Name"
+                value={name}
+                onChange={() => setName(document.getElementById("name").value)}
+                required
+              />
+              <h5>E-mail Address</h5>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="New E-mail Address"
+                value={email}
+                onChange={() =>
+                  setEmail(document.getElementById("email").value)
+                }
+                required
+              />
+              <h5>Phone Number</h5>
+              <input
+                id="phone"
+                name="phone"
+                type="text"
+                placeholder="New Phone Number"
+                value={phone}
+                onChange={() =>
+                  setPhone(document.getElementById("phone").value)
+                }
+                required
+              />
+            </div>
+            <br />
+            <button
+              id="submit"
+              className="btn-submit-form"
+              type="submit"
+              onClick={(e) => {
+                console.log(user.id);
+                updateUserProfile(
+                  user.id,
+                  { name }["name"],
+                  { email }["email"],
+                  { phone }["phone"],
+                  user.creds
+                );
+              }}
+            >
+              Save Changes
+            </button>
+          </form>
+
+          <form
+            className="account-form"
+            onSubmit={(evt) => evt.preventDefault()}
+          >
+            <div className="account-form-fields update">
+              <h5>Old Password</h5>
+              <input
+                id="oldPass"
+                name="oldPass"
+                type="text"
+                placeholder="Old Password"
+                onChange={() =>
+                  setOldPass(document.getElementById("oldPass").value)
+                }
+                required
+              />
+              <h5>New Password</h5>
+              <input
+                id="newPass"
+                name="newPass"
+                type="text"
+                placeholder="New Password"
+                onChange={() =>
+                  setNewPass(document.getElementById("newPass").value)
+                }
+                required
+              />
+              <h5>Repeat New Password</h5>
+              <input
+                id="repeatPass"
+                name="repeatPass"
+                type="text"
+                placeholder="Repeat New Password"
+                onChange={() =>
+                  setRepeatPass(document.getElementById("repeatPass").value)
+                }
+                required
+              />
+            </div>
+            <button
+              id="updatePass"
+              className="btn-submit-form"
+              type="updatePass"
+              onClick={(e) => {
+                updateUserPassword(
+                  user.id,
+                  { oldPass }["oldPass"],
+                  { newPass }["newPass"],
+                  { repeatPass }["repeatPass"]
+                );
+              }}
+            >
+              Update Password
+            </button>
+          </form>
+        </div>
+      </>
+    );
   } else return null;
 };
 

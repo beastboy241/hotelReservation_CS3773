@@ -91,14 +91,14 @@ const SingleHotel = () => {
   };
 
   const dropHotel = () => {
-    Axios.post("http://localhost:3001/delete/hotel", {hotelId: id}).then(
+    Axios.post("http://localhost:3001/delete/hotel", { hotelId: id }).then(
       (response) => {
-        if(response.data.success){
+        if (response.data.success) {
           window.location.replace("http://localhost:3000/hotels");
         }
       }
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     Axios.post("http://localhost:3001/get/hotel", { hotelId: id }).then(
@@ -189,21 +189,28 @@ const SingleHotel = () => {
           </div>
         </div>
 
-        {user.login ? 
-          (user.creds === 'a' ?
-            <div style={{textAlign : "center"}}>
-            <button className="btn-submit-form" onClick={handleUpdateRedirect}>
-              <h3>Update Hotel</h3>
-            </button>
+        {user.login ? (
+          user.creds === "a" ? (
+            <div style={{ textAlign: "center" }}>
+              <button
+                className="btn-submit-form"
+                onClick={handleUpdateRedirect}
+              >
+                <h3>Update Hotel</h3>
+              </button>
 
-            <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
+              <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
 
-            <button className="btn-submit-form" onClick={dropHotel}>
-              <h3>Delete Hotel</h3>
-            </button>
+              <button className="btn-submit-form" onClick={dropHotel}>
+                <h3>Delete Hotel</h3>
+              </button>
             </div>
-            : "") 
-        : ""}
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
       </div>
 
       {user.login ? (

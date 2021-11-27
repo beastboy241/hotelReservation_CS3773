@@ -47,76 +47,76 @@ const CreateUser = () => {
   };
 
   // User account page
-  if (user.creds === 'a') {
-      return (
-        <>
-            <div class="container">
-            <div class="home-title">
-              <h1>Create New User</h1>
-            </div>
-            <form
-              className="account-form"
-              onSubmit={(evt) => evt.preventDefault()}
-            >
-              <div className="account-form-fields update">
-                <h5>Name</h5>
-                <input
-                  id="createName"
-                  name="createName"
-                  type="text"
-                  placeholder="Name"
-                  required
-                />
-                <h5>E-mail Address</h5>
-                <input
-                  id="createEmail"
-                  name="createEmail"
-                  type="email"
-                  placeholder="E-mail Address"
-                  required
-                />
-                <h5>Phone Number</h5>
-                <input
-                  id="createPhone"
-                  name="createPhone"
-                  type="text"
-                  placeholder="Phone Number"
-                  required
-                />
-                <h5>Password</h5>
-                <input
-                  id="createPass"
-                  name="createPass"
-                  type="password"
-                  placeholder="Password"
-                  required
-                />
-                <h5>Account Type</h5>
-                <select name="selectType" id="selectType">
-                  <option value="User">User</option>
-                  <option value="Admin">Admin</option>
-                </select>
-              </div>
-              <button
-                id="createUser"
-                className="btn-submit-form"
-                type="createUser"
-                onClick={(e) => {
-                  createUser(
-                    document.getElementById("createName").value,
-                    document.getElementById("createEmail").value,
-                    document.getElementById("createPhone").value,
-                    document.getElementById("createPass").value,
-                    document.getElementById("selectType").value
-                  );
-                }}
-              >
-                Create User
-              </button>
-            </form>
+  if (user.creds === "a") {
+    return (
+      <>
+        <div class="container">
+          <div class="home-title">
+            <h1>Create New User</h1>
           </div>
-        </>
-      );
+          <form
+            className="account-form"
+            onSubmit={(evt) => evt.preventDefault()}
+          >
+            <div className="account-form-fields update">
+              <h5>Name</h5>
+              <input
+                id="createName"
+                name="createName"
+                type="text"
+                placeholder="Name"
+                required
+              />
+              <h5>E-mail Address</h5>
+              <input
+                id="createEmail"
+                name="createEmail"
+                type="email"
+                placeholder="E-mail Address"
+                required
+              />
+              <h5>Phone Number</h5>
+              <input
+                id="createPhone"
+                name="createPhone"
+                type="text"
+                placeholder="Phone Number"
+                required
+              />
+              <h5>Password</h5>
+              <input
+                id="createPass"
+                name="createPass"
+                type="password"
+                placeholder="Password"
+                required
+              />
+              <h5>Account Type</h5>
+              <select name="selectType" id="selectType">
+                <option value="User">User</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+            <button
+              id="createUser"
+              className="btn-submit-form"
+              type="createUser"
+              onClick={(e) => {
+                createUser(
+                  document.getElementById("createName").value,
+                  document.getElementById("createEmail").value,
+                  document.getElementById("createPhone").value,
+                  document.getElementById("createPass").value,
+                  document.getElementById("selectType").value
+                );
+              }}
+            >
+              Create User
+            </button>
+          </form>
+        </div>
+      </>
+    );
   } else return null;
 };
 

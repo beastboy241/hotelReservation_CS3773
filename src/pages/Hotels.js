@@ -94,19 +94,19 @@ const Hotels = () => {
   return (
     <>
       <div class="user-container">
-            <div class="home-title">
-                <h1>Hotel List</h1>
-            </div>
+        <div class="home-title">
+          <h1>Hotel List</h1>
+        </div>
 
-      <div className="search_section">
-        <input
-          className="searchBar"
-          type="search"
-          placeholder={"search hotel..."}
-          id="input"
-          onChange={updateInput}
-        />
-      </div>
+        <div className="search_section">
+          <input
+            className="searchBar"
+            type="search"
+            placeholder={"search hotel..."}
+            id="input"
+            onChange={updateInput}
+          />
+        </div>
       </div>
 
       <div className="slim-container grid-2">
@@ -199,15 +199,19 @@ const Hotels = () => {
         );
       })}
 
-      {user.login ? 
-        (user.creds === 'a' ?
-          <div style={{textAlign : "center"}}>
-          <button className="btn-submit-form" onClick={handleRedirect}>
-            <h3>New Hotel</h3>
-          </button>
+      {user.login ? (
+        user.creds === "a" ? (
+          <div style={{ textAlign: "center" }}>
+            <button className="btn-submit-form" onClick={handleRedirect}>
+              <h3>New Hotel</h3>
+            </button>
           </div>
-          : "") 
-      : ""}
+        ) : (
+          ""
+        )
+      ) : (
+        ""
+      )}
     </>
   );
 };
