@@ -154,3 +154,55 @@ Secondary Keys: Bold \
   of them for a particular _`reservation`_.
 :::
 
+:::::: { .h1 style="font-size: 20px" }
+
+# Create/Modify Users Information 
+
+## Create
+
+![](./images/create_user.png)
+
+## Modify
+
+![](./images/update_user.png)
+
+::::::
+
+
+:::::: { .h1 style="font-size: 20px" }
+
+# Create/Modify Hotel Properties
+
+## Create
+
+![](./images/create_hotel.png)
+
+## Modify
+
+![](./images/update_hotel.png)
+
+::::::
+
+
+:::::: { .h1 style="font-size: 20px" }
+
+# Create/Modify Reservation information
+
+## Create
+
+![](./images/create_reservation.png)
+
+## Modify
+
+![](./images/update_reservation.png)
+
+::::::
+
+
+:::::: { .h2 style="font-size: 30px" }
+
+## Ability to search based on criteria
+
+![](./images/search_criteria.gif)
+
+::::::
