@@ -1,6 +1,6 @@
 # Purpose of Project
 
-View as presentation: [Presentation](./docs/presentation/presentation.html)
+View as presentation: [Presentation](./docs/presentation/presentation.html) \
 Skip this and get to coding: [GettingStarted](#getting-started-with-create-react-app)
 
 Develop a software product that manages hotel reservations across a group of
