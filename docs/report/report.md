@@ -26,7 +26,7 @@ Emilio Ibarra \\
 
 \  
 
-CS3773 - 001\\
+CS3773 - 001 \\
 Group 2 \\
 
 \  
@@ -79,7 +79,7 @@ programming languages, frameworks/libraries, and additional tools).
 ## Programming languages
 
 The project was made using the following programming languages. Percentages
-were taken from github.
+were taken from [github-link](https://github.com/beastboy241/hotelReservation_CS3773.git)
 
 | **Language** | **Use %** |
 | ------------ | --------- |
