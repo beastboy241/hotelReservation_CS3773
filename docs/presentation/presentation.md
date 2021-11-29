@@ -82,6 +82,22 @@ Point out a few of the features used from react.
 
 ---
 
+### Date Selection Component
+
+<hr>
+
+![](./images/date_selection.png)
+
+---
+
+### Json Data for Users
+
+<hr>
+
+![](./images/json_data.png)
+
+---
+
 ## How
 
 <hr>
@@ -175,11 +191,11 @@ Secondary Keys: Bold \
 
 ## Create
 
-![](./images/create_hotel.png)
+![](./images/create_hotel2.png)
 
 ## Modify
 
-![](./images/update_hotel.png)
+![](./images/modify_hotel.png)
 
 ::::::
 

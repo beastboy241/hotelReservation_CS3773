@@ -18,11 +18,11 @@ header-includes: |
 ...
 
 \begin{center}
-William Burroughs - ehr847 \\
-Loc Nguyen -  \\
-Jonathan Villarreal -  \\
-Maria Vanesa Rivera -  \\
-Emilio Ibarra -  \\
+William Burroughs \\
+Loc Nguyen \\
+Jonathan Villarreal \\
+Maria Vanesa Rivera \\
+Emilio Ibarra \\
 
 \  
 
@@ -175,6 +175,17 @@ project due to the aforementioned reasons.
 ![](./images/update_user.png)
 
 # Create/Modify Hotel Properties
+
+For both the Modify hotel and Create hotel features, a React `useState` hook was
+used to allow us to track the state for each function component. The `useState`
+hooks allowed us to track the specific properties for the hotel such as name,
+rooms available, pricing and amenities available. When creating a new Hotel the
+properties where set to initially have an empty values. We created react forms
+to take in the new corresponding properties for the hotels. We configured the
+input types to match the hotel’s specific properties.
+
+Furthermore, both Modify and Create hotel functionalities were configured to
+only available to admin user accounts, using a credential validation function. 
 
 ## Create
 
